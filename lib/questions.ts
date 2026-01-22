@@ -17,7 +17,7 @@ export const questions: Question[] = [
   },
   {
     id: 2,
-    question: "새로운 사람들에게 먼저 말을 거는 것이 어렵지 않다.",
+    question: "새로운 사람들에게 먼저 말을 거는 것이 흥미롭고 즐겁다.",
     trait: "E" as MBTIDimension,
     direction: 1
   },
@@ -35,7 +35,7 @@ export const questions: Question[] = [
   },
   {
     id: 5,
-    question: "혼자 있는 시간보다 사람들과 함께 있는 시간을 더 선호한다.",
+    question: "혼자 있는 시간보다 여러 사람들과 함께 있는 시간을 더 선호한다.",
     trait: "E" as MBTIDimension,
     direction: 1
   },
@@ -81,7 +81,7 @@ export const questions: Question[] = [
   },
   {
     id: 12,
-    question: "의사결정을 할 때 논리적 사실보다 사람들의 감정을 더 고려한다.",
+    question: "의사결정을 할 때 논리적인 사실보다 사람들의 감정을 더 고려한다.",
     trait: "F",
     direction: 1
   },
@@ -99,7 +99,7 @@ export const questions: Question[] = [
   },
   {
     id: 15,
-    question: "갈등 상황에서 화해와 조화를 유지하는 것이 더 중요하다.",
+    question: "동료와의 갈등 중인 상황에서 업무 성과보다 팀 내 화해/조화가 더 중요하다.",
     trait: "F",
     direction: 1
   },
@@ -151,13 +151,13 @@ export const questions: Question[] = [
   },
   {
     id: 23,
-    question: "대화할 때 주로 리액션을 하면서 경청하는 편이다.",
+    question: "대화할 때 주로 상대의 말에 리액션을 하면서 경청하는 편이다.",
     trait: "I",
     direction: 1
   },
   {
     id: 24,
-    question: "파티나 모임에서 많은 사람들과 어울리기보다 조용히 한쪽에 있는 것을 더 편안하게 느낀다.",
+    question: "파티나 모임에서 많은 사람들과 어울리기보다 조용한 곳에 있는 것을 더 편안하게 느낀다.",
     trait: "I",
     direction: 1
   },
@@ -177,7 +177,7 @@ export const questions: Question[] = [
   },
   {
     id: 27,
-    question: "의사결정을 할 때 논리적 사실이 감정적 고려보다 더 중요하다.",
+    question: "의사결정을 할 때 감정적으로 고려하기 보다 논리적으로 판단한다.",
     trait: "T",
     direction: 1
   },
@@ -225,7 +225,7 @@ export const questions: Question[] = [
   // S Questions (2개) - Sensing traits (to balance S/N)
   {
     id: 34,
-    question: "실제 경험하지 않은 정보보다 직접 겪어본 경험을 더 신뢰한다.",
+    question: "내가 실제로 직접 보고 들은 것만 신뢰할 수 있다.",
     trait: "S",
     direction: 1
   },
@@ -253,7 +253,7 @@ export const questions: Question[] = [
   },
   {
     id: 38,
-    question: "일을 끝내고 나서 남는 시간보다는 미리 완벽하게 준비하는 것을 더 선호한다.",
+    question: "일을 일찍 끝내고 남는 시간을 보내는 것보다 천천히 완벽하게 준비하는 것을 더 선호한다.",
     trait: "J",
     direction: 1
   },

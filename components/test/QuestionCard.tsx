@@ -29,27 +29,36 @@ const QuestionCardComponent = ({ question, onAnswer }: QuestionCardProps) => {
         </div>
 
         {/* Likert Scale with Circles */}
-        <div className="flex items-center justify-center max-w-full px-2">
-          {[1, 2, 3, 4, 5, 6, 7].map((score) => (
-            <React.Fragment key={score}>
-              <button
-                onClick={() => onAnswer(score)}
-                className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/10 text-white font-medium hover:bg-purple-500/10 transition-all duration-300 transform hover:scale-110 flex items-center justify-center text-xs sm:text-sm border-2 border-white/40 backdrop-blur-sm relative z-10"
-                title={
-                  score === 1 ? "매우 동의하지 않음" :
-                  score === 2 ? "동의하지 않음" :
-                  score === 3 ? "약간 동의하지 않음" :
-                  score === 4 ? "보통" :
-                  score === 5 ? "약간 동의함" :
-                  score === 6 ? "동의함" :
-                  "매우 동의함"
-                }
-              >
-                {score}
-              </button>
-              {score < 7 && <div className="w-2 sm:w-4 h-0.5 bg-white/30 rounded-full"></div>}
-            </React.Fragment>
-          ))}
+        <div className="flex items-center justify-center max-w-full px-2 gap-1 sm:gap-2">
+          {[1, 2, 3, 4, 5, 6, 7].map((score) => {
+            // 가운데(4)를 기준으로 거리에 따른 크기 계산
+            const distance = Math.abs(score - 4);
+            const scale = 1.0 + (distance * 0.1); // 4번: 1.0, 3/5: 1.1, 2/6: 1.2, 1/7: 1.3
+
+            return (
+              <React.Fragment key={score}>
+                <button
+                  onClick={() => onAnswer(score)}
+                  className={`rounded-full bg-white/10 text-white font-medium hover:bg-purple-500/10 transition-all duration-300 transform hover:scale-110 flex items-center justify-center text-xs sm:text-sm border-2 backdrop-blur-sm relative z-10 ${score <= 3 ? 'border-red-400' : score >= 5 ? 'border-green-400' : 'border-white/40'}`}
+                  style={{
+                    width: `${scale * 32}px`, // 기본 w-8 (32px) * scale
+                    height: `${scale * 32}px`, // 기본 h-8 (32px) * scale
+                  }}
+                  title={
+                    score === 1 ? "매우 동의하지 않음" :
+                    score === 2 ? "동의하지 않음" :
+                    score === 3 ? "약간 동의하지 않음" :
+                    score === 4 ? "보통" :
+                    score === 5 ? "약간 동의함" :
+                    score === 6 ? "동의함" :
+                    "매우 동의함"
+                  }
+                >
+                </button>
+                {score < 7 && <div className="w-2 sm:w-4 h-0.5 bg-white/30 rounded-full"></div>}
+              </React.Fragment>
+            );
+          })}
         </div>
       </div>
     </div>
