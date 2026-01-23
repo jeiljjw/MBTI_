@@ -5,11 +5,6 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   poweredByHeader: false,
 
-  // 패키지 최적화
-  experimental: {
-    optimizePackageImports: ['@radix-ui/react-slot', 'clsx', 'tailwind-merge'],
-  },
-
   // 캐시 제어 헤더
   async headers() {
     return [
