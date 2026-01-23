@@ -91,8 +91,8 @@ export default function MBTITest() {
   if (testState.shuffledQuestions.length === 0) {
     return (
       <BeamsBackground>
-        <div className="flex flex-col items-center justify-center gap-6 px-4 text-center min-h-screen pt-20 pb-8">
-          <div className="text-white">질문을 불러오는 중...</div>
+        <div className="flex flex-col items-center justify-center gap-6 px-3 sm:px-4 md:px-6 text-center min-h-screen pt-16 sm:pt-20 pb-6 sm:pb-8">
+          <div className="text-white text-base sm:text-lg">질문을 불러오는 중...</div>
         </div>
       </BeamsBackground>
     );
@@ -101,7 +101,7 @@ export default function MBTITest() {
   if (showResult && result) {
     return (
       <BeamsBackground>
-        <div className="flex flex-col items-center justify-center gap-6 px-4 text-center min-h-screen pt-20 pb-8">
+        <div className="flex flex-col items-center justify-center gap-6 px-3 sm:px-4 md:px-6 text-center min-h-screen pt-16 sm:pt-20 pb-6 sm:pb-8">
           <ResultCard
             result={result}
             description={getMBTIDescription(result)}
@@ -115,8 +115,8 @@ export default function MBTITest() {
 
   return (
     <BeamsBackground>
-      <div className="flex flex-col items-center justify-center gap-6 px-4 text-center min-h-screen pt-20 pb-8">
-        <div className="max-w-2xl mx-auto w-full">
+      <div className="flex flex-col items-center justify-center gap-4 sm:gap-6 px-3 sm:px-4 md:px-6 text-center min-h-screen pt-16 sm:pt-20 pb-6 sm:pb-8">
+        <div className="w-full max-w-sm sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
           <ProgressBar current={testState.currentQuestionIndex} total={testState.shuffledQuestions.length} />
           <QuestionCard question={currentQuestion} onAnswer={handleAnswer} />
         </div>
