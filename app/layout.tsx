@@ -15,6 +15,16 @@ export const metadata: Metadata = {
   title: "MBTI 성격 유형 테스트",
   description: "나의 성격 유형을 알아보는 MBTI 테스트",
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
@@ -34,11 +44,15 @@ export default function RootLayout({
   return (
     <html lang="ko">
 
-<head>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3266167319535063"
-     crossOrigin="anonymous"></script>
+ <head>
+ <link rel="icon" href="/favicon.ico" sizes="any" />
+ <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+ <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+ <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+ <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3266167319535063"
+      crossOrigin="anonymous"></script>
 
-</head>
+ </head>
 
       <body
         className={`${notoSansKR.variable} antialiased`}
