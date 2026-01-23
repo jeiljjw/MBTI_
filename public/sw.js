@@ -1,5 +1,5 @@
 // Service Worker for PWA
-const CACHE_NAME = 'mbti-test-v1';
+const CACHE_NAME = 'mbti-test-v2'; // 버전 업데이트로 캐시 무효화
 const urlsToCache = [
   '/',
   '/test',
@@ -21,8 +21,15 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// Fetch event - serve from cache when offline
+// Fetch event - serve from cache when offline (JavaScript 파일 제외)
 self.addEventListener('fetch', (event) => {
+  // JavaScript 파일은 캐시하지 않고 항상 네트워크에서 가져옴
+  if (event.request.url.includes('/_next/static/') ||
+      event.request.url.includes('.js') ||
+      event.request.url.includes('.css')) {
+    return; // Service Worker 캐시 사용 안 함
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then((response) => {
