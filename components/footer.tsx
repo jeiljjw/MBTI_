@@ -9,7 +9,8 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
             <p className="text-gray-400 text-sm">
-              © 2026 MBTI 성격 유형 테스트. All rights reserved.
+              <span className="block sm:inline">© 2026 MBTI 성격 유형 테스트.</span>
+              <span className="block sm:inline">All rights reserved.</span>
             </p>
           </div>
             <div className="flex space-x-6">
@@ -17,13 +18,16 @@ export function Footer() {
                 About
               </a>
               <a href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
-                개인정보<br className="sm:hidden" />처리방침
+                <span className="block sm:inline">개인정보</span>
+                <span className="block sm:inline">처리방침</span>
               </a>
               <a href="/terms-of-service" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
-                이용<br className="sm:hidden" />약관
+                <span className="block sm:inline">이용</span>
+                <span className="block sm:inline">약관</span>
               </a>
               <a href="/contact" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
-                문의<br className="sm:hidden" />하기
+                <span className="block sm:inline">문의</span>
+                <span className="block sm:inline">하기</span>
               </a>
             </div>
         </div>
