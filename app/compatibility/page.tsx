@@ -3,93 +3,93 @@
 import Link from "next/link";
 
 // 16가지 MBTI 유형 리스트
-const mbtiTypes = [
-  "INTJ", "INTP", "ENTJ", "ENTP",
-  "INFJ", "INFP", "ENFJ", "ENFP",
-  "ISTJ", "ISFJ", "ESTJ", "ESFJ",
-  "ISTP", "ISFP", "ESTP", "ESFP"
-];
+// const mbtiTypes = [
+//   "INTJ", "INTP", "ENTJ", "ENTP",
+//   "INFJ", "INFP", "ENFJ", "ENFP",
+//   "ISTJ", "ISFJ", "ESTJ", "ESFJ",
+//   "ISTP", "ISFP", "ESTP", "ESFP"
+// ];
 
 // 궁합도 계산 함수 - 인터넷 검색 결과 기반 개선
-const getCompatibilityScore = (type1: string, type2: string) => {
-  // 같은 유형은 완벽 궁합
-  if (type1 === type2) {
-    return { score: "완벽", color: "from-purple-400 to-purple-600", bgColor: "bg-purple-500/20", textColor: "text-purple-300" };
-  }
+// const getCompatibilityScore = (type1: string, type2: string) => {
+//   // 같은 유형은 완벽 궁합
+//   if (type1 === type2) {
+//     return { score: "완벽", color: "from-purple-400 to-purple-600", bgColor: "bg-purple-500/20", textColor: "text-purple-300" };
+//   }
 
-  // 인터넷 검색 결과 기반 매우 좋은 궁합 조합들
-  const excellentMatches = [
-    // INTJ 궁합
-    ['INTJ', 'ENFP'], ['ENFP', 'INTJ'],
-    ['INTJ', 'ENTP'], ['ENTP', 'INTJ'],
-    // INFJ 궁합
-    ['INFJ', 'ENFP'], ['ENFP', 'INFJ'],
-    ['INFJ', 'ENTP'], ['ENTP', 'INFJ'],
-    // INTP 궁합
-    ['INTP', 'ENTJ'], ['ENTJ', 'INTP'],
-    // ENFJ 궁합
-    ['ENFJ', 'INFP'], ['INFP', 'ENFJ'],
-    ['ENFJ', 'INTP'], ['INTP', 'ENFJ'],
-    // ISTJ 궁합
-    ['ISTJ', 'ESFP'], ['ESFP', 'ISTJ'],
-    ['ISTJ', 'ESTP'], ['ESTP', 'ISTJ'],
-    // ISFJ 궁합
-    ['ISFJ', 'ESFP'], ['ESFP', 'ISFJ'],
-    ['ISFJ', 'ESTP'], ['ESTP', 'ISFJ'],
-    // ESTJ 궁합
-    ['ESTJ', 'INTP'], ['INTP', 'ESTJ'],
-    // ESFJ 궁합
-    ['ESFJ', 'ISFP'], ['ISFP', 'ESFJ'],
-    ['ESFJ', 'ISTP'], ['ISTP', 'ESFJ']
-  ];
+//   // 인터넷 검색 결과 기반 매우 좋은 궁합 조합들
+//   const excellentMatches = [
+//     // INTJ 궁합
+//     ['INTJ', 'ENFP'], ['ENFP', 'INTJ'],
+//     ['INTJ', 'ENTP'], ['ENTP', 'INTJ'],
+//     // INFJ 궁합
+//     ['INFJ', 'ENFP'], ['ENFP', 'INFJ'],
+//     ['INFJ', 'ENTP'], ['ENTP', 'INFJ'],
+//     // INTP 궁합
+//     ['INTP', 'ENTJ'], ['ENTJ', 'INTP'],
+//     // ENFJ 궁합
+//     ['ENFJ', 'INFP'], ['INFP', 'ENFJ'],
+//     ['ENFJ', 'INTP'], ['INTP', 'ENFJ'],
+//     // ISTJ 궁합
+//     ['ISTJ', 'ESFP'], ['ESFP', 'ISTJ'],
+//     ['ISTJ', 'ESTP'], ['ESTP', 'ISTJ'],
+//     // ISFJ 궁합
+//     ['ISFJ', 'ESFP'], ['ESFP', 'ISFJ'],
+//     ['ISFJ', 'ESTP'], ['ESTP', 'ISFJ'],
+//     // ESTJ 궁합
+//     ['ESTJ', 'INTP'], ['INTP', 'ESTJ'],
+//     // ESFJ 궁합
+//     ['ESFJ', 'ISFP'], ['ISFP', 'ESFJ'],
+//     ['ESFJ', 'ISTP'], ['ISTP', 'ESFJ']
+//   ];
 
-  if (excellentMatches.some(match => match[0] === type1 && match[1] === type2)) {
-    return { score: "매우 좋음", color: "from-emerald-400 to-emerald-600", bgColor: "bg-emerald-500/20", textColor: "text-emerald-300" };
-  }
+//   if (excellentMatches.some(match => match[0] === type1 && match[1] === type2)) {
+//     return { score: "매우 좋음", color: "from-emerald-400 to-emerald-600", bgColor: "bg-emerald-500/20", textColor: "text-emerald-300" };
+//   }
 
-  // 그룹 내 좋은 궁합들
-  const goodGroupMatches = [
-    // NT 그룹 내
-    ['INTJ', 'INTP'], ['INTP', 'INTJ'],
-    ['ENTJ', 'ENTP'], ['ENTP', 'ENTJ'],
-    // NF 그룹 내
-    ['INFJ', 'INFP'], ['INFP', 'INFJ'],
-    ['ENFJ', 'ENFP'], ['ENFP', 'ENFJ'],
-    // SJ 그룹 내
-    ['ISTJ', 'ISFJ'], ['ISFJ', 'ISTJ'],
-    ['ESTJ', 'ESFJ'], ['ESFJ', 'ESTJ'],
-    // SP 그룹 내
-    ['ISTP', 'ISFP'], ['ISFP', 'ISTP'],
-    ['ESTP', 'ESFP'], ['ESFP', 'ESTP']
-  ];
+//   // 그룹 내 좋은 궁합들
+//   const goodGroupMatches = [
+//     // NT 그룹 내
+//     ['INTJ', 'INTP'], ['INTP', 'INTJ'],
+//     ['ENTJ', 'ENTP'], ['ENTP', 'ENTJ'],
+//     // NF 그룹 내
+//     ['INFJ', 'INFP'], ['INFP', 'INFJ'],
+//     ['ENFJ', 'ENFP'], ['ENFP', 'ENFJ'],
+//     // SJ 그룹 내
+//     ['ISTJ', 'ISFJ'], ['ISFJ', 'ISTJ'],
+//     ['ESTJ', 'ESFJ'], ['ESFJ', 'ESTJ'],
+//     // SP 그룹 내
+//     ['ISTP', 'ISFP'], ['ISFP', 'ISTP'],
+//     ['ESTP', 'ESFP'], ['ESFP', 'ESTP']
+//   ];
 
-  if (goodGroupMatches.some(match => match[0] === type1 && match[1] === type2)) {
-    return { score: "좋음", color: "from-green-400 to-green-600", bgColor: "bg-green-500/20", textColor: "text-green-300" };
-  }
+//   if (goodGroupMatches.some(match => match[0] === type1 && match[1] === type2)) {
+//     return { score: "좋음", color: "from-green-400 to-green-600", bgColor: "bg-green-500/20", textColor: "text-green-300" };
+//   }
 
-  // 기본 궁합 계산 (보완 관계 우선)
-  // E/I: 서로 반대가 좋음 (에너지 보완)
-  const e_i_score = (type1.includes('E') !== type2.includes('E')) ? 0 : 1;
+//   // 기본 궁합 계산 (보완 관계 우선)
+//   // E/I: 서로 반대가 좋음 (에너지 보완)
+//   const e_i_score = (type1.includes('E') !== type2.includes('E')) ? 0 : 1;
 
-  // S/N: 서로 반대가 좋음 (관점 보완)
-  const s_n_score = (type1.includes('S') !== type2.includes('N')) ? 0 : 1;
+//   // S/N: 서로 반대가 좋음 (관점 보완)
+//   const s_n_score = (type1.includes('S') !== type2.includes('N')) ? 0 : 1;
 
-  // T/F: 서로 반대가 좋음 (의사결정 보완)
-  const t_f_score = (type1.includes('T') !== type2.includes('F')) ? 0 : 1;
+//   // T/F: 서로 반대가 좋음 (의사결정 보완)
+//   const t_f_score = (type1.includes('T') !== type2.includes('F')) ? 0 : 1;
 
-  // J/P: 서로 반대가 좋음 (생활 방식 보완)
-  const j_p_score = (type1.includes('J') !== type2.includes('P')) ? 0 : 1;
+//   // J/P: 서로 반대가 좋음 (생활 방식 보완)
+//   const j_p_score = (type1.includes('J') !== type2.includes('P')) ? 0 : 1;
 
-  const total_score = e_i_score + s_n_score + t_f_score + j_p_score;
+//   const total_score = e_i_score + s_n_score + t_f_score + j_p_score;
 
-  if (total_score <= 1) {
-    return { score: "좋음", color: "from-green-400 to-green-600", bgColor: "bg-green-500/20", textColor: "text-green-300" };
-  }
-  if (total_score <= 2) {
-    return { score: "보통", color: "from-yellow-400 to-yellow-600", bgColor: "bg-yellow-500/20", textColor: "text-yellow-300" };
-  }
-  return { score: "주의 필요", color: "from-red-400 to-red-600", bgColor: "bg-red-500/20", textColor: "text-red-300" };
-};
+//   if (total_score <= 1) {
+//     return { score: "좋음", color: "from-green-400 to-green-600", bgColor: "bg-green-500/20", textColor: "text-green-300" };
+//   }
+//   if (total_score <= 2) {
+//     return { score: "보통", color: "from-yellow-400 to-yellow-600", bgColor: "bg-yellow-500/20", textColor: "text-yellow-300" };
+//   }
+//   return { score: "주의 필요", color: "from-red-400 to-red-600", bgColor: "bg-red-500/20", textColor: "text-red-300" };
+// };
 
 const relationshipTips = [
   {

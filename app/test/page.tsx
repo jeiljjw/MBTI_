@@ -8,7 +8,7 @@ import { QuestionCard } from "@/components/test/QuestionCard";
 import { ResultCard } from "@/components/test/ResultCard";
 import { getMBTIDescription } from '@/lib/mbti-descriptions';
 import { questions } from '@/lib/questions';
-import type { TestState, MBTIType, Question } from '@/lib/types/test';
+import type { TestState, MBTIType } from '@/lib/types/test';
 
 export default function MBTITest() {
   const [testState, setTestState] = useState<TestState>({
@@ -69,16 +69,16 @@ export default function MBTITest() {
     });
   }, [currentQuestion]);
 
-  const resetTest = useCallback(() => {
-    const shuffled = [...questions].sort(() => Math.random() - 0.5);
-    setTestState({
-      currentQuestionIndex: 0,
-      answers: {},
-      shuffledQuestions: shuffled,
-      isCompleted: false,
-      result: undefined,
-    });
-  }, []);
+   // const resetTest = useCallback(() => {
+   //   const shuffled = [...questions].sort(() => Math.random() - 0.5);
+   //   setTestState({
+   //     currentQuestionIndex: 0,
+   //     answers: {},
+   //     shuffledQuestions: shuffled,
+   //     isCompleted: false,
+   //     result: undefined,
+   //   });
+   // }, []);
 
   const goHome = useCallback(() => {
     router.push('/');

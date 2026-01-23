@@ -22,7 +22,7 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">제1조 (목적)</h2>
               <p className="text-gray-300 leading-relaxed">
-                본 약관은 Simple MBTI(이하 "서비스")가 제공하는 모든 서비스의 이용 조건 및 절차,
+                 본 약관은 Simple MBTI(이하 &quot;서비스&quot;)가 제공하는 모든 서비스의 이용 조건 및 절차,
                 이용자와 서비스 제공자의 권리, 의무, 책임사항 및 기타 필요한 사항을 규정함을 목적으로 합니다.
               </p>
             </section>
@@ -30,10 +30,10 @@ export default function TermsOfService() {
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">제2조 (용어의 정의)</h2>
               <ul className="text-gray-300 space-y-2 ml-4">
-                <li>• "서비스"란 Simple MBTI가 제공하는 모든 온라인 서비스를 의미합니다.</li>
-                <li>• "이용자"란 서비스에 접속하여 본 약관에 따라 서비스를 이용하는 모든 사용자를 의미합니다.</li>
-                <li>• "MBTI 검사"란 서비스에서 제공하는 성격 유형 검사를 의미합니다.</li>
-                <li>• "결과"란 MBTI 검사 후 제공되는 성격 유형 분석 결과를 의미합니다.</li>
+                 <li>• &quot;서비스&quot;란 Simple MBTI가 제공하는 모든 온라인 서비스를 의미합니다.</li>
+                 <li>• &quot;이용자&quot;란 서비스에 접속하여 본 약관에 따라 서비스를 이용하는 모든 사용자를 의미합니다.</li>
+                 <li>• &quot;MBTI 검사&quot;란 서비스에서 제공하는 성격 유형 검사를 의미합니다.</li>
+                 <li>• &quot;결과&quot;란 MBTI 검사 후 제공되는 성격 유형 분석 결과를 의미합니다.</li>
               </ul>
             </section>
 
