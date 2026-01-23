@@ -17,13 +17,13 @@ export function Footer() {
                 About
               </a>
               <a href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
-                개인정보처리방침
+                개인정보<br className="sm:hidden" />처리방침
               </a>
               <a href="/terms-of-service" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
-                이용약관
+                이용<br className="sm:hidden" />약관
               </a>
               <a href="/contact" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
-                문의하기
+                문의<br className="sm:hidden" />하기
               </a>
             </div>
         </div>

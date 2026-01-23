@@ -56,7 +56,7 @@ export default function Home() {
       <BeamsBackground>
       <div className="flex flex-col items-center justify-center gap-6 px-4 text-center min-h-screen pt-20 pb-8">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-semibold bg-gradient-to-r from-gray-100 to-gray-300 bg-clip-text text-transparent tracking-tighter">
-          MBTI 성격 유형 테스트
+          MBTI 성격 유형<br className="sm:hidden" /> 테스트
         </h1>
         <p className="text-lg md:text-xl lg:text-2xl bg-gradient-to-r from-gray-200 to-gray-400 bg-clip-text text-transparent tracking-tighter max-w-2xl">
         나의 성격 유형을 알아보세요
