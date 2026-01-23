@@ -4,28 +4,28 @@ import React from 'react';
 
 export function Footer() {
   return (
-    <footer className="bg-black/20 backdrop-blur-md border-t border-white/10 mt-16">
+    <footer className="bg-black/20 backdrop-blur-md border-t border-white/10 mt-16" suppressHydrationWarning>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-sm" suppressHydrationWarning>
               <span className="block sm:inline">© 2026 MBTI 성격 유형 테스트.</span>
               <span className="block sm:inline">All rights reserved.</span>
             </p>
           </div>
             <div className="flex space-x-6">
-              <a href="/about" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
+              <a href="/about" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm" suppressHydrationWarning>
                 About
               </a>
-              <a href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
+              <a href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm" suppressHydrationWarning>
                 <span className="block sm:inline">개인정보</span>
                 <span className="block sm:inline">처리방침</span>
               </a>
-              <a href="/terms-of-service" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
+              <a href="/terms-of-service" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm" suppressHydrationWarning>
                 <span className="block sm:inline">이용</span>
                 <span className="block sm:inline">약관</span>
               </a>
-              <a href="/contact" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm">
+              <a href="/contact" className="text-gray-400 hover:text-white transition-colors duration-200 text-sm" suppressHydrationWarning>
                 <span className="block sm:inline">문의</span>
                 <span className="block sm:inline">하기</span>
               </a>
