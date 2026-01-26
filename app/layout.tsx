@@ -12,6 +12,7 @@ const notoSansKR = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.simplembti.com"),
   title: "MBTI 성격 유형 테스트",
   description: "나의 성격 유형을 알아보는 MBTI 테스트",
   manifest: "/manifest.json",
@@ -29,6 +30,28 @@ export const metadata: Metadata = {
     capable: true,
     statusBarStyle: "default",
     title: "MBTI Test",
+  },
+  openGraph: {
+    title: "MBTI 성격 유형 테스트",
+    description: "나의 성격 유형을 알아보는 MBTI 테스트",
+    url: "https://www.simplembti.com",
+    siteName: "MBTI Test",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "MBTI 성격 유형 테스트",
+      },
+    ],
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MBTI 성격 유형 테스트",
+    description: "나의 성격 유형을 알아보는 MBTI 테스트",
+    images: ["/og-image.png"],
   },
 };
 
