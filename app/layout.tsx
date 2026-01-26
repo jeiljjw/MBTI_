@@ -45,13 +45,8 @@ export default function RootLayout({
     <html lang="ko">
 
  <head>
- <link rel="icon" href="/favicon.ico" sizes="any" />
- <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
- <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
- <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3266167319535063"
       crossOrigin="anonymous"></script>
-
  </head>
 
       <body
