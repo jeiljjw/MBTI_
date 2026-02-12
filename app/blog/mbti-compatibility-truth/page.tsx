@@ -59,7 +59,7 @@ export default function ArticlePage() {
           <section className="mb-12">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">1. 인지기능 기반 궁합 이론</h2>
             <p className="text-gray-300 leading-relaxed mb-4">
-              MBTI 궁합 분석의 핵심은 <strong>인지기능(認知功能)</strong>입니다. 각 유형은 4개의 
+              MBTI 궁합 분석의 핵심은 <strong>인지기능</strong>입니다. 각 유형은 4개의 
               인지기능을 가지고 있으며, 이들의 상호작용이 관계에 영향을 미칩니다:
             </p>
             <ul className="list-disc list-inside text-gray-300 space-y-2 mb-4">
@@ -234,7 +234,7 @@ export default function ArticlePage() {
           </ul>
           <div className="mt-4 p-3 bg-pink-900/10 rounded-lg border border-pink-500/20">
             <p className="text-pink-300 text-xs">
-              <strong>전문가 검증:</strong> 본 아티클은 상담심리학 박사 이민아(現 대한상담학회 부회장)의 
+              <strong>전문가 검증:</strong> 본 아티클은 상담심리학 박사 이민아(현 대한상담학회 부회장)의 
               전문적 검토를 거쳤습니다.
             </p>
           </div>

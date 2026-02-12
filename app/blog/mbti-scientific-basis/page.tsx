@@ -257,7 +257,7 @@ export default function ArticlePage() {
           </ul>
           <div className="mt-4 p-3 bg-blue-900/10 rounded-lg border border-blue-500/20">
             <p className="text-blue-300 text-xs">
-              <strong>전문가 검증:</strong> 본 아티클은 임상심리학 박사 박준영(前 삼성전자 인사연구소)의 
+              <strong>전문가 검증:</strong> 본 아티클은 임상심리학 박사 박준영(전 삼성전자 인사연구소)의 
               학술적 검증을 거쳤습니다.
             </p>
           </div>

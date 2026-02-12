@@ -49,7 +49,7 @@ export default function ArticlePage() {
             <p className="text-gray-300 leading-relaxed mb-4">
               많은 기업이 채용이나 인사 평가에 MBTI를 활용합니다. 하지만 MBTI가 실제로 
               직업 성과를 예측하는지, 어떤 유형이 어떤 직업에서 성공하는지에 대해서는 
-              논란이 있습니다. 이 글에서는 실제 연구 데이터를 바탕으로客觀적으로 분석합니다.
+              논란이 있습니다. 이 글에서는 실제 연구 데이터를 바탕으로 객관적으로 분석합니다.
             </p>
             <div className="bg-yellow-900/20 border-l-4 border-yellow-500 p-4 my-6">
               <p className="text-yellow-200 text-sm">
