@@ -182,33 +182,37 @@ export default function MBTITypes() {
                     : "border-orange-400 shadow-lg shadow-orange-400/20";
 
                   return (
-                    <div
-                      key={typeIndex}
-                      className={`bg-black/20 backdrop-blur-md rounded-lg p-6 border-2 ${borderColor} hover:bg-black/30 transition-all duration-300 transform hover:scale-105`}
-                    >
-                      <div className="text-center">
-                        <div className="text-4xl mb-4">{type.icon}</div>
-                        <h3 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent mb-1">
-                          {type.code}
-                        </h3>
-                        <h4 className="text-lg font-semibold text-gray-300 mb-4">
-                          {type.name}
-                        </h4>
-                        <p className="text-gray-400 text-sm leading-relaxed mb-4 min-h-[3rem]">
-                          {type.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2 justify-center">
-                          {type.traits.map((trait, traitIndex) => (
-                            <span
-                              key={traitIndex}
-                              className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300 border border-white/20"
-                            >
-                              {trait}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
+                <Link
+                  key={typeIndex}
+                  href={`/types/${type.code}`}
+                  className={`group bg-black/20 backdrop-blur-md rounded-lg p-6 border-2 ${borderColor} hover:bg-black/30 transition-all duration-300 transform hover:scale-105 block`}
+                >
+                  <div className="text-center">
+                    <div className="text-4xl mb-4 group-hover:scale-110 transition-transform">{type.icon}</div>
+                    <h3 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent mb-1">
+                      {type.code}
+                    </h3>
+                    <h4 className="text-lg font-semibold text-gray-300 mb-4">
+                      {type.name}
+                    </h4>
+                    <p className="text-gray-400 text-sm leading-relaxed mb-4 min-h-[3rem]">
+                      {type.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2 justify-center mb-4">
+                      {type.traits.map((trait, traitIndex) => (
+                        <span
+                          key={traitIndex}
+                          className="px-3 py-1 bg-white/10 rounded-full text-xs text-gray-300 border border-white/20"
+                        >
+                          {trait}
+                        </span>
+                      ))}
                     </div>
+                    <span className="inline-block px-4 py-2 bg-gradient-to-r from-purple-600/20 to-pink-600/20 text-purple-300 text-sm font-medium rounded-full border border-purple-500/30 group-hover:bg-gradient-to-r group-hover:from-purple-600 group-hover:to-pink-600 group-hover:text-white transition-all duration-300">
+                      자세히 보기 →
+                    </span>
+                  </div>
+                </Link>
                   );
                 })}
               </div>

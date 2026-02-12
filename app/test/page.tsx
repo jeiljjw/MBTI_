@@ -1,38 +1,40 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
-import { BeamsBackground } from "@/components/ui/beams-background";
 import { ProgressBar } from "@/components/test/ProgressBar";
 import { QuestionCard } from "@/components/test/QuestionCard";
-import { ResultCard } from "@/components/test/ResultCard";
-import { getMBTIDescription } from '@/lib/mbti-descriptions';
+import { EnhancedResultCard } from "@/components/test/EnhancedResultCard";
 import { questions } from '@/lib/questions';
-import type { TestState, MBTIType, Question } from '@/lib/types/test';
+import type { TestState, MBTIType } from '@/lib/types/test';
+
+// Shuffle function
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
 export default function MBTITest() {
+  // Initialize shuffled questions once
+  const initialShuffledQuestions = useMemo(() => shuffleArray(questions), []);
+  
   const [testState, setTestState] = useState<TestState>({
     currentQuestionIndex: 0,
     answers: {},
-    shuffledQuestions: [],
+    shuffledQuestions: initialShuffledQuestions,
     isCompleted: false,
     result: undefined,
   });
+  
   const router = useRouter();
 
   const currentQuestion = testState.shuffledQuestions[testState.currentQuestionIndex];
   const showResult = testState.isCompleted;
   const result = testState.result;
-
-  useEffect(() => {
-    try {
-      // Shuffle questions when component mounts
-      const shuffled = [...questions].sort(() => Math.random() - 0.5);
-      setTestState(prev => ({ ...prev, shuffledQuestions: shuffled }));
-    } catch (error) {
-      console.error('Failed to initialize test:', error);
-    }
-  }, []);
 
   const handleAnswer = useCallback((score: number) => {
     setTestState(prev => {
@@ -69,58 +71,41 @@ export default function MBTITest() {
     });
   }, [currentQuestion]);
 
-   const resetTest = useCallback(() => {
-     const shuffled = [...questions].sort(() => Math.random() - 0.5);
-     setTestState({
-       currentQuestionIndex: 0,
-       answers: {},
-       shuffledQuestions: shuffled,
-       isCompleted: false,
-       result: undefined,
-     });
-   }, []);
+  const resetTest = useCallback(() => {
+    const shuffled = shuffleArray(questions);
+    setTestState({
+      currentQuestionIndex: 0,
+      answers: {},
+      shuffledQuestions: shuffled,
+      isCompleted: false,
+      result: undefined,
+    });
+  }, []);
 
   const goHome = useCallback(() => {
     router.push('/');
   }, [router]);
 
-  const goToTypes = useCallback(() => {
-    router.push('/types');
-  }, [router]);
-
-  if (testState.shuffledQuestions.length === 0) {
-    return (
-      <BeamsBackground>
-        <div className="flex flex-col items-center justify-center gap-6 px-3 sm:px-4 md:px-6 text-center min-h-screen pt-16 sm:pt-20 pb-6 sm:pb-8">
-          <div className="text-white text-base sm:text-lg">질문을 불러오는 중...</div>
-        </div>
-      </BeamsBackground>
-    );
-  }
-
   if (showResult && result) {
     return (
-      <BeamsBackground>
-        <div className="flex flex-col items-center justify-center gap-6 px-3 sm:px-4 md:px-6 text-center min-h-screen pt-16 sm:pt-20 pb-6 sm:pb-8">
-          <ResultCard
+      <div className="min-h-screen bg-neutral-950 pt-24 pb-16">
+        <div className="max-w-4xl mx-auto px-4 py-8">
+          <EnhancedResultCard
             result={result}
-            description={getMBTIDescription(result)}
-            onGoToTypes={goToTypes}
             onGoHome={goHome}
+            onRetake={resetTest}
           />
         </div>
-      </BeamsBackground>
+      </div>
     );
   }
 
   return (
-    <BeamsBackground>
-      <div className="flex flex-col items-center justify-center gap-4 sm:gap-6 px-3 sm:px-4 md:px-6 text-center min-h-screen pt-16 sm:pt-20 pb-6 sm:pb-8">
-        <div className="w-full max-w-sm sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
-          <ProgressBar current={testState.currentQuestionIndex} total={testState.shuffledQuestions.length} />
-          <QuestionCard question={currentQuestion} onAnswer={handleAnswer} />
-        </div>
+    <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center px-3 sm:px-4 md:px-6 pt-16 sm:pt-20 pb-6 sm:pb-8">
+      <div className="w-full max-w-sm sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
+        <ProgressBar current={testState.currentQuestionIndex} total={testState.shuffledQuestions.length} />
+        <QuestionCard question={currentQuestion} onAnswer={handleAnswer} />
       </div>
-    </BeamsBackground>
+    </div>
   );
 }
