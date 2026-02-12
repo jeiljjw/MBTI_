@@ -1,15 +1,8 @@
 // Service Worker for PWA
-const CACHE_NAME = 'mbti-test-v3'; // 버전 업데이트로 캐시 무효화
+const CACHE_NAME = 'mbti-test-v4'; // 버전 업데이트로 캐시 무효화
 const urlsToCache = [
-  '/',
-  '/test',
-  '/types',
-  '/about',
-  '/contact',
-  '/privacy-policy',
-  '/terms-of-service',
   '/manifest.json',
-  // Icons - cache with proper strategy
+  // Icons only - don't cache HTML pages
   '/favicon.ico',
   '/favicon-16x16.png',
   '/favicon-32x32.png',
@@ -18,34 +11,52 @@ const urlsToCache = [
   '/android-chrome-512x512.png'
 ];
 
-// Install event - cache resources
+// Install event - cache static resources only
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
         return cache.addAll(urlsToCache);
       })
+      .then(() => self.skipWaiting()) // 즉시 활성화
   );
 });
 
-// Fetch event - serve from cache when offline
+// Fetch event - Network First strategy for HTML, Cache First for static assets
 self.addEventListener('fetch', (event) => {
   const request = event.request;
   
-  // JavaScript 및 CSS 파일은 캐시하지 않고 항상 네트워크에서 가져옴
-  if (request.url.includes('/_next/static/') ||
-      request.url.includes('.js') ||
-      request.url.includes('.css')) {
-    return; // Service Worker 캐시 사용 안 함
+  // HTML 페이지는 항상 네트워크에서 먼저 가져오기 (캐싱하지 않음)
+  if (request.mode === 'navigate' || request.headers.get('Accept')?.includes('text/html')) {
+    event.respondWith(
+      fetch(request)
+        .then((response) => response)
+        .catch(() => caches.match(request)) // 오프라인일 때만 캐시 사용
+    );
+    return;
   }
 
-  // 아이콘 파일에 대한 특별 처리
+  // Next.js 정적 파일 (JS, CSS) - 캐시하지 않고 항상 네트워크
+  if (request.url.includes('/_next/static/')) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
+  // JavaScript 및 CSS 파일은 캐시하지 않음
+  if (request.url.endsWith('.js') || request.url.endsWith('.css')) {
+    event.respondWith(fetch(request));
+    return;
+  }
+
+  // 아이콘 및 이미지 파일 - 캐시 우선 전략
   if (request.url.includes('favicon') || 
       request.url.includes('apple-touch-icon') || 
-      request.url.includes('android-chrome')) {
+      request.url.includes('android-chrome') ||
+      request.url.includes('.png') ||
+      request.url.includes('.jpg') ||
+      request.url.includes('.svg')) {
     event.respondWith(
       caches.match(request).then((response) => {
-        // 캐시된 버전이 있으면 사용, 없으면 네트워크에서 가져와 캐시
         if (response) {
           return response;
         }
@@ -63,17 +74,15 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 다른 정적 파일에 대한 일반적인 캐시 전략
+  // 그 외 요청은 네트워크 우선
   event.respondWith(
-    caches.match(request)
-      .then((response) => {
-        // Return cached version or fetch from network
-        return response || fetch(request);
-      })
+    fetch(request)
+      .then((response) => response)
+      .catch(() => caches.match(request))
   );
 });
 
-// Activate event - clean up old caches
+// Activate event - clean up old caches and claim clients
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -84,6 +93,6 @@ self.addEventListener('activate', (event) => {
           }
         })
       );
-    })
+    }).then(() => self.clients.claim()) // 즉시 모든 클라이언트 제어
   );
 });
