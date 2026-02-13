@@ -1,12 +1,26 @@
 "use client";
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { ProgressBar } from "@/components/test/ProgressBar";
-import { QuestionCard } from "@/components/test/QuestionCard";
-import { EnhancedResultCard } from "@/components/test/EnhancedResultCard";
+import dynamic from 'next/dynamic';
 import { questions } from '@/lib/questions';
 import type { TestState, MBTIType } from '@/lib/types/test';
+
+// Dynamic import to avoid SSR
+const ProgressBar = dynamic(
+  () => import('@/components/test/ProgressBar').then(mod => mod.ProgressBar),
+  { ssr: false }
+);
+
+const QuestionCard = dynamic(
+  () => import('@/components/test/QuestionCard').then(mod => mod.QuestionCard),
+  { ssr: false }
+);
+
+const EnhancedResultCard = dynamic(
+  () => import('@/components/test/EnhancedResultCard').then(mod => mod.EnhancedResultCard),
+  { ssr: false }
+);
 
 // Shuffle function
 function shuffleArray<T>(array: T[]): T[] {
@@ -19,18 +33,26 @@ function shuffleArray<T>(array: T[]): T[] {
 }
 
 export default function MBTITest() {
-  // Initialize shuffled questions once
-  const initialShuffledQuestions = useMemo(() => shuffleArray(questions), []);
+  const [isClient, setIsClient] = useState(false);
   
   const [testState, setTestState] = useState<TestState>({
     currentQuestionIndex: 0,
     answers: {},
-    shuffledQuestions: initialShuffledQuestions,
+    shuffledQuestions: questions,
     isCompleted: false,
     result: undefined,
   });
   
   const router = useRouter();
+
+  // 클라이언트에서만 실행
+  useEffect(() => {
+    setIsClient(true);
+    setTestState(prev => ({
+      ...prev,
+      shuffledQuestions: shuffleArray(questions),
+    }));
+  }, []);
 
   const currentQuestion = testState.shuffledQuestions[testState.currentQuestionIndex];
   const showResult = testState.isCompleted;
@@ -44,7 +66,6 @@ export default function MBTITest() {
         return { ...prev, answers: newAnswers, currentQuestionIndex: prev.currentQuestionIndex + 1 };
       } else {
         try {
-          // Calculate result
           const scores = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
 
           prev.shuffledQuestions.forEach(question => {
@@ -85,6 +106,20 @@ export default function MBTITest() {
   const goHome = useCallback(() => {
     router.push('/');
   }, [router]);
+
+  // 서버에서는 로딩 표시
+  if (!isClient) {
+    return (
+      <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center px-3 sm:px-4 md:px-6 pt-16 sm:pt-20 pb-6 sm:pb-8">
+        <div className="w-full max-w-sm sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
+          <div className="animate-pulse flex flex-col items-center">
+            <div className="h-4 w-32 bg-gray-700 rounded mb-8"></div>
+            <div className="w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl xl:w-[600px] min-h-[260px] sm:min-h-[280px] md:min-h-[300px] bg-gray-800 rounded-xl"></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (showResult && result) {
     return (
