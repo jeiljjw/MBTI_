@@ -1,323 +1,523 @@
-import Link from "next/link";
+"use client";
 
-const celebrities = [
-  {
-    type: "INTJ",
-    name: "전략가",
-    people: [
-      { name: "아이작 뉴턴", description: "물리학자, 수학자", image: "🧑‍🔬" },
-      { name: "니콜라 테슬라", description: "발명가, 전기공학자", image: "⚡" },
-      { name: "스티브 잡스", description: "애플 창업자", image: "📱" },
-      { name: "일론 머스크", description: "테슬라 CEO", image: "🚀" }
-    ]
-  },
-  {
-    type: "INTP",
-    name: "논리술사",
-    people: [
-      { name: "알버트 아인슈타인", description: "물리학자", image: "⚛️" },
-      { name: "빌 게이츠", description: "마이크로소프트 창업자", image: "💻" },
-      { name: "스티븐 호킹", description: "물리학자", image: "🌌" },
-      { name: "린지 로한", description: "작가", image: "📖" }
-    ]
-  },
-  {
-    type: "ENTJ",
-    name: "통솔자",
-    people: [
-      { name: "나폴레옹 보나파르트", description: "프랑스 황제", image: "👑" },
-      { name: "마가렛 대처", description: "영국 총리", image: "🇬🇧" },
-      { name: "잭 웰치", description: "GE CEO", image: "🏢" },
-      { name: "빈스 롬바르디", description: "미식축구 코치", image: "🏈" }
-    ]
-  },
-  {
-    type: "ENTP",
-    name: "변론가",
-    people: [
-      { name: "토마스 에디슨", description: "발명가", image: "💡" },
-      { name: "마크 트웨인", description: "작가", image: "📚" },
-      { name: "리처드 파인먼", description: "물리학자", image: "🔬" },
-      { name: "케빈 하트", description: "코미디언", image: "🎤" }
-    ]
-  },
-  {
-    type: "INFJ",
-    name: "옹호자",
-    people: [
-      { name: "넬슨 만델라", description: "남아프리카 대통령", image: "🕊️" },
-      { name: "마틴 루터 킹", description: "인권 운동가", image: "✊" },
-      { name: "모한다스 간디", description: "독립 운동가", image: "🇮🇳" },
-      { name: "오프라 윈프리", description: "방송인", image: "📺" }
-    ]
-  },
-  {
-    type: "INFP",
-    name: "중재자",
-    people: [
-      { name: "윌리엄 셰익스피어", description: "극작가", image: "🎭" },
-      { name: "조니 뎁", description: "배우", image: "🎬" },
-      { name: "프리다 칼로", description: "화가", image: "🎨" },
-      { name: "헤밍웨이", description: "작가", image: "📝" }
-    ]
-  },
-  {
-    type: "ENFJ",
-    name: "선도자",
-    people: [
-      { name: "바락 오바마", description: "미국 대통령", image: "🇺🇸" },
-      { name: "달라이 라마", description: "티베트 종교 지도자", image: "🕊️" },
-      { name: "오프라 윈프리", description: "방송인", image: "📺" },
-      { name: "넬슨 만델라", description: "남아프리카 대통령", image: "🇿🇦" }
-    ]
-  },
-  {
-    type: "ENFP",
-    name: "활동가",
-    people: [
-      { name: "롭 로우", description: "배우, 프로듀서", image: "🎭" },
-      { name: "줄리아 로버츠", description: "배우", image: "💃" },
-      { name: "톰 행크스", description: "배우", image: "🎬" },
-      { name: "휘트니 휴스턴", description: "가수", image: "🎤" }
-    ]
-  },
-  {
-    type: "ISTJ",
-    name: "현실주의자",
-    people: [
-      { name: "조지 워싱턴", description: "미국 초대 대통령", image: "🇺🇸" },
-      { name: "앙겔라 메르켈", description: "독일 총리", image: "🇩🇪" },
-      { name: "워렌 버핏", description: "투자자", image: "📊" },
-      { name: "조지 S. 패튼", description: "장군", image: "🎖️" }
-    ]
-  },
-  {
-    type: "ISFJ",
-    name: "수호자",
-    people: [
-      { name: "마더 테레사", description: "수녀, 인도주의자", image: "🙏" },
-      { name: "모니카 루이스", description: "간호사", image: "🏥" },
-      { name: "조지 루카스", description: "영화 감독", image: "🎥" },
-      { name: "빈스 본", description: "배우", image: "🎬" }
-    ]
-  },
-  {
-    type: "ESTJ",
-    name: "경영자",
-    people: [
-      { name: "빌 게이츠", description: "마이크로소프트 창업자", image: "💻" },
-      { name: "마가렛 대처", description: "영국 총리", image: "🇬🇧" },
-      { name: "존 F. 케네디", description: "미국 대통령", image: "🇺🇸" },
-      { name: "콘돌리자 라이스", description: "외무장관", image: "🎓" }
-    ]
-  },
-  {
-    type: "ESFJ",
-    name: "집정관",
-    people: [
-      { name: "테일러 스위프트", description: "가수", image: "🎵" },
-      { name: "비욘세", description: "가수", image: "🎤" },
-      { name: "샤를리즈 테론", description: "배우", image: "🎭" },
-      { name: "리한나", description: "가수", image: "🎤" }
-    ]
-  },
-  {
-    type: "ISTP",
-    name: "장인",
-    people: [
-      { name: "스티브 맥퀸", description: "배우", image: "🏍️" },
-      { name: "찰리 채플린", description: "배우, 감독", image: "🎬" },
-      { name: "토머스 제퍼슨", description: "미국 대통령", image: "🇺🇸" },
-      { name: "마이클 조던", description: "농구 선수", image: "🏀" }
-    ]
-  },
-  {
-    type: "ISFP",
-    name: "모험가",
-    people: [
-      { name: "마릴린 먼로", description: "배우", image: "⭐" },
-      { name: "프리다 칼로", description: "화가", image: "🎨" },
-      { name: "에드 시런", description: "가수", image: "🎸" },
-      { name: "브루노 마스", description: "가수", image: "🎵" }
-    ]
-  },
-  {
-    type: "ESTP",
-    name: "사업가",
-    people: [
-      { name: "도널드 트럼프", description: "사업가, 정치인", image: "🏢" },
-      { name: "세르지오 페레즈", description: "F1 레이서", image: "🏎️" },
-      { name: "매들린 올브라이트", description: "외무장관", image: "🎓" },
-      { name: "안젤리나 졸리", description: "배우", image: "🎭" }
-    ]
-  },
-  {
-    type: "ESFP",
-    name: "연예인",
-    people: [
-      { name: "엘튼 존", description: "가수", image: "🎹" },
-      { name: "리처드 기어", description: "배우", image: "🎪" },
-      { name: "스칼릿 요한슨", description: "배우", image: "🎭" },
-      { name: "브루노 마스", description: "가수", image: "🎵" }
-    ]
-  }
+import React, { useState, useMemo } from "react";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Search,
+  Filter,
+  User,
+  Award,
+  TrendingUp,
+  Globe,
+  BookOpen,
+  Users,
+  BarChart3,
+  Briefcase,
+  Palette,
+  Trophy,
+  FlaskConical,
+  Drama,
+  Scroll,
+  Landmark,
+  X,
+} from "lucide-react";
+import {
+  celebrityGroups,
+  allCelebrities,
+  fieldNames,
+  groupColors,
+  fieldStats,
+  countries,
+  usedCountries,
+  type CelebrityField,
+  type CountryCode,
+} from "@/lib/celebrities";
+
+const mbtiTypes = [
+  "INTJ",
+  "INTP",
+  "ENTJ",
+  "ENTP",
+  "INFJ",
+  "INFP",
+  "ENFJ",
+  "ENFP",
+  "ISTJ",
+  "ISFJ",
+  "ESTJ",
+  "ESFJ",
+  "ISTP",
+  "ISFP",
+  "ESTP",
+  "ESFP",
 ];
 
-export default function Celebrities() {
+const fields: CelebrityField[] = [
+  "politics",
+  "business",
+  "arts",
+  "sports",
+  "science",
+  "entertainment",
+  "literature",
+];
+
+const fieldIcons: Record<CelebrityField, React.ReactNode> = {
+  politics: <Landmark className="w-5 h-5" />,
+  business: <Briefcase className="w-5 h-5" />,
+  arts: <Palette className="w-5 h-5" />,
+  sports: <Trophy className="w-5 h-5" />,
+  science: <FlaskConical className="w-5 h-5" />,
+  entertainment: <Drama className="w-5 h-5" />,
+  literature: <Scroll className="w-5 h-5" />,
+};
+
+export default function CelebritiesPage() {
+  const [selectedType, setSelectedType] = useState<string | null>(null);
+  const [selectedField, setSelectedField] = useState<CelebrityField | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState<CountryCode | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // 필터링 로직
+  const filteredGroups = useMemo(() => {
+    return celebrityGroups
+      .filter((group) => !selectedType || group.type === selectedType)
+      .map((group) => ({
+        ...group,
+        celebrities: group.celebrities.filter((celeb) => {
+          const matchesField = !selectedField || celeb.field === selectedField;
+          const matchesCountry =
+            !selectedCountry || celeb.country === selectedCountry;
+          const matchesSearch =
+            !searchQuery ||
+            celeb.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            celeb.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            celeb.nameEn?.toLowerCase().includes(searchQuery.toLowerCase());
+          return matchesField && matchesCountry && matchesSearch;
+        }),
+      }))
+      .filter((group) => group.celebrities.length > 0);
+  }, [selectedType, selectedField, selectedCountry, searchQuery]);
+
+  const totalFilteredCount = filteredGroups.reduce(
+    (sum, group) => sum + group.celebrities.length,
+    0
+  );
+
+  const clearFilters = () => {
+    setSelectedType(null);
+    setSelectedField(null);
+    setSelectedCountry(null);
+    setSearchQuery("");
+  };
+
   return (
-    <div className="min-h-screen bg-neutral-950 flex flex-col items-center gap-6 px-4 text-center pt-25 pb-16">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-semibold bg-gradient-to-r from-gray-100 to-gray-300 bg-clip-text text-transparent tracking-tighter mb-4">
-            유명인 MBTI
-          </h1>
-          <p className="text-lg md:text-xl lg:text-2xl bg-gradient-to-r from-gray-200 to-gray-400 bg-clip-text text-transparent tracking-tighter max-w-2xl mx-auto">
-            각 유형별 대표적인 인물들을 만나보세요
-          </p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-cyan-500/10 blur-3xl" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text text-transparent mb-6">
+              MBTI 유명인
+            </h1>
+            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+              각 MBTI 유형을 대표하는 세계적인 인물들을 만나보세요
+              <br />
+              <span className="text-lg text-slate-500">
+                성공 패턴과 특징을 분석하여 나와 같은 유형의 강점을 발견하세요
+              </span>
+            </p>
+          </motion.div>
+
+          {/* Statistics */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4"
+          >
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 text-center">
+              <div className="text-3xl font-bold text-purple-400">{allCelebrities.length}+</div>
+              <div className="text-sm text-slate-400">등록된 유명인</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 text-center">
+              <div className="text-3xl font-bold text-pink-400">16</div>
+              <div className="text-sm text-slate-400">MBTI 유형</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 text-center">
+              <div className="text-3xl font-bold text-cyan-400">{Object.keys(fieldStats).length}</div>
+              <div className="text-sm text-slate-400">분야</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 text-center">
+              <div className="text-3xl font-bold text-green-400">
+                {usedCountries.length}
+              </div>
+              <div className="text-sm text-slate-400">국가</div>
+            </div>
+          </motion.div>
         </div>
+      </div>
 
-        {/* Celebrities Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {celebrities.map((type, index) => {
-            // 각 유형별 색상 설정
-            const getTypeColor = (typeCode: string) => {
-              const colors: {[key: string]: string} = {
-                // 분석가형 (NT)
-                'INTJ': 'from-cyan-400 to-blue-500',
-                'INTP': 'from-cyan-300 to-blue-400',
-                'ENTJ': 'from-blue-400 to-indigo-500',
-                'ENTP': 'from-blue-300 to-indigo-400',
-                // 외교관형 (NF)
-                'INFJ': 'from-pink-400 to-rose-500',
-                'INFP': 'from-pink-300 to-rose-400',
-                'ENFJ': 'from-rose-400 to-pink-500',
-                'ENFP': 'from-rose-300 to-pink-400',
-                // 관리자형 (SJ)
-                'ISTJ': 'from-green-400 to-teal-500',
-                'ISFJ': 'from-green-300 to-teal-400',
-                'ESTJ': 'from-teal-400 to-green-500',
-                'ESFJ': 'from-teal-300 to-green-400',
-                // 탐험가형 (SP)
-                'ISTP': 'from-orange-400 to-red-500',
-                'ISFP': 'from-orange-300 to-red-400',
-                'ESTP': 'from-red-400 to-orange-500',
-                'ESFP': 'from-red-300 to-orange-400'
-              };
-              return colors[typeCode] || 'from-gray-400 to-gray-500';
-            };
+      {/* Filter Section */}
+      <div className="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-white/10 py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Search Bar */}
+          <div className="relative mb-4">
+            <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"><Search className="w-5 h-5" /></div>
+            <input
+              type="text"
+              placeholder="유명인 이름으로 검색..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-12 pr-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all"
+            />
+          </div>
 
-            const getBorderColor = (typeCode: string) => {
-              const borderColors: {[key: string]: string} = {
-                // 분석가형 (NT)
-                'INTJ': 'border-cyan-400 shadow-lg shadow-cyan-400/20',
-                'INTP': 'border-cyan-300 shadow-lg shadow-cyan-300/20',
-                'ENTJ': 'border-blue-400 shadow-lg shadow-blue-400/20',
-                'ENTP': 'border-blue-300 shadow-lg shadow-blue-300/20',
-                // 외교관형 (NF)
-                'INFJ': 'border-pink-400 shadow-lg shadow-pink-400/20',
-                'INFP': 'border-pink-300 shadow-lg shadow-pink-300/20',
-                'ENFJ': 'border-rose-400 shadow-lg shadow-rose-400/20',
-                'ENFP': 'border-rose-300 shadow-lg shadow-rose-300/20',
-                // 관리자형 (SJ)
-                'ISTJ': 'border-green-400 shadow-lg shadow-green-400/20',
-                'ISFJ': 'border-green-300 shadow-lg shadow-green-300/20',
-                'ESTJ': 'border-teal-400 shadow-lg shadow-teal-400/20',
-                'ESFJ': 'border-teal-300 shadow-lg shadow-teal-300/20',
-                // 탐험가형 (SP)
-                'ISTP': 'border-orange-400 shadow-lg shadow-orange-400/20',
-                'ISFP': 'border-orange-300 shadow-lg shadow-orange-300/20',
-                'ESTP': 'border-red-400 shadow-lg shadow-red-400/20',
-                'ESFP': 'border-red-300 shadow-lg shadow-red-300/20'
-              };
-              return borderColors[typeCode] || 'border-gray-400 shadow-lg shadow-gray-400/20';
-            };
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap gap-3 items-center">
+            <div className="flex items-center gap-2 text-slate-400 mr-2">
+              <Filter className="w-4 h-4" />
+              <span className="text-sm">필터:</span>
+            </div>
 
-            return (
-              <div
-                key={index}
-                className={`bg-black/20 backdrop-blur-md rounded-lg p-6 border-2 ${getBorderColor(type.type)} hover:bg-black/30 transition-all duration-300 transform hover:scale-105`}
+            {/* MBTI Type Filter */}
+            <select
+              value={selectedType || ""}
+              onChange={(e) => setSelectedType(e.target.value || null)}
+              className="bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 [&>option]:bg-slate-800 [&>option]:text-slate-200"
+            >
+              <option value="" className="bg-slate-800 text-slate-200">모든 유형</option>
+              {mbtiTypes.map((type) => (
+                <option key={type} value={type} className="bg-slate-800 text-slate-200">
+                  {type}
+                </option>
+              ))}
+            </select>
+
+            {/* Field Filter */}
+            <select
+              value={selectedField || ""}
+              onChange={(e) => setSelectedField((e.target.value as CelebrityField) || null)}
+              className="bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 [&>option]:bg-slate-800 [&>option]:text-slate-200"
+            >
+              <option value="" className="bg-slate-800 text-slate-200">모든 분야</option>
+              {fields.map((field) => (
+                <option key={field} value={field} className="bg-slate-800 text-slate-200">
+                  {fieldNames[field]}
+                </option>
+              ))}
+            </select>
+
+            {/* Country Filter */}
+            <select
+              value={selectedCountry || ""}
+              onChange={(e) => setSelectedCountry((e.target.value as CountryCode) || null)}
+              className="bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-purple-500/50 [&>option]:bg-slate-800 [&>option]:text-slate-200"
+            >
+              <option value="" className="bg-slate-800 text-slate-200">모든 국가</option>
+              {usedCountries.map((country) => (
+                <option key={country.code} value={country.code} className="bg-slate-800 text-slate-200">
+                  {country.flag} {country.name}
+                </option>
+              ))}
+            </select>
+
+            {(selectedType || selectedField || selectedCountry || searchQuery) && (
+              <button
+                onClick={clearFilters}
+                className="text-sm text-slate-400 hover:text-white transition-colors underline"
               >
-                <div className="text-center">
-                  <h3 className={`text-xl md:text-2xl font-bold bg-gradient-to-r ${getTypeColor(type.type)} bg-clip-text text-transparent mb-2`}>
-                    {type.type}
-                  </h3>
-                  <h4 className="text-lg font-semibold text-gray-300 mb-6">
-                    {type.name}
-                  </h4>
-                  <div className="space-y-4">
-                    {type.people.map((person, personIndex) => (
-                      <div key={personIndex} className="flex items-center space-x-3 p-3 bg-white/5 rounded-lg">
-                        <div className="text-2xl">{person.image}</div>
-                        <div className="text-left">
-                          <div className="font-medium text-white">{person.name}</div>
-                          <div className="text-sm text-gray-400">{person.description}</div>
+                필터 초기화
+              </button>
+            )}
+
+            <div className="ml-auto text-sm text-slate-400">
+              총 {totalFilteredCount}명 표시
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <AnimatePresence mode="wait">
+          {filteredGroups.length === 0 ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-center py-20"
+            >
+              <div className="text-6xl mb-4">🔍</div>
+              <h3 className="text-2xl font-semibold text-white mb-2">
+                검색 결과가 없습니다
+              </h3>
+              <p className="text-slate-400">다른 조건으로 검색해보세요</p>
+            </motion.div>
+          ) : (
+            <div className="space-y-16">
+              {filteredGroups.map((group, groupIndex) => (
+                <motion.section
+                  key={group.type}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: groupIndex * 0.1 }}
+                >
+                  {/* Group Header */}
+                  <div className="flex items-center gap-4 mb-8">
+                    <div
+                      className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${
+                        groupColors[group.group]?.bg || "from-gray-500/20 to-gray-600/20"
+                      } flex items-center justify-center border ${
+                        groupColors[group.group]?.border || "border-gray-500/30"
+                      }`}
+                    >
+                      <span className="text-2xl font-bold text-white">{group.type}</span>
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-white">{group.name}</h2>
+                      <p className={`text-sm ${groupColors[group.group]?.text || "text-gray-400"}`}>
+                        {group.group} · {group.celebrities.length}명
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Celebrities Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {group.celebrities.map((celebrity, index) => (
+                      <motion.div
+                        key={`${group.type}-${celebrity.name}`}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3, delay: index * 0.05 }}
+                        className="group bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden hover:border-purple-500/30 hover:bg-white/10 transition-all duration-300"
+                      >
+                        {/* Card Header */}
+                        <div className="p-6 pb-4">
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center text-slate-300">
+                                {fieldIcons[celebrity.field]}
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
+                                  {celebrity.name}
+                                </h3>
+                                {celebrity.nameEn && (
+                                  <p className="text-sm text-slate-500">{celebrity.nameEn}</p>
+                                )}
+                              </div>
+                            </div>
+                            <span
+                              className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-full bg-slate-700/50 border border-slate-600 text-slate-300"
+                            >
+                              <span className="text-base">{countries[celebrity.country].flag}</span>
+                              <span>{countries[celebrity.country].name}</span>
+                            </span>
+                          </div>
+
+                          <p className="text-sm text-slate-400 leading-relaxed line-clamp-2">
+                            {celebrity.description}
+                          </p>
                         </div>
-                      </div>
+
+                        {/* Achievements */}
+                        <div className="px-6 pb-4">
+                          <div className="flex items-center gap-2 text-sm text-slate-300 mb-2">
+                            <Award className="w-4 h-4 text-yellow-500" />
+                            <span className="font-medium">주요 업적</span>
+                          </div>
+                          <ul className="space-y-1">
+                            {celebrity.achievements.slice(0, 2).map((achievement, i) => (
+                              <li key={i} className="text-xs text-slate-400 flex items-start gap-2">
+                                <span className="text-purple-400 mt-1">•</span>
+                                <span className="line-clamp-1">{achievement}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* MBTI Traits */}
+                        <div className="px-6 pb-4">
+                          <div className="flex items-center gap-2 text-sm text-slate-300 mb-2">
+                            <User className="w-4 h-4 text-cyan-500" />
+                            <span className="font-medium">MBTI 특성</span>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {celebrity.mbtiTraits.slice(0, 3).map((trait, i) => (
+                              <span
+                                key={i}
+                                className="text-xs px-2 py-1 bg-cyan-500/10 text-cyan-400 rounded-full border border-cyan-500/20"
+                              >
+                                {trait}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Success Factors */}
+                        <div className="px-6 pb-6">
+                          <div className="flex items-center gap-2 text-sm text-slate-300 mb-2">
+                            <TrendingUp className="w-4 h-4 text-green-500" />
+                            <span className="font-medium">성공 요인</span>
+                          </div>
+                          <div className="flex flex-wrap gap-2">
+                            {celebrity.successFactors.slice(0, 2).map((factor, i) => (
+                              <span
+                                key={i}
+                                className="text-xs px-2 py-1 bg-green-500/10 text-green-400 rounded-full border border-green-500/20"
+                              >
+                                {factor}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
                     ))}
                   </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                </motion.section>
+              ))}
+            </div>
+          )}
+        </AnimatePresence>
+      </div>
 
-        {/* Related Links */}
-        <div className="mt-16 pt-8 border-t border-white/10">
-          <h3 className="text-2xl font-semibold bg-gradient-to-r from-gray-100 to-gray-300 bg-clip-text text-transparent mb-8 text-center">
-            더 자세히 알아보기
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Link href="/types" className="group">
-              <div className="bg-black/20 backdrop-blur-md rounded-lg p-6 border border-white/10 hover:bg-black/30 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-400/20 hover:scale-105 transition-all duration-300 text-center cursor-pointer">
-                <h4 className="text-lg font-semibold text-white group-hover:text-gray-200 mb-2">
-                  MBTI 유형
-                </h4>
-                <p className="text-gray-400 text-sm">
-                  16가지 성격 유형의 특징
-                </p>
+      {/* Field Distribution Section */}
+      <div className="bg-white/5 border-t border-white/10 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-white text-center mb-12">
+            MBTI별 성공 분야 분포
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+            {fields.map((field) => {
+              const count = allCelebrities.filter((c) => c.field === field).length;
+              return (
+                <motion.div
+                  key={field}
+                  whileHover={{ scale: 1.05 }}
+                  className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 text-center cursor-pointer hover:border-purple-500/30 transition-all"
+                >
+                  <div className="mb-2 flex justify-center">{fieldIcons[field]}</div>
+                  <div className="text-sm font-medium text-white">{fieldNames[field]}</div>
+                  <div className="text-2xl font-bold text-purple-400 mt-1">{count}명</div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Insights Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <h2 className="text-3xl font-bold text-white text-center mb-12">
+          MBTI 유형별 성공 패턴 인사이트
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* NT - Analysts */}
+          <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-2xl p-6 border border-cyan-500/20">
+            <div className="mb-4"><BarChart3 className="w-8 h-8 text-cyan-400" /></div>
+            <h3 className="text-xl font-bold text-white mb-2">분석가형 (NT)</h3>
+            <p className="text-sm text-slate-400 mb-4">
+              INTJ, INTP, ENTJ, ENTP
+            </p>
+            <ul className="space-y-2 text-sm text-slate-300">
+              <li>• 전략과 혁신으로 성공</li>
+              <li>• 과학/기술/비즈니스 집중</li>
+              <li>• 장기적 비전 수립 능력</li>
+              <li>• 복잡한 문제 해결 전문</li>
+            </ul>
+          </div>
+
+          {/* NF - Diplomats */}
+          <div className="bg-gradient-to-br from-pink-500/10 to-rose-500/10 rounded-2xl p-6 border border-pink-500/20">
+            <div className="mb-4"><Users className="w-8 h-8 text-pink-400" /></div>
+            <h3 className="text-xl font-bold text-white mb-2">외교관형 (NF)</h3>
+            <p className="text-sm text-slate-400 mb-4">
+              INFJ, INFP, ENFJ, ENFP
+            </p>
+            <ul className="space-y-2 text-sm text-slate-300">
+              <li>• 의미와 가치로 성공</li>
+              <li>• 예술/문학/사회운동 집중</li>
+              <li>• 영감을 주는 리더십</li>
+              <li>• 깊은 공감과 연결</li>
+            </ul>
+          </div>
+
+          {/* SJ - Sentinels */}
+          <div className="bg-gradient-to-br from-green-500/10 to-teal-500/10 rounded-2xl p-6 border border-green-500/20">
+            <div className="mb-4"><Award className="w-8 h-8 text-green-400" /></div>
+            <h3 className="text-xl font-bold text-white mb-2">관리자형 (SJ)</h3>
+            <p className="text-sm text-slate-400 mb-4">
+              ISTJ, ISFJ, ESTJ, ESFJ
+            </p>
+            <ul className="space-y-2 text-sm text-slate-300">
+              <li>• 안정성과 신뢰로 성공</li>
+              <li>• 정치/경영/사회 서비스 집중</li>
+              <li>• 체계적 리더십</li>
+              <li>• 헌신과 책임감</li>
+            </ul>
+          </div>
+
+          {/* SP - Explorers */}
+          <div className="bg-gradient-to-br from-orange-500/10 to-red-500/10 rounded-2xl p-6 border border-orange-500/20">
+            <div className="mb-4"><Palette className="w-8 h-8 text-orange-400" /></div>
+            <h3 className="text-xl font-bold text-white mb-2">탐험가형 (SP)</h3>
+            <p className="text-sm text-slate-400 mb-4">
+              ISTP, ISFP, ESTP, ESFP
+            </p>
+            <ul className="space-y-2 text-sm text-slate-300">
+              <li>• 실용과 표현으로 성공</li>
+              <li>• 예술/스포츠/엔터테인먼트 집중</li>
+              <li>• 즉흥적 재능 발휘</li>
+              <li>• 현재 순간 몰입</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Related Links */}
+      <div className="bg-white/5 border-t border-white/10 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-white text-center mb-8">
+            더 알아보기
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <Link href="/types">
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 hover:border-purple-500/30 transition-all text-center group">
+                <div className="mx-auto mb-3 group-hover:scale-110 transition-transform"><BookOpen className="w-8 h-8 text-purple-400 mx-auto" /></div>
+                <h3 className="text-lg font-semibold text-white mb-1">MBTI 유형</h3>
+                <p className="text-sm text-slate-400">16가지 성격 유형 알아보기</p>
               </div>
             </Link>
-            <Link href="/compatibility" className="group">
-              <div className="bg-black/20 backdrop-blur-md rounded-lg p-6 border border-white/10 hover:bg-black/30 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-400/20 hover:scale-105 transition-all duration-300 text-center cursor-pointer">
-                <h4 className="text-lg font-semibold text-white group-hover:text-gray-200 mb-2">
-                  MBTI 궁합
-                </h4>
-                <p className="text-gray-400 text-sm">
-                  성격 유형별 호환성 분석
-                </p>
+            <Link href="/compatibility">
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 hover:border-purple-500/30 transition-all text-center group">
+                <div className="mx-auto mb-3 group-hover:scale-110 transition-transform"><Users className="w-8 h-8 text-pink-400 mx-auto" /></div>
+                <h3 className="text-lg font-semibold text-white mb-1">궁합 분석</h3>
+                <p className="text-sm text-slate-400">성격 유형별 궁합 보기</p>
               </div>
             </Link>
-            <Link href="/usage" className="group">
-              <div className="bg-black/20 backdrop-blur-md rounded-lg p-6 border border-white/10 hover:bg-black/30 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-400/20 hover:scale-105 transition-all duration-300 text-center cursor-pointer">
-                <h4 className="text-lg font-semibold text-white group-hover:text-gray-200 mb-2">
-                  실용적 활용
-                </h4>
-                <p className="text-gray-400 text-sm">
-                  직업, 연애, 일상생활 적용
-                </p>
+            <Link href="/test">
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 hover:border-purple-500/30 transition-all text-center group">
+                <div className="mx-auto mb-3 group-hover:scale-110 transition-transform"><BarChart3 className="w-8 h-8 text-cyan-400 mx-auto" /></div>
+                <h3 className="text-lg font-semibold text-white mb-1">MBTI 테스트</h3>
+                <p className="text-sm text-slate-400">나의 MBTI 유형 찾기</p>
               </div>
             </Link>
-            <Link href="/glossary" className="group">
-              <div className="bg-black/20 backdrop-blur-md rounded-lg p-6 border border-white/10 hover:bg-black/30 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-400/20 hover:scale-105 transition-all duration-300 text-center cursor-pointer">
-                <h4 className="text-lg font-semibold text-white group-hover:text-gray-200 mb-2">
-                  용어사전
-                </h4>
-                <p className="text-gray-400 text-sm">
-                  MBTI 개념과 용어 설명
-                </p>
+            <Link href="/glossary">
+              <div className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10 hover:bg-white/10 hover:border-purple-500/30 transition-all text-center group">
+                <div className="mx-auto mb-3 group-hover:scale-110 transition-transform"><Globe className="w-8 h-8 text-green-400 mx-auto" /></div>
+                <h3 className="text-lg font-semibold text-white mb-1">용어사전</h3>
+                <p className="text-sm text-slate-400">MBTI 용어와 개념 정리</p>
               </div>
             </Link>
           </div>
-        </div>
-
-        {/* Back to Home */}
-        <div className="mt-12 text-center">
-          <Link href="/">
-            <button className="px-8 py-3 bg-gradient-to-r from-gray-600 to-gray-800 text-white font-semibold rounded-lg hover:from-gray-500 hover:to-gray-700 transition-all duration-300 transform hover:scale-105">
-              홈으로 돌아가기
-            </button>
-          </Link>
         </div>
       </div>
     </div>

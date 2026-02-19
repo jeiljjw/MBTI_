@@ -196,7 +196,7 @@ export default function ArticlePage() {
         {/* Author/Date */}
         <div className="border-t border-gray-800 pt-6 mb-10">
           <div className="flex items-center justify-between text-sm text-gray-500">
-            <span>작성일: 2024년 2월 12일</span>
+            <span>작성일: 2026년 2월 12일</span>
             <span>카테고리: 커리어</span>
           </div>
         </div>
@@ -228,7 +228,7 @@ export default function ArticlePage() {
         {/* Author/Date */}
         <div className="border-t border-gray-800 pt-6 mb-10">
           <div className="flex items-center justify-between text-sm text-gray-500">
-            <span>작성일: 2024년 2월 12일</span>
+            <span>작성일: 2026년 2월 12일</span>
             <span>카테고리: 커리어</span>
           </div>
         </div>

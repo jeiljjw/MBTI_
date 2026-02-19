@@ -1,11 +1,4 @@
-import type { MBTIDimension } from './types/test';
-
-export interface Question {
-  id: number;
-  question: string;
-  trait: MBTIDimension;
-  direction: number;
-}
+import type { MBTIDimension, Question } from './types/test';
 
 export const questions: Question[] = [
   // E/I Questions (5개)

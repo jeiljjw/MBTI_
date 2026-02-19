@@ -139,8 +139,10 @@ const EnhancedResultCardComponent = ({ result, onGoHome, onRetake }: EnhancedRes
         break;
       case 'kakao':
         // 카카오톡 공유 (Kakao SDK 필요)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if (typeof window !== 'undefined' && (window as any).Kakao) {
           try {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (window as any).Kakao.Share.sendDefault({
               objectType: 'feed',
               content: {

@@ -19,7 +19,7 @@ const articles = [
     excerpt: "MBTI가 과학적으로 검증되었는지, 어떤 한계가 있는지 심층 분석합니다. Myers-Briggs Type Indicator의 역사와 현대 심리학계의 평가를 알아보세요.",
     category: "심리학",
     readTime: "8분",
-    date: "2024-02-12",
+    date: "2026-02-12",
   },
   {
     slug: "intj-career-strategies",
@@ -27,7 +27,7 @@ const articles = [
     excerpt: "INTJ 전략가 유형이 직장에서 성공하기 위한 10가지 핵심 전략을 소개합니다. 리더십, 팀워크, 장기적 경력 계획에 대한 실용적인 조언을 제공합니다.",
     category: "커리어",
     readTime: "10분",
-    date: "2024-02-12",
+    date: "2026-02-12",
   },
   {
     slug: "mbti-compatibility-truth",
@@ -35,7 +35,7 @@ const articles = [
     excerpt: "MBTI 궁합이 정말 과학적인지 통계적 데이터로 분석합니다. 어떤 유형 조합이 실제로 성공적인 관계를 만드는지 연구 결과를 바탕으로 설명합니다.",
     category: "관계",
     readTime: "9분",
-    date: "2024-02-12",
+    date: "2026-02-12",
   },
   {
     slug: "stress-management-by-type",
@@ -43,7 +43,7 @@ const articles = [
     excerpt: "16가지 MBTI 유형별로 효과적인 스트레스 관리 방법을 제시합니다. 각 유형의 스트레스 원인과 최적의 대처 전략을 심층적으로 분석합니다.",
     category: "웰빙",
     readTime: "12분",
-    date: "2024-02-12",
+    date: "2026-02-12",
   },
   {
     slug: "mbti-career-correlation",
@@ -51,7 +51,31 @@ const articles = [
     excerpt: "MBTI 유형과 직업 만족도, 성과, 이직률 간의 상관관계를 데이터로 분석합니다. 어떤 유형이 어떤 직업에서 성공하는지 연구 결과를 소개합니다.",
     category: "커리어",
     readTime: "11분",
-    date: "2024-02-12",
+    date: "2026-02-12",
+  },
+  {
+    slug: "infj-complete-guide",
+    title: "INFJ 완벽 가이드: 제창자 유형의 모든 것",
+    excerpt: "INFJ(제창자)는 가장 희귀한 성격 유형 중 하나입니다. 이 유형의 특징, 강점, 약점, 그리고 인간관계와 커리어에서 성공하는 방법을 상세히 소개합니다.",
+    category: "심리학",
+    readTime: "9분",
+    date: "2026-02-15",
+  },
+  {
+    slug: "mbti-leadership",
+    title: "MBTI로 보는 리더십 스타일: 유형별 소통과 영향력",
+    excerpt: "16가지 MBTI 유형별로 다른 리더십 스타일과 소통 방식을 분석합니다. 팀을 효과적으로 이끌기 위한 유형별 맞춤 전략을 알아봅니다.",
+    category: "커리어",
+    readTime: "10분",
+    date: "2026-02-18",
+  },
+  {
+    slug: "emotional-intelligence-mbti",
+    title: "감정지능(EQ)과 MBTI의 상관관계: 정서적 성장을 위한 안내",
+    excerpt: "감정지능과 MBTI는 어떻게 연결될까요? 각 유형의 감정적 특성과 EQ를 높이는 방법을 과학적 관점에서 분석합니다.",
+    category: "심리학",
+    readTime: "8분",
+    date: "2026-02-20",
   },
 ];
 

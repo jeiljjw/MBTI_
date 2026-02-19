@@ -47,11 +47,17 @@ export default function MBTITest() {
 
   // 클라이언트에서만 실행
   useEffect(() => {
-    setIsClient(true);
-    setTestState(prev => ({
-      ...prev,
-      shuffledQuestions: shuffleArray(questions),
-    }));
+    // 이 효과는 클라이언트에서 한 번만 실행되어야 함
+    // React 19에서는 useEffect 내 setState 경고가 있지만
+    // 이 경우 SSR 후 클라이언트 상태 초기화에 필요
+    const initClient = () => {
+      setIsClient(true);
+      setTestState(prev => ({
+        ...prev,
+        shuffledQuestions: shuffleArray(questions),
+      }));
+    };
+    initClient();
   }, []);
 
   const currentQuestion = testState.shuffledQuestions[testState.currentQuestionIndex];

@@ -1,22 +1,27 @@
 // MBTI Personality Test Types
-export type PersonalityDimension = 'E' | 'I' | 'S' | 'N' | 'T' | 'F' | 'J' | 'P';
+// Main type definitions - re-exporting from lib/types/test.ts
 
+export type {
+  MBTIType,
+  MBTIDimension,
+  TestState,
+  Question,
+  Answer,
+  MBTIResult
+} from './types/test';
+
+// Legacy type aliases for backward compatibility
+export type PersonalityDimension = 'E' | 'I' | 'S' | 'N' | 'T' | 'F' | 'J' | 'P';
 export type PersonalityType = 'INTJ' | 'INTP' | 'ENTJ' | 'ENTP' |
                               'INFJ' | 'INFP' | 'ENFJ' | 'ENFP' |
                               'ISTJ' | 'ISFJ' | 'ESTJ' | 'ESFJ' |
                               'ISTP' | 'ISFP' | 'ESTP' | 'ESFP';
 
-export interface Question {
-  id: number;
-  text: string;
-  dimension: PersonalityDimension;
-  options: AnswerOption[];
-}
-
+// Legacy interfaces (kept for compatibility with existing code)
 export interface AnswerOption {
   id: string;
   text: string;
-  score: number; // Positive for one pole, negative for the other
+  score: number;
 }
 
 export interface UserAnswer {
@@ -28,24 +33,17 @@ export interface UserAnswer {
 
 export interface DimensionScore {
   dimension: PersonalityDimension;
-  score: number; // Positive = first letter, Negative = second letter
+  score: number;
 }
 
 export interface PersonalityResult {
   type: PersonalityType;
   dimensions: Record<PersonalityDimension, 'primary' | 'secondary'>;
-  scores: Record<string, number>; // Raw scores for each dimension pair
+  scores: Record<string, number>;
   description: string;
   strengths: string[];
   weaknesses: string[];
   careers: string[];
-}
-
-export interface TestState {
-  currentQuestionIndex: number;
-  answers: UserAnswer[];
-  isCompleted: boolean;
-  result?: PersonalityResult;
 }
 
 export interface PersonalityTypeInfo {
