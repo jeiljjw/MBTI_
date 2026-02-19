@@ -77,6 +77,30 @@ const articles = [
     readTime: "8분",
     date: "2026-02-20",
   },
+  {
+    slug: "mbti-love-and-relationships",
+    title: "MBTI 사랑과 관계: 유형별 연애 패턴과 관계 구축법",
+    excerpt: "16가지 MBTI 유형별 연애 스타일을 분석합니다. 사랑의 언어, 관계에서의 필요, 더 깊은 유대 형성 방법을 알아봅니다.",
+    category: "관계",
+    readTime: "11분",
+    date: "2026-02-20",
+  },
+  {
+    slug: "mbti-learning-styles",
+    title: "MBTI 학습 스타일: 유형별로 가장 효과적인 공부법",
+    excerpt: "각 MBTI 유형별 가장 효과적인 학습 방법을 분석합니다. 자신의 장점을 살린 맞춤형 공부 전략을 알아봅니다.",
+    category: "심리학",
+    readTime: "10분",
+    date: "2026-02-20",
+  },
+  {
+    slug: "mbti-conflict-resolution",
+    title: "MBTI 직장에서의 갈등 해결: 유형별 갈등 관리 전략",
+    excerpt: "직장 갈등을 효과적으로 해결하는 방법을 MBTI 유형별로 분석합니다. 유형 차이를 이해하고 더 나은 커뮤니케이션하는 법을 알아봅니다.",
+    category: "커리어",
+    readTime: "12분",
+    date: "2026-02-20",
+  },
 ];
 
 export default function BlogPage() {
