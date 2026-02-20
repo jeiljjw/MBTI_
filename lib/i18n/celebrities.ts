@@ -1,14 +1,23 @@
 // MBTI 유형별 유명인 데이터 - bilingual version
-// 분야: politics(정치), business(비즈니스), arts(예술), sports(스포츠), science(과학/기술), entertainment(엔터테인먼트)
+// This file wraps the corrected lib/celebrities.ts with bilingual support
 
-import type { CelebrityField, CountryCode, Country, MBTICelebrityGroup, Celebrity } from '../celebrities';
-import { countries, fieldNames, groupColors } from '../celebrities';
+import { 
+  celebrityGroups as koreanCelebrityGroups,
+  type Celebrity,
+  type MBTICelebrityGroup,
+  type CelebrityField,
+  type CountryCode,
+  type Country,
+  countries,
+  fieldNames,
+  groupColors
+} from '../celebrities';
 
-// 재-export types from original
+// Re-export types
 export type { CelebrityField, CountryCode, Country, Celebrity, MBTICelebrityGroup };
 export { countries, fieldNames, groupColors };
 
-// bilingual celebrity interface
+// Bilingual celebrity interface
 export interface BilingualCelebrity {
   name: string;
   nameEn?: string;
@@ -29,7 +38,828 @@ export interface BilingualMBTICelebrityGroup {
   celebrities: BilingualCelebrity[];
 }
 
-// bilingual field names
+// MBTI type name translations
+const mbtiNameTranslations: Record<string, { ko: string; en: string }> = {
+  "INTJ": { ko: "전략가", en: "Architect" },
+  "INTP": { ko: "논리술사", en: "Logician" },
+  "ENTJ": { ko: "통솔자", en: "Commander" },
+  "ENTP": { ko: "변론가", en: "Debater" },
+  "INFJ": { ko: "옹호자", en: "Advocate" },
+  "INFP": { ko: "중재자", en: "Mediator" },
+  "ENFJ": { ko: "선도자", en: "Protagonist" },
+  "ENFP": { ko: "활동가", en: "Campaigner" },
+  "ISTJ": { ko: "현실주의자", en: "Logistician" },
+  "ISFJ": { ko: "수호자", en: "Defender" },
+  "ESTJ": { ko: "경영자", en: "Executive" },
+  "ESFJ": { ko: "집정관", en: "Consul" },
+  "ISTP": { ko: "장인", en: "Virtuoso" },
+  "ISFP": { ko: "모험가", en: "Adventurer" },
+  "ESTP": { ko: "사업가", en: "Entrepreneur" },
+  "ESFP": { ko: "연예인", en: "Entertainer" }
+};
+
+// Group translations
+const groupTranslations: Record<string, { ko: string; en: string }> = {
+  "분석가형 (NT)": { ko: "분석가형 (NT)", en: "Analyst (NT)" },
+  "외교관형 (NF)": { ko: "외교관형 (NF)", en: "Diplomat (NF)" },
+  "관리자형 (SJ)": { ko: "관리자형 (SJ)", en: "Sentinel (SJ)" },
+  "탐험가형 (SP)": { ko: "탐험가형 (SP)", en: "Explorer (SP)" }
+};
+
+// English translations for celebrities - comprehensive mapping
+const englishTranslations: Record<string, string> = {
+  "테슬라, 스페이스X CEO. 혁신적인 비전과 끊임없는 도전으로 기술 산업을 재편한 기업가": "CEO of Tesla and SpaceX. Entrepreneur who reshaped the tech industry with innovative vision and relentless challenges",
+  "애플 공동창업자. 디자인과 기술의 완벽한 결합을 이끌어낸 혁신가": "Apple co-founder. Innovator who led the perfect combination of design and technology",
+  "물리학자, 수학자. 고전역학의 기초를 세운 과학의 아버지": "Physicist and mathematician. Father of science who laid the foundation of classical mechanics",
+  "발명가, 전기공학자. 교류 전기 시스템의 선구자": "Inventor and electrical engineer. Pioneer of alternating current electrical systems",
+  "메타 CEO. 소셜 네트워크의 선구자": "Meta CEO. Pioneer of social networks",
+  "영화 감독. 복잡한 서사 구조와 철학적 깊이로 유명한 감독": "Film director. Famous for complex narrative structures and philosophical depth",
+  "물리학자. 상대성이론으로 현대 물리학의 기초를 세운 천재": "Physicist. Genius who laid the foundation of modern physics with theory of relativity",
+  "마이크로소프트 공동창업자. 기술과 비즈니스의 결합으로 세상을 변화시킨 기업가": "Microsoft co-founder. Entrepreneur who changed the world by combining technology and business",
+  "생물학자. 진화론의 창시자로 생명과학의 혁명을 이끈 과학자": "Biologist. Scientist who led the revolution in life sciences as founder of evolution theory",
+  "이론물리학자. 블랙홀과 우주론 연구로 유명한 과학자": "Theoretical physicist. Scientist famous for black hole and cosmology research",
+  "브리지워터 창업자. 세계 최대 헤지펀드 운용자": "Bridgewater founder. World's largest hedge fund manager",
+  "BTS 멤버. 프로듀서로서 음악 제작과 솔로 활동으로 주목받는 아티스트": "BTS member. Artist noted for music production and solo activities as producer",
+  "BTS 멤버. '골든 마네킹'으로 불리는 만능 아이돌": "BTS member. All-around idol called 'Golden Maknae'",
+  "프랑스 황제. 군사 전략가이자 유럽을 재편한 지도자": "French Emperor. Military strategist and leader who reshaped Europe",
+  "전 GE CEO. '20세기 최고의 경영인'으로 불린 기업 총수": "Former GE CEO. Corporate leader called 'best manager of the 20th century'",
+  "셰프, 방송인. 미슐랭 스타 셰프이자 미디어 스타": "Chef and broadcaster. Michelin star chef and media star",
+  "미디어 퍼스널리티, 기업가. KKW Beauty, SKIMS 창업자": "Media personality and entrepreneur. Founder of KKW Beauty and SKIMS",
+  "발명왕. 1,093개의 특허를 보유한 최고의 발명가": "Inventor king. Greatest inventor with 1,093 patents",
+  "애플 공동창업자. Apple I, II 설계한 엔지니어": "Apple co-founder. Engineer who designed Apple I and II",
+  "작가. 미국 문학의 대표 작가로 풍자와 유머로 유명": "Writer. Representative American literature author famous for satire and humor",
+  "유튜버. 세계 최초 개인 유튜브 채널 1억 구독자 돌파자": "YouTuber. First individual YouTube channel to surpass 100 million subscribers",
+  "인권운동가. 비폭력 저항으로 인종차별에 맞선 지도자": "Civil rights activist. Leader who fought racial discrimination through nonviolent resistance",
+  "남아프리카공화국 전 대통령. 아파르트헤이트에 맞선 인권운동가": "Former President of South Africa. Human rights activist who fought apartheid",
+  "방송인, 기업가. 미국 최고의 토크쇼 진행자": "Broadcaster and entrepreneur. America's top talk show host",
+  "작가. 해리포터 시리즈로 세계적인 베스트셀러 작가": "Writer. Global bestselling author with Harry Potter series",
+  "극작가. 세계 최고의 문학 작가로 인류 보편의 감정을 탐구": "Playwright. World's greatest literary author exploring universal human emotions",
+  "작가. 반지의 제왕으로 현대 판타지 문학의 아버지": "Writer. Father of modern fantasy literature with Lord of the Rings",
+  "화가. 후기 인상주의 대표 작가로 감정의 진정성을 담은 작품": "Painter. Representative post-impressionist artist with works containing emotional authenticity",
+  "화가. 멕시코의 대표 화가로 자전적 작품으로 유명": "Painter. Mexico's representative painter famous for autobiographical works",
+  "가수, 배우. 'drivers license'로 데뷔한 Z세대 팝 아이콘": "Singer and actress. Gen Z pop icon who debuted with 'drivers license'",
+  "NewJeans 멤버. 베트남계 호주 출신으로 글로벌 팬덤을 보유한 아이돌": "NewJeans member. Idol with global fandom from Vietnamese-Australian background",
+  "NewJeans 막내. 뛰어난 패션 감각과 성숙한 매력의 소유자": "NewJeans youngest member. Owner of excellent fashion sense and mature charm",
+  "미국 제44대 대통령. 변화와 희망의 메시지로 선거된 첫 흑인 대통령": "44th President of the United States. First Black president elected with message of change and hope",
+  "티베트 불교 지도자. 평화와 자비의 메시지로 세계적인 영향력": "Tibetan Buddhist leader. Global influence with message of peace and compassion",
+  "가수, 배우. 4옥타브 음역대를 자랑하는 팝 스타": "Singer and actress. Pop star boasting 4-octave vocal range",
+  "가수, 배우. One Direction 출신 솔로 아티스트로 패션 아이콘": "Singer and actor. Solo artist from One Direction and fashion icon",
+  "가수, 배우, 프로듀서. Rare Beauty 창업자로 사업가적 면 보유": "Singer, actress, and producer. Founder of Rare Beauty with entrepreneurial side",
+  "aespa 멤버. 뛰어난 가창력과 카리스마로 사랑받는 아이돌": "aespa member. Idol loved for outstanding vocal ability and charisma",
+  "디즈니 창업자. 상상력으로 전 세계를 즐겁게 한 애니메이션의 대가": "Disney founder. Animation master who delighted the world with imagination",
+  "배우. 아이언맨으로 대중에게 사랑받는 할리우드 스타": "Actor. Hollywood star loved by public as Iron Man",
+  "BTS 멤버. 독특한 음색과 비주얼로 사랑받는 아이돌": "BTS member. Idol loved for unique vocal tone and visuals",
+  "BTS 리더. 철학적 가사와 리더십으로 K-pop의 글로벌화를 이끈 아이콘": "BTS leader. Icon who led K-pop globalization with philosophical lyrics and leadership",
+  "aespa 리더. 완벽한 춤과 비주얼로 주목받는 4세대 아이돌": "aespa leader. 4th generation idol noted for perfect dance and visuals",
+  "NewJeans 멤버. 한국-호주 혼혈로 밝은 에너지의 소유자": "NewJeans member. Korean-Australian mixed with bright energy",
+  "투자의 전설. 버크셔 해서웨이 CEO로 가치투자의 대가": "Investment legend. Value investment master as Berkshire Hathaway CEO",
+  "미국 초대 대통령. 국가 건설의 기초를 다진 지도자": "First US President. Leader who laid foundation for nation building",
+  "독일 전 총리. 16년간 유럽의 안정을 이끈 '유럽의 어머니'": "Former German Chancellor. 'Mother of Europe' who led European stability for 16 years",
+  "아마존 창업자. 전자상거래와 클라우드 컴퓨팅의 선구자": "Amazon founder. Pioneer of e-commerce and cloud computing",
+  "e스포츠 선수. 리그 오브 레전드 전설, '대상혁'으로 불림": "E-sports player. League of Legends legend called 'Unkillable Demon King'",
+  "수녀, 인도주의자. 가난한 이들을 위해 평생을 바친 성인": "Nun and humanitarian. Saint who devoted her life to the poor",
+  "영국 여왕. 70년간의 재위로 국가의 상징이 된 군주": "Queen of England. Monarch who became national symbol with 70-year reign",
+  "케임브리지 공작부인. 현대적 왕실의 새로운 모습": "Duchess of Cambridge. New face of modern royalty",
+  "축구선수. 프리미어리그 골든부트 수상자, 아시아 최고 축구선수": "Football player. Premier League Golden Boot winner, Asia's best footballer",
+  "미국 제35대 대통령. 카리스마와 리더십으로 유명한 지도자": "35th US President. Leader famous for charisma and leadership",
+  "포드 모터스 창업자. 자동차 대중화와 생산 혁신의 주역": "Ford Motors founder. Key figure in automobile popularization and production innovation",
+  "삼성전자 회장. 한국 대표 기업가이자 삼성 전성기 리더": "Samsung Electronics Chairman. Korea's representative entrepreneur and Samsung's golden age leader",
+  "NewJeans 멤버. 팀의 리더이자 대언니로서 책임감 있는 아이돌": "NewJeans member. Responsible idol as team leader and eldest sister",
+  "넷플릭스 드라마. 전 세계를 사로잡은 한국 콘텐츠": "Netflix drama. Korean content that captivated the world",
+  "래퍼, 프로듀서. 아스트로월드 페스티벌 등으로 문화 아이콘": "Rapper and producer. Cultural icon with Astroworld Festival and more",
+  "농구 전설. NBA 역사상 최고의 선수": "Basketball legend. Greatest player in NBA history",
+  "배우, 감독. 서부극 아이콘, 오스카 수상 감독": "Actor and director. Western film icon and Oscar-winning director",
+  "아이스하키 선수. NHL 전설적인 스코어러": "Ice hockey player. Legendary NHL scorer",
+  "NewJeans 멤버. 고양이상 외모로 사랑받는 아이돌": "NewJeans member. Idol loved for cat-like appearance",
+  "팝의 황제. 음악과 퍼포먼스 혁신가": "King of Pop. Music and performance innovator",
+  "팝 스타. 2000년대 팝 문화 아이콘": "Pop star. 2000s pop culture icon",
+  "싱어송라이터. Z세대의 아이콘이 된 독창적인 음악과 스타일의 소유자": "Singer-songwriter. Owner of original music and style who became Gen Z icon",
+  "가수, 배우. '지구에 온 별'로 불리는 예술가": "Singer and actor. Artist called 'star who came to Earth'",
+  "소녀시대 리더, 솔로 가수. 감성적 보컬의 여왕": "Girls' Generation leader and solo singer. Queen of emotional vocals",
+  "가수. 유튜브로 발굴되어 세계 스타가 된 팝 아이콘": "Singer. Pop icon discovered on YouTube who became global star",
+  "BLACKPINK 멤버. 패션 아이콘이자 솔로 아티스트로서 글로벌 영향력": "BLACKPINK member. Global influence as fashion icon and solo artist",
+  "미국 제45대 대통령. 기업가 출신 정치인": "45th US President. Politician from business background",
+  "NBA 농구 선수. 현대 최고의 농구 선수": "NBA basketball player. Greatest modern basketball player",
+  "팝의 여왕. 40년간 팝 음악의 중심": "Queen of Pop. Center of pop music for 40 years",
+  "래퍼, 기업가. AOMG, H1GHR MUSIC 설립자": "Rapper and entrepreneur. Founder of AOMG and H1GHR MUSIC",
+  "래퍼, 가수. 힙합과 록을 결합한 새로운 스타일": "Rapper and singer. New style combining hip-hop and rock",
+  "트위치 스트리머. 세계 최대 팔로워 보유 게임 스트리머": "Twitch streamer. Game streamer with world's largest following",
+  "유튜버. 세계 최대 구독자 수를 보유한 콘텐츠 크리에이터": "YouTuber. Content creator with world's largest subscriber count",
+  "BTS 멤버. 우아한 춤선과 감성적 보컬로 사랑받는 아티스트": "BTS member. Artist loved for elegant dance lines and emotional vocals",
+  "가수, 작곡가. 화려한 퍼포먼스와 감동 음악": "Singer and composer. Spectacular performance and moving music",
+  "배우, 가수. 코미디언 출신 아카데미상 수상": "Actor and singer. Academy Award winner from comedian background",
+  "가수. '보이스'로 불리는 전설적 보컬리스트": "Singer. Legendary vocalist called 'The Voice'",
+  "BLACKPINK 멤버. 뛰어난 춤 실력으로 글로벌 아이콘": "BLACKPINK member. Global icon with outstanding dance skills",
+  "가수, 댄서. 틱톡으로 새로운 인기를 얻은 팝 스타": "Singer and dancer. Pop star who gained new popularity through TikTok",
+  "틱톡 스타, 배우. 8800만 팔로워 보유한 Z세대 아이콘": "TikTok star and actress. Gen Z icon with 88 million followers",
+  "전기자동차 대중화 선도": "Led electric vehicle popularization",
+  "민간 우주 여행 시대 개막": "Opened era of private space travel",
+  "뉴롤링크 설립": "Founded Neuralink",
+  "개인용 컴퓨터 대중화": "Popularized personal computers",
+  "iPhone으로 스마트폰 시대 개막": "Opened smartphone era with iPhone",
+  "iTunes로 음악 산업 혁신": "Revolutionized music industry with iTunes",
+  "만유인력 법칙 발견": "Discovered law of universal gravitation",
+  "울동 법칙 정립": "Established laws of motion",
+  "미적분학 개발": "Developed calculus",
+  "교류 전기 시스템 개발": "Developed alternating current electrical system",
+  "테슬라 코일 발명": "Invented Tesla coil",
+  "무선 전력 전송 개념": "Concept of wireless power transmission",
+  "페이스북 10억 명 연결": "Connected 1 billion people on Facebook",
+  "메타버스 비전": "Metaverse vision",
+  "소셜 미디어 혁신": "Social media innovation",
+  "인셉션, 다크나이트 등 흥행작": "Blockbusters like Inception and Dark Knight",
+  "아칼데미상 최우수 감독상": "Academy Award for Best Director",
+  "복잡한 서사 대중화": "Popularized complex narratives",
+  "상대성이론 발표": "Published theory of relativity",
+  "E=mc² 발견": "Discovered E=mc²",
+  "노벨물리학상 수상(1921)": "Nobel Prize in Physics (1921)",
+  "Windows OS 선점": "Dominated with Windows OS",
+  "세계 최대 소프트웨어 기업": "World's largest software company",
+  "빌 앤드 멜린다 게이츠 재단": "Bill & Melinda Gates Foundation",
+  "종의 기원 발표": "Published Origin of Species",
+  "자연선택설 확립": "Established natural selection theory",
+  "현대 생명과학 기초": "Foundation of modern life sciences",
+  "호킹 복사 이론": "Hawking radiation theory",
+  "시간의 역사 저술": "Authored A Brief History of Time",
+  "장애 극복 과학 연구": "Scientific research overcoming disability",
+  "세계 최대 헤지펀드 설립": "Founded world's largest hedge fund",
+  "원칙(Principles) 저술": "Authored Principles",
+  "투자 철학 시스템화": "Systematized investment philosophy",
+  "Agust D 솔로 앨범": "Agust D solo album",
+  "BTS 히트곡 프로듀싱": "Produced BTS hit songs",
+  "사회 메시지 전달": "Delivered social messages",
+  "Billboard Hot 100 1위 'Seven'": "Billboard Hot 100 #1 'Seven'",
+  "FIFA 월드컵 공식 송": "FIFA World Cup official song",
+  "솔로 앨범 'GOLDEN'": "Solo album 'GOLDEN'",
+  "프랑스 제국 건설": "Built French Empire",
+  "나폴레옹 법전": "Napoleonic Code",
+  "유럽 정치 지형 재편": "Reshaped European political landscape",
+  "GE 기업 가치 20배 성장": "Grew GE corporate value 20-fold",
+  "시총 1위 기업": "Top market cap company",
+  "경영 혁신 시스템": "Management innovation system",
+  "미슐랭 16개 스타": "16 Michelin stars",
+  "글로벌 레스토랑 제국": "Global restaurant empire",
+  "TV 프로그램 진행": "TV program hosting",
+  "SKIMS 40억 달러 기업": "$4 billion SKIMS company",
+  "미국 변호사 시험 합격": "Passed US bar exam",
+  "리얼리티 TV 스타": "Reality TV star",
+  "백열전구 상용화": "Commercialized incandescent light bulb",
+  "유성영화 카메라": "Motion picture camera",
+  "축음기 발명": "Invented phonograph",
+  "Apple I, II 설계": "Designed Apple I and II",
+  "기술 대중화": "Technology popularization",
+  "톰 소여의 모험 등 명작": "Masterpieces like Tom Sawyer",
+  "미국 문학 새 장": "New chapter in American literature",
+  "사회 풍자": "Social satire",
+  "1억 구독자 돌파": "Surpassed 100 million subscribers",
+  "게임 콘텐츠 혁신": "Game content innovation",
+  "Book Club 시작": "Started Book Club",
+  "인종차별법 폐지": "Abolished racial discrimination laws",
+  "노벨평화상(1964)": "Nobel Peace Prize (1964)",
+  "미국 민권운동 상징": "Symbol of US civil rights movement",
+  "인종차별 종식": "Ended racial discrimination",
+  "노벨평화상(1993)": "Nobel Peace Prize (1993)",
+  "화해와 통합 상징": "Symbol of reconciliation and unity",
+  "오프라 윈프리 쇼 25년": "Oprah Winfrey Show for 25 years",
+  "미디어 제국": "Media empire",
+  "필란트로피": "Philanthropy",
+  "해리포터 5억 부 판매": "500 million Harry Potter books sold",
+  "영화 프랜차이즈": "Film franchise",
+  "성공 신화": "Success story",
+  "햄릿 등 37개 희곡": "37 plays including Hamlet",
+  "현대 영어 영향": "Influenced modern English",
+  "인간 정서 탐구": "Explored human emotions",
+  "반지의 제왕 창시": "Created Lord of the Rings",
+  "엘프어 개발": "Developed Elvish language",
+  "판타지 장르 확립": "Established fantasy genre",
+  "별이 빛나는 밤 등 명작": "Masterpieces like Starry Night",
+  "후기 인상주의 선구": "Post-impressionism pioneer",
+  "현대 미술 영향": "Influenced modern art",
+  "멕시코 예술 상징": "Symbol of Mexican art",
+  "여성 예술가 독자적 입지": "Independent position as female artist",
+  "자전적 초상화": "Autobiographical portraits",
+  "그래미상 3관왕": "3 Grammy Awards",
+  "'SOUR' 앨범 대성공": "'SOUR' album huge success",
+  "디즈니+ '하이스쿨 뮤지컬'": "Disney+ 'High School Musical'",
+  "NewJeans 데뷔 성공": "NewJeans successful debut",
+  "Gucci 글로벌 앰버서더": "Gucci global ambassador",
+  "'Hype Boy' 퍼포머": "'Hype Boy' performer",
+  "Louis Vuitton 앰버서더": "Louis Vuitton ambassador",
+  "'Cookie' 퍼포머": "'Cookie' performer",
+  "미국 최초 흑인 대통령": "First Black US President",
+  "오바마케어": "Obamacare",
+  "노벨평화상(2009)": "Nobel Peace Prize (2009)",
+  "노벨평화상 수상(1989)": "Nobel Peace Prize (1989)",
+  "티베트 독립 운통": "Tibetan independence movement",
+  "평화 메시지": "Peace message",
+  "그래미상 수상": "Grammy Award winner",
+  "Billboard 차트 1위 다수": "Multiple Billboard #1 hits",
+  "브로드웨이 복귀": "Broadway return",
+  "'Harry's House' 앨범": "'Harry's House' album",
+  "영화 'Don't Worry Darling'": "Film 'Don't Worry Darling'",
+  "Rare Beauty 20억 달러 기업": "$2 billion Rare Beauty company",
+  "'Only Murders in the Building'": "'Only Murders in the Building'",
+  "정신 건강 캠페인": "Mental health campaign",
+  "솔로 곡 'Spark'": "Solo song 'Spark'",
+  "OST 참여": "OST participation",
+  "글로벌 팬덤": "Global fandom",
+  "미키마우스 창조": "Created Mickey Mouse",
+  "월트 디즈니 월드": "Walt Disney World",
+  "애니메이션 개척": "Pioneered animation",
+  "아이언맨, 셜록 홈즈": "Iron Man, Sherlock Holmes",
+  "MCU 중심": "Center of MCU",
+  "어려움 극복 후 재기": "Comeback after overcoming difficulties",
+  "솔로 앨범 'Layover'": "Solo album 'Layover'",
+  "우디 앨런 영화 출연": "Appeared in Woody Allen film",
+  "Cartier 글로벌 앰버서더": "Cartier global ambassador",
+  "BTS 글로벌 성공 이끌기": "Led BTS global success",
+  "유네스코 연설": "UNESCO speech",
+  "개인 앨범 'Indigo'": "Personal album 'Indigo'",
+  "aespa 리더": "aespa leader",
+  "Prada 앰버서더": "Prada ambassador",
+  "'Next Level' 히트": "'Next Level' hit",
+  "Burberry 앰버서더": "Burberry ambassador",
+  "'Attention' 퍼포머": "'Attention' performer",
+  "버크셔 1조 달러 성장": "Berkshire grew to $1 trillion",
+  "세계 최고 부자": "World's richest person",
+  "기부 서약": "Pledge to donate",
+  "미국 독립 전쟁": "American Revolutionary War",
+  "초대 대통령": "First President",
+  "정치 전통 확립": "Established political traditions",
+  "독일 최초 여성 총리": "Germany's first female Chancellor",
+  "16년 집권": "16 years in power",
+  "유럽 경제 위기 극복": "Overcame European economic crisis",
+  "아마존 혁명": "Amazon revolution",
+  "AWS 개척": "Pioneered AWS",
+  "블루 오리진": "Blue Origin",
+  "롤드컵 4회 우승": "4-time World Championship winner",
+  "LCK 10회 우승": "10-time LCK champion",
+  "e스포츠 전설": "E-sports legend",
+  "노벨평화상(1979)": "Nobel Peace Prize (1979)",
+  "성녀 시성(2016)": "Canonized as saint (2016)",
+  "복지 활동": "Welfare activities",
+  "영국 최장 재위(70년)": "Longest British reign (70 years)",
+  "15개 국가 원수": "Head of state of 15 countries",
+  "안정적 상징": "Symbol of stability",
+  "왕실 현대화": "Modernized royalty",
+  "전통과 현대": "Tradition and modernity",
+  "프리미어리그 골든부트": "Premier League Golden Boot",
+  "토트넘 주장": "Tottenham captain",
+  "FIFA 푸스카스상": "FIFA Puskas Award",
+  "쿠바 미사일 위기": "Cuban Missile Crisis",
+  "아폴로 계획": "Apollo program",
+  "시민권법": "Civil Rights Act",
+  "Model T": "Model T",
+  "컨베이어 벨트": "Conveyor belt",
+  "5달러 임금": "$5 wage",
+  "반도체 사업 성공": "Semiconductor business success",
+  "삼성 세계적 기업": "Samsung as global company",
+  "한국 산업 발전": "Korean industrial development",
+  "팀 리더": "Team leader",
+  "Chanel Beauty 뮤즈": "Chanel Beauty muse",
+  "넷플릭스 역대 최다 시청": "Netflix all-time most viewed",
+  "에미상 수상": "Emmy Award winner",
+  "K-콘텐츠 세계화": "K-content globalization",
+  "'Sicko Mode' 빌보드 1위": "'Sicko Mode' Billboard #1",
+  "맥도날드 콜라보": "McDonald's collaboration",
+  "포트나이트 콘서트": "Fortnite concert",
+  "6회 챔피언": "6-time champion",
+  "5회 MVP": "5-time MVP",
+  "최다 득점": "All-time leading scorer",
+  "4회 아칼데미상": "4 Academy Awards",
+  "최고 연출가": "Top director",
+  "60년 경력": "60-year career",
+  "스탠리컵 우승": "Stanley Cup winner",
+  "9회 머리스 트로피": "9-time Maurice Richard Trophy",
+  " 역대 최다 득점": "All-time leading scorer",
+  "Dior Jewellery 뮤즈": "Dior Jewellery muse",
+  "스릴러 역대 최다 판매": "Thriller all-time best-selling album",
+  "문워크": "Moonwalk",
+  "뮤직비디오 예술": "Music video art",
+  "1억 장 판매": "100 million albums sold",
+  "틴 팝 상징": "Teen pop icon",
+  "라스베가스 쇼": "Las Vegas show",
+  "그래미상 7관왕 최연소 수상": "Youngest 7-time Grammy winner",
+  "007 주제가": "007 theme song",
+  "지속가능한 패션 아이콘": "Sustainable fashion icon",
+  "록 변화 아이콘": "Rock transformation icon",
+  "재창조의 상징": "Symbol of reinvention",
+  "50년 경력": "50-year career",
+  "소녀시대 리더": "Girls' Generation leader",
+  "솔로 앨범 대성공": "Solo album huge success",
+  "OST 퀸": "OST Queen",
+  "'Baby' 10억 뷰": "'Baby' 1 billion views",
+  "커리어 부활": "Career revival",
+  "BLACKPINK 글로벌 성공": "BLACKPINK global success",
+  "Chanel 글로벌 앰버서더": "Chanel global ambassador",
+  "솔로 싱글 'SOLO'": "Solo single 'SOLO'",
+  "부동산 제국": "Real estate empire",
+  "미국 대통령": "US President",
+  "4회 챔피언": "4-time champion",
+  "4회 MVP": "4-time MVP",
+  "3억 장 판매": "300 million albums sold",
+  "MTV 시대 상징": "MTV era icon",
+  "40년 최정상": "40 years at the top",
+  "AOMG 설립": "Founded AOMG",
+  "술트러스트 대성공": "Soju brand huge success",
+  "한국 힙합 선도": "Led Korean hip-hop",
+  "'Circles' 빌보드 1위": "'Circles' Billboard #1",
+  "다이아몬드 인증": "Diamond certification",
+  "유니크한 스타일": "Unique style",
+  "트위치 최다 시청 시간": "Most watched on Twitch",
+  "오버워치 프로선수 출신": "Former Overwatch pro player",
+  "콘텐츠 혁신": "Content innovation",
+  "유튜브 3억 구독자 돌파": "Surpassed 300 million YouTube subscribers",
+  "Team Trees 캠페인": "Team Trees campaign",
+  "수백만 달러 기부": "Millions of dollars donated",
+  "솔로 앨범 'FACE'": "Solo album 'FACE'",
+  "Billboard Hot 100 1위 'Like Crazy'": "Billboard Hot 100 #1 'Like Crazy'",
+  "디올 글로벌 앰버서더": "Dior global ambassador",
+  "5회 그래미": "5 Grammy Awards",
+  "디즈니 음악": "Disney music",
+  "아카데미 남우주연상": "Academy Award for Best Actor",
+  "다재다능": "Versatile",
+  "라디오 DJ": "Radio DJ",
+  "2억 장 판매": "200 million albums sold",
+  "최다 음악상": "Most music awards",
+  "볼디가드 OST": "Bodyguard OST",
+  "솔로 싱글 'LALISA'": "Solo single 'LALISA'",
+  "MTV VMA 수상": "MTV VMA winner",
+  "Celine 글로벌 앰버서더": "Celine global ambassador",
+  "'Savage Love' 틱톡 대히트": "'Savage Love' TikTok mega-hit",
+  "30억 유튜브 조회수": "3 billion YouTube views",
+  "글로벌 투어": "Global tour",
+  "틱톡 8800만 팔로워": "88 million TikTok followers",
+  "넷플릭스 영화 주연": "Netflix film lead role",
+  "Item Beauty": "Item Beauty",
+  "장기적 비전 수립": "Long-term vision establishment",
+  "복잡한 시스템 설계": "Complex system design",
+  "전략적 사고": "Strategic thinking",
+  "완벽주의": "Perfectionism",
+  "깊은 집중력": "Deep concentration",
+  "이론 체계화": "Theory systematization",
+  "독립적 연구": "Independent research",
+  "완벽주의적 디자인": "Perfectionist design",
+  "단순함 추구": "Pursuit of simplicity",
+  "세부사항 집착": "Obsession with details",
+  "혁신적 사고": "Innovative thinking",
+  "시스템 설계": "System design",
+  "미래 지향": "Future-oriented",
+  "논리적 의사결정": "Logical decision-making",
+  "높은 학습력": "High learning ability",
+  "복잡한 시나리오": "Complex scenarios",
+  "철학적 통찰": "Philosophical insight",
+  "완벽주의 연출": "Perfectionist direction",
+  "장기적 기획": "Long-term planning",
+  "추상적 사고": "Abstract thinking",
+  "이론 구축": "Theory building",
+  "독창적 접근": "Original approach",
+  "비판적 사고": "Critical thinking",
+  "논리적 분석": "Logical analysis",
+  "시스템 이해": "System understanding",
+  "지적 호기심": "Intellectual curiosity",
+  "관찰력과 분석력": "Observation and analysis",
+  "자료 정리": "Data organization",
+  "비판적 검증": "Critical verification",
+  "독립적 사고": "Independent thinking",
+  "개념 단순화": "Concept simplification",
+  "체계적 사고": "Systematic thinking",
+  "데이터 기반 의사결정": "Data-driven decision-making",
+  "시스템 분석": "System analysis",
+  "논리적 접근": "Logical approach",
+  "창의적 문제해결": "Creative problem-solving",
+  "독립적 작업 선호": "Preference for independent work",
+  "진솔한 표현": "Honest expression",
+  "호기심": "Curiosity",
+  "분석력": "Analytical ability",
+  "강력한 추진력": "Strong drive",
+  "위기 대응": "Crisis response",
+  "목표 지향": "Goal-oriented",
+  "강력한 리더십": "Strong leadership",
+  "성과 중심": "Performance-focused",
+  "조직 변화": "Organizational change",
+  "효율성 추구": "Pursuit of efficiency",
+  "높은 기준": "High standards",
+  "효율성 중시": "Emphasis on efficiency",
+  "브랜드 구축": "Brand building",
+  "전략적 마케팅": "Strategic marketing",
+  "추진력": "Drive",
+  "창의적 문제 해결": "Creative problem solving",
+  "실험 정신": "Experimental spirit",
+  "개념 혁신": "Concept innovation",
+  "기술적 창의성": "Technical creativity",
+  "혁신적 해결": "Innovative solutions",
+  "실용적 발명": "Practical invention",
+  "창의적 글쓰기": "Creative writing",
+  "통찰력 풍자": "Insightful satire",
+  "독특한 관점": "Unique perspective",
+  "주제 탐구": "Theme exploration",
+  "재치와 유머": "Wit and humor",
+  "즉흥성": "Spontaneity",
+  "이상주의": "Idealism",
+  "강력한 공감": "Strong empathy",
+  "영감 리더십": "Inspirational leadership",
+  "비전과 현실 균형": "Balance of vision and reality",
+  "깊은 이상주의": "Deep idealism",
+  "용서 리더십": "Forgiving leadership",
+  "인내와 헌신": "Patience and dedication",
+  "깊은 공감": "Deep empathy",
+  "영감 소통": "Inspirational communication",
+  "직관적 통찰": "Intuitive insight",
+  "타인 성장 관심": "Interest in others' growth",
+  "풍부한 상상력": "Rich imagination",
+  "스토리 구성": "Story composition",
+  "사회 메시지": "Social message",
+  "깊은 통찰": "Deep insight",
+  "깊은 감정 이해": "Deep emotional understanding",
+  "인간 본성 통찰": "Insight into human nature",
+  "창의적 표현": "Creative expression",
+  "인물 묘사": "Character portrayal",
+  "세계관 구축": "World-building",
+  "언어학 재능": "Linguistic talent",
+  "깊은 감정 표현": "Deep emotional expression",
+  "진정성": "Authenticity",
+  "독특한 시각": "Unique perspective",
+  "고통을 예술로": "Pain into art",
+  "자기 성찰": "Self-reflection",
+  "감정 표현": "Emotional expression",
+  "감수성": "Sensitivity",
+  "변화 열정": "Passion for change",
+  "효과적 소통": "Effective communication",
+  "카리스마": "Charisma",
+  "공감 능력": "Empathy",
+  "영감": "Inspiration",
+  "사교성": "Sociability",
+  "배려심": "Consideration",
+  "조직력": "Organizational skills",
+  "인정욕구": "Need for recognition",
+  "사회 의식": "Social consciousness",
+  "열정과 창의성": "Passion and creativity",
+  "가능성 탐구": "Exploring possibilities",
+  "즐거움 추구": "Pursuit of enjoyment",
+  "적응력": "Adaptability",
+  "열정적 연기": "Passionate acting",
+  "즉흥 재능": "Improvisational talent",
+  "열정": "Passion",
+  "예술적 감각": "Artistic sense",
+  "자유로운 사고": "Free thinking",
+  "신중한 분석": "Careful analysis",
+  "전통 중시": "Emphasis on tradition",
+  "장기적 관점": "Long-term perspective",
+  "신뢰와 책임": "Trust and responsibility",
+  "전통 존중": "Respect for tradition",
+  "신중한 의사결정": "Careful decision-making",
+  "원칙 고수": "Adherence to principles",
+  "체계적 접근": "Systematic approach",
+  "안정 중시": "Emphasis on stability",
+  "분석적 의사결정": "Analytical decision-making",
+  "분석적 사고": "Analytical thinking",
+  "데이터 기반": "Data-driven",
+  "냉철함": "Coolness",
+  "집중력": "Concentration",
+  "헌신적 사랑": "Devoted love",
+  "공감과 배려": "Empathy and consideration",
+  "실천적 도움": "Practical help",
+  "인내": "Patience",
+  "의무와 책임": "Duty and responsibility",
+  "조용한 리더십": "Quiet leadership",
+  "헌신": "Dedication",
+  "성실함": "Diligence",
+  "겸손": "Humility",
+  "팀워크": "Teamwork",
+  "결단력": "Decisiveness",
+  "조직 관리": "Organizational management",
+  "실용적 혁신": "Practical innovation",
+  "효율성": "Efficiency",
+  "의사결단": "Decision-making",
+  "실행력": "Execution ability",
+  "논리적 사고": "Logical thinking",
+  "전략": "Strategy",
+  "성과 중시": "Performance-focused",
+  "사업가 정신": "Entrepreneurial spirit",
+  "혁신": "Innovation",
+  "상황 판단": "Situational judgment",
+  "기술 숙달": "Skill mastery",
+  "경쟁심": "Competitiveness",
+  "실용적 연기": "Practical acting",
+  "침착함": "Composure",
+  "독립적 작업": "Independent work",
+  "즉각적 판단": "Immediate judgment",
+  "예술 감수성": "Artistic sensitivity",
+  "즉흥": "Improvisation",
+  "독특한 개성": "Unique personality",
+  "자유로운 표현": "Free expression",
+  "감정 연결": "Emotional connection",
+  "개성": "Individuality",
+  "독창적 표현": "Original expression",
+  "실용적 해결": "Practical solutions",
+  "위험 감수": "Risk-taking",
+  "에너지": "Energy",
+  "즉각 판단": "Immediate judgment",
+  "대담한 변화": "Bold change",
+  "솔직함": "Honesty",
+  "무대 자유": "Stage freedom",
+  "대중 소통": "Public communication",
+  "연결": "Connection",
+  "미래 지향적 비전": "Future-oriented vision",
+  "논리적 문제 해결": "Logical problem solving",
+  "도전적 목표 추진": "Pursuing challenging goals",
+  "혁신 집착": "Innovation obsession",
+  "기술과 예술 결합": "Combining technology and art",
+  "사용자 경험 집착": "User experience obsession",
+  "대담한 혁신": "Bold innovation",
+  "완벽한 실행력": "Perfect execution",
+  "철저한 논리 분석": "Thorough logical analysis",
+  "자연 질서 탐구": "Exploring natural order",
+  "깊은 사고": "Deep thinking",
+  "혁신 기술 개발": "Innovative technology development",
+  "장기적 기술 비전": "Long-term technology vision",
+  "복잡한 문제 해결": "Complex problem solving",
+  "끊임없는 연구": "Continuous research",
+  "사회 연결 구조 혁신": "Social connection structure innovation",
+  "기술 기반 비즈니스": "Technology-based business",
+  "데이터 중심 의사결정": "Data-driven decision-making",
+  "지속적 혁신": "Continuous innovation",
+  "복잡한 개념의 대중적 풀이": "Popular interpretation of complex concepts",
+  "기술적 완벽주의": "Technical perfectionism",
+  "독창적 스토리텔링": "Original storytelling",
+  "철학과 오락성 결합": "Combining philosophy and entertainment",
+  "상상력과 논리 결합": "Combining imagination and logic",
+  "기존 패러다임 도전": "Challenging existing paradigms",
+  "직관과 분석 균형": "Balance of intuition and analysis",
+  "기술 심층 지식": "Deep technical knowledge",
+  "복잡한 문제 단순화": "Simplifying complex problems",
+  "학습과 적응력": "Learning and adaptability",
+  "꼼꼼한 관찰": "Meticulous observation",
+  "이론 통합": "Theory integration",
+  "비판에 대한 강인함": "Resilience to criticism",
+  "오랜 연구 인내심": "Long research patience",
+  "우주 개념 대중화": "Popularizing cosmic concepts",
+  "끈질긴 연구": "Persistent research",
+  "독특한 접근": "Unique approach",
+  "학문적 소통": "Academic communication",
+  "투자 원칙 시스템화": "Systematizing investment principles",
+  "시장 메커니즘 분석": "Market mechanism analysis",
+  "실패로부터 학습": "Learning from failure",
+  "장기적 투자": "Long-term investment",
+  "음악적 깊이": "Musical depth",
+  "작사/작곡 능력": "Songwriting/composing ability",
+  "팬과의 소통": "Communication with fans",
+  "만능 포지션": "All-around position",
+  "꾸준한 성장": "Steady growth",
+  "팬 사랑": "Fan love",
+  "글로벌 인기": "Global popularity",
+  "혁신적 군사 전략": "Innovative military strategy",
+  "대담한 결단": "Bold decisions",
+  "체계적 법제": "Systematic legislation",
+  "과감한 구조조정": "Bold restructuring",
+  "인재 육성": "Talent development",
+  "수익 중심 경영": "Profit-centered management",
+  "경쟁 우위": "Competitive advantage",
+  "품질 추구": "Quality pursuit",
+  "브랜드 확장": "Brand expansion",
+  "미디어 활용": "Media utilization",
+  "철저한 운영": "Thorough operation",
+  "비즈니스 다각화": "Business diversification",
+  "개인 브랜딩": "Personal branding",
+  "끈질긴 노력": "Persistent effort",
+  "끊임없는 실험": "Continuous experimentation",
+  "상용화 능력": "Commercialization ability",
+  "기술과 실용성 결합": "Combining technology and practicality",
+  "복잡한 기술 단순화": "Simplifying complex technology",
+  "사용자 중심": "User-centered",
+  "재미와 기술": "Fun and technology",
+  "대중적 어필": "Popular appeal",
+  "사회 비판과 유머": "Social criticism and humor",
+  "장르 도전": "Genre challenges",
+  "진정성 있는 소통": "Authentic communication",
+  "팬 커뮤니티": "Fan community",
+  "콘텐츠 다각화": "Content diversification",
+  "비폭력 저항": "Nonviolent resistance",
+  "사회 변화": "Social change",
+  "신념 헌신": "Commitment to beliefs",
+  "감옥에서도 포기하지 않은 신념": "Unwavering beliefs even in prison",
+  "적에 대한 용서": "Forgiveness of enemies",
+  "국민 통합": "National unity",
+  "비폭력 전략": "Nonviolent strategy",
+  "진정성 인터뷰": "Authentic interviews",
+  "사회적 이슈": "Social issues",
+  "자기 계발": "Self-development",
+  "미디어 사업": "Media business",
+  "독창적 판타지": "Original fantasy",
+  "성장과 우정": "Growth and friendship",
+  "인물 심리": "Character psychology",
+  "시리즈 기획": "Series planning",
+  "인간 심리 이해": "Understanding human psychology",
+  "시대 초월 보편성": "Timeless universality",
+  "언어 재능": "Linguistic talent",
+  "장르 마스터": "Genre mastery",
+  "완벽한 세계관": "Perfect world-building",
+  "신화와 현대 결합": "Combining mythology and modernity",
+  "선과 악 주제": "Themes of good and evil",
+  "헌신적 창작": "Devoted creation",
+  "진정성 감정": "Authentic emotions",
+  "독창적 색채": "Original colors",
+  "자연과 삶 사랑": "Love of nature and life",
+  "헌신적 예술": "Devoted art",
+  "솔직한 표현": "Honest expression",
+  "전통과 현대 결합": "Combining tradition and modernity",
+  "고통 예술 전환": "Transforming pain into art",
+  "강인한 의지": "Strong will",
+  "진솔한 가사": "Honest lyrics",
+  "10대 공감": "Teen empathy",
+  "빠른 성장": "Rapid growth",
+  "팬과의 진정성": "Authenticity with fans",
+  "다양한 매력": "Diverse charm",
+  "묘한 에너지": "Mysterious energy",
+  "팬 친화력": "Fan affinity",
+  "성숙한 매력": "Mature charm",
+  "패션 센스": "Fashion sense",
+  "묘한 카리스마": "Mysterious charisma",
+  "긍정적 에너지": "Positive energy",
+  "희망 메시지": "Message of hope",
+  "원칙과 실용": "Principles and practicality",
+  "세력 통합": "Power integration",
+  "보컬 실력": "Vocal ability",
+  "팬과의 유대": "Bond with fans",
+  "음악적 진화": "Musical evolution",
+  "사회성": "Sociability",
+  "성별 구분 없는 패션": "Gender-neutral fashion",
+  "팬과의 특별한 유대": "Special bond with fans",
+  "긍정적 메시지": "Positive message",
+  "약점 솔직 공유": "Honestly sharing weaknesses",
+  "사회적 메시지": "Social message",
+  "비즈니스 감각": "Business sense",
+  "꾸준한 실력 향상": "Steady skill improvement",
+  "팬 서비스": "Fan service",
+  "무대 장악력": "Stage presence",
+  "상상력 현실화": "Realizing imagination",
+  "아이들 즐거움 이해": "Understanding children's joy",
+  "혁신과 도전": "Innovation and challenge",
+  "스토리텔링": "Storytelling",
+  "캐릭터 변신": "Character transformation",
+  "즉흥 연기": "Improvisational acting",
+  "긍정성": "Positivity",
+  "독보적 카리스마": "Unrivaled charisma",
+  "예술적 시도": "Artistic attempts",
+  "진솔함": "Sincerity",
+  "팀의 비전 제시": "Presenting team vision",
+  "글로벌 소통 능력": "Global communication ability",
+  "팬덤과의 진정성": "Authenticity with fandom",
+  "묘한 춤선": "Mysterious dance lines",
+  "비주얼": "Visuals",
+  "밝은 에너지": "Bright energy",
+  "글로벌 매력": "Global charm",
+  "묘한 개성": "Mysterious individuality",
+  "가치투자 원칙": "Value investment principles",
+  "장기 시각": "Long-term perspective",
+  "철저한 분석": "Thorough analysis",
+  "규율 투자": "Disciplined investment",
+  "신중한 리더십": "Careful leadership",
+  "전통과 변화": "Tradition and change",
+  "국가 희생": "National sacrifice",
+  "원칙 기반": "Principle-based",
+  "과학적 접근": "Scientific approach",
+  "안정 리더십": "Stable leadership",
+  "위기 침착": "Crisis composure",
+  "유럽 통합": "European integration",
+  "고객 중심": "Customer-centered",
+  "장기 투자": "Long-term investment",
+  "데이터 운영": "Data-driven operations",
+  "혁신 비전": "Innovation vision",
+  "꾸준한 연습": "Steady practice",
+  "전략적 플레이": "Strategic play",
+  "멘탈 강함": "Strong mentality",
+  "팀 리더십": "Team leadership",
+  "무조건적 사랑": "Unconditional love",
+  "실천 봉사": "Practical service",
+  "소외된 이들": "The marginalized",
+  "평생 일관": "Lifelong consistency",
+  "의무 헌신": "Devotion to duty",
+  "국민 연결": "Connection with people",
+  "일관된 태도": "Consistent attitude",
+  "왕실 의무": "Royal duty",
+  "민간 연결": "Connection with civilians",
+  "겸손한 이미지": "Humble image",
+  "사회 이슈": "Social issues",
+  "팀원 배려": "Consideration for teammates",
+  "인성": "Character",
+  "국민 소통": "Communication with people",
+  "대담한 목표": "Bold goals",
+  "생산 혁신": "Production innovation",
+  "노동자 복지": "Worker welfare",
+  "대중화": "Popularization",
+  "체계 관리": "Systematic management",
+  "과감한 투자": "Bold investment",
+  "세계 시장 진출": "Global market entry",
+  "품질 경영": "Quality management",
+  "인재 중시": "Emphasis on talent",
+  "전문성": "Professionalism",
+  "글로벌 콘텐츠": "Global content",
+  "트렌드 분석": "Trend analysis",
+  "제작 관리": "Production management",
+  "마케팅": "Marketing",
+  "브랜드 콜라보": "Brand collaboration",
+  "문화 트렌드": "Cultural trends",
+  "기술 연마": "Skill refinement",
+  "승리 집착": "Obsession with winning",
+  "클러치 침착": "Clutch composure",
+  "신체와 기술": "Physicality and technique",
+  "다양한 장르": "Various genres",
+  "기술적 완성도": "Technical perfection",
+  "실용적 제작": "Practical production",
+  "꾸준함": "Consistency",
+  "클로치 상황": "Clutch situations",
+  "독특한 매력": "Unique charm",
+  "안정적 실력": "Stable skills",
+  "음악 혁신": "Musical innovation",
+  "독창적 스타일": "Original style",
+  "예술 실험": "Artistic experimentation",
+  "퍼포먼스 스타일": "Performance style",
+  "꾸준한 활동": "Consistent activity",
+  "변화": "Change",
+  "독특한 음악 스타일": "Unique musical style",
+  "진정성 있는 메시지": "Authentic message",
+  "비주얼 아이덴티티": "Visual identity",
+  "형제와의 협업": "Collaboration with siblings",
+  "재창조": "Reinvention",
+  "아이덴티티 실험": "Identity experimentation",
+  "예술": "Art",
+  "감성적 음악": "Emotional music",
+  "진솔한 음악": "Honest music",
+  "성장하는 모습": "Growing image",
+  "묘한 매력": "Mysterious charm",
+  "무대 카리스마": "Stage charisma",
+  "글로벌 아이콘": "Global icon",
+  "기회 포착": "Seizing opportunities",
+  "브랜드": "Brand",
+  "즉흥 대응": "Improvisational response",
+  "높은 농구 IQ": "High basketball IQ",
+  "큰 경기": "Big games",
+  "비즈니스": "Business",
+  "자기 관리": "Self-management",
+  "논란 활용": "Utilizing controversy",
+  "퍼포먼스": "Performance",
+  "팬 소통": "Fan communication",
+  "트렌드 선도": "Trend leadership",
+  "장르 혼합": "Genre mixing",
+  "리액션 콘텐츠": "Reaction content",
+  "게임 실력": "Gaming skills",
+  "대규모 프로덕션": "Large-scale production",
+  "시청자 참여": "Viewer participation",
+  "기부 문화": "Donation culture",
+  "춤 실력": "Dance skills",
+  "화려함": "Splendor",
+  "코미디에서 진지": "From comedy to serious",
+  "음악과 연기": "Music and acting",
+  "매체 도전": "Media challenges",
+  "천부적 재능": "Natural talent",
+  "감정 전달": "Emotional delivery",
+  "묘 카리스마": "Mysterious charisma",
+  "영화 음악": "Film music",
+  "틱톡 활용": "TikTok utilization",
+  "콘텐츠 민감도": "Content sensitivity",
+  "틱톡 트렌드": "TikTok trends",
+  "비즈니스 확장": "Business expansion"
+};
+
+function translateToEnglish(text: string): string {
+  // Return translation if available, otherwise return original text
+  return englishTranslations[text] || text;
+}
+
+// Convert Korean celebrity groups to bilingual format
+export const bilingualCelebrityGroups: BilingualMBTICelebrityGroup[] = koreanCelebrityGroups.map(group => ({
+  type: group.type,
+  name: mbtiNameTranslations[group.type] || { ko: group.name, en: group.name },
+  nickname: { ko: group.nickname, en: group.nickname },
+  group: groupTranslations[group.group] || { ko: group.group, en: group.group },
+  celebrities: group.celebrities.map(celeb => ({
+    name: celeb.name,
+    nameEn: celeb.nameEn,
+    field: celeb.field,
+    country: celeb.country,
+    description: {
+      ko: celeb.description,
+      en: translateToEnglish(celeb.description)
+    },
+    achievements: {
+      ko: celeb.achievements,
+      en: celeb.achievements.map(translateToEnglish)
+    },
+    mbtiTraits: {
+      ko: celeb.mbtiTraits,
+      en: celeb.mbtiTraits.map(translateToEnglish)
+    },
+    successFactors: {
+      ko: celeb.successFactors,
+      en: celeb.successFactors.map(translateToEnglish)
+    },
+    image: celeb.image
+  }))
+}));
+
+// Bilingual field names
 export const bilingualFieldNames: Record<CelebrityField, { ko: string; en: string }> = {
   politics: { ko: '정치', en: 'Politics' },
   business: { ko: '비즈니스', en: 'Business' },
@@ -40,2133 +870,18 @@ export const bilingualFieldNames: Record<CelebrityField, { ko: string; en: strin
   literature: { ko: '문학', en: 'Literature' }
 };
 
-// bilingual group colors
-export const bilingualGroupColors: Record<string, { ko: { bg: string; text: string; border: string }; en: { bg: string; text: string; border: string } }> = {
-  "분석가형 (NT)": {
-    ko: {
-      bg: "from-cyan-500/20 to-blue-500/20",
-      text: "text-cyan-400",
-      border: "border-cyan-400/30"
-    },
-    en: {
-      bg: "from-cyan-500/20 to-blue-500/20",
-      text: "text-cyan-400",
-      border: "border-cyan-400/30"
-    }
-  },
-  "외교관형 (NF)": {
-    ko: {
-      bg: "from-pink-500/20 to-rose-500/20",
-      text: "text-pink-400",
-      border: "border-pink-400/30"
-    },
-    en: {
-      bg: "from-pink-500/20 to-rose-500/20",
-      text: "text-pink-400",
-      border: "border-pink-400/30"
-    }
-  },
-  "관리자형 (SJ)": {
-    ko: {
-      bg: "from-green-500/20 to-teal-500/20",
-      text: "text-green-400",
-      border: "border-green-400/30"
-    },
-    en: {
-      bg: "from-green-500/20 to-teal-500/20",
-      text: "text-green-400",
-      border: "border-green-400/30"
-    }
-  },
-  "탐험가형 (SP)": {
-    ko: {
-      bg: "from-orange-500/20 to-red-500/20",
-      text: "text-orange-400",
-      border: "border-orange-400/30"
-    },
-    en: {
-      bg: "from-orange-500/20 to-red-500/20",
-      text: "text-orange-400",
-      border: "border-orange-400/30"
-    }
-  }
-};
+// Bilingual group colors (same for both languages)
+export const bilingualGroupColors = groupColors;
 
-export const bilingualCelebrityGroups: BilingualMBTICelebrityGroup[] = [
-  {
-    type: "INTJ",
-    name: { ko: "전략가", en: "Architect" },
-    nickname: { ko: "Architect", en: "Architect" },
-    group: { ko: "분석가형 (NT)", en: "Analyst (NT)" },
-    celebrities: [
-      {
-        name: "일론 머스크",
-        nameEn: "Elon Musk",
-        field: "business",
-        country: "US",
-        description: {
-          ko: "테슬라, 스페이스X CEO. 혁신적인 비전과 끊임없는 도전으로 기술 산업을 재편한 기업가",
-          en: "CEO of Tesla and SpaceX. An entrepreneur who revolutionized the tech industry with innovative vision and relentless pursuit"
-        },
-        achievements: {
-          ko: ["전기자동차 대중화 선도", "민간 우주 여행 시대 개막", "뉴롤링크 설립"],
-          en: ["Pioneered electric vehicle mainstream", "Opened era of private space travel", "Founded Neuralink"]
-        },
-        mbtiTraits: {
-          ko: ["장기적 비전 수립", "복잡한 시스템 설계", "전략적 사고", "완벽주의"],
-          en: ["Long-term vision setting", "Complex system design", "Strategic thinking", "Perfectionism"]
-        },
-        successFactors: {
-          ko: ["미래 지향적 비전", "논리적 문제 해결", "도전적 목표 추진", "혁신 집착"],
-          en: ["Future-oriented vision", "Logical problem solving", "Challenging goals", "Innovation obsession"]
-        }
-      },
-      {
-        name: "스티브 잡스",
-        nameEn: "Steve Jobs",
-        field: "business",
-        country: "US",
-        description: {
-          ko: "애플 공동창업자. 디자인과 기술의 완벽한 결합을 이끌어낸 혁신가",
-          en: "Co-founder of Apple. An innovator who achieved perfect fusion of design and technology"
-        },
-        achievements: {
-          ko: ["개인용 컴퓨터 대중화", "iPhone으로 스마트폰 시대 개막", "iTunes로 음악 산업 혁신"],
-          en: ["Mainstreamed personal computers", "Launched smartphone era with iPhone", "Revolutionized music industry with iTunes"]
-        },
-        mbtiTraits: {
-          ko: ["완벽주의적 디자인", "미래 지향적 비전", "단순함 추구", "세부사항 집착"],
-          en: ["Perfectionist design", "Future-oriented vision", "Pursuit of simplicity", "Attention to detail"]
-        },
-        successFactors: {
-          ko: ["기술과 예술 결합", "사용자 경험 집착", "대담한 혁신", "완벽한 실행력"],
-          en: ["Combining technology and art", "Obsession with user experience", "Bold innovation", "Perfect execution"]
-        }
-      },
-      {
-        name: "아이작 뉴턴",
-        nameEn: "Isaac Newton",
-        field: "science",
-        country: "GB",
-        description: {
-          ko: "물리학자, 수학자. 고전역학의 기초를 세운 과학의 아버지",
-          en: "Physicist and mathematician. The father of science who established the foundations of classical mechanics"
-        },
-        achievements: {
-          ko: ["만유인력 법칙 발견", "울동 법칙 정립", "미적분학 개발"],
-          en: ["Discovered law of universal gravitation", "Established laws of motion", "Developed calculus"]
-        },
-        mbtiTraits: {
-          ko: ["깊은 집중력", "이론 체계화", "독립적 연구", "완벽주의"],
-          en: ["Deep concentration", "Systematizing theories", "Independent research", "Perfectionism"]
-        },
-        successFactors: {
-          ko: ["철저한 논리 분석", "자연 질서 탐구", "깊은 사고", "이론 체계화"],
-          en: ["Thorough logical analysis", "Exploring natural order", "Deep thinking", "Systematizing theories"]
-        }
-      },
-      {
-        name: "니콜라 테슬라",
-        nameEn: "Nikola Tesla",
-        field: "science",
-        country: "AT",
-        description: {
-          ko: "발명가, 전기공학자. 교류 전기 시스템의 선구자",
-          en: "Inventor and electrical engineer. Pioneer of alternating current electrical systems"
-        },
-        achievements: {
-          ko: ["교류 전기 시스템 개발", "테슬라 코일 발명", "무선 전력 전송 개념"],
-          en: ["Developed AC electrical system", "Invented Tesla coil", "Conceptualized wireless power transmission"]
-        },
-        mbtiTraits: {
-          ko: ["혁신적 사고", "시스템 설계", "미래 지향", "독립적 연구"],
-          en: ["Innovative thinking", "System design", "Future-oriented", "Independent research"]
-        },
-        successFactors: {
-          ko: ["혁신 기술 개발", "장기적 기술 비전", "복잡한 문제 해결", "끊임없는 연구"],
-          en: ["Developing innovative technology", "Long-term tech vision", "Solving complex problems", "Relentless research"]
-        }
-      },
-      {
-        name: "마크 저커버그",
-        nameEn: "Mark Zuckerberg",
-        field: "business",
-        country: "US",
-        description: {
-          ko: "메타 CEO. 소셜 네트워크의 선구자",
-          en: "CEO of Meta. Pioneer of social networking"
-        },
-        achievements: {
-          ko: ["페이스북 10억 명 연결", "메타버스 비전", "소셜 미디어 혁신"],
-          en: ["Connected 1 billion people on Facebook", "Metaverse vision", "Social media innovation"]
-        },
-        mbtiTraits: {
-          ko: ["전략적 사고", "시스템 설계", "논리적 의사결정", "높은 학습력"],
-          en: ["Strategic thinking", "System design", "Logical decision-making", "High learning ability"]
-        },
-        successFactors: {
-          ko: ["사회 연결 구조 혁신", "기술 기반 비즈니스", "데이터 중심 의사결정", "지속적 혁신"],
-          en: ["Innovating social connectivity", "Technology-based business", "Data-driven decisions", "Continuous innovation"]
-        }
-      },
-      {
-        name: "크리스토퍼 놀란",
-        nameEn: "Christopher Nolan",
-        field: "arts",
-        country: "GB",
-        description: {
-          ko: "영화 감독. 복잡한 서사 구조와 철학적 깊이로 유명한 감독",
-          en: "Film director. Known for complex narrative structures and philosophical depth"
-        },
-        achievements: {
-          ko: ["인셉션, 다크나이트 등 흥행작", "아칼데미상 최우수 감독상", "복잡한 서사 대중화"],
-          en: ["Blockbusters like Inception, The Dark Knight", "Academy Award for Best Director", "Popularized complex narratives"]
-        },
-        mbtiTraits: {
-          ko: ["복잡한 시나리오", "철학적 통찰", "완벽주의 연출", "장기적 기획"],
-          en: ["Complex screenwriting", "Philosophical insight", "Meticulous direction", "Long-term planning"]
-        },
-        successFactors: {
-          ko: ["복잡한 개념의 대중적 풀이", "기술적 완벽주의", "독창적 스토리텔링", "철학과 오락성 결합"],
-          en: ["Making complex concepts accessible", "Technical perfectionism", "Original storytelling", "Combining philosophy with entertainment"]
-        }
-      },
-      {
-        name: "혜인",
-        nameEn: "Hyein",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "NewJeans 막내. 뛰어난 패션 감각과 성숙한 매력의 소유자",
-          en: "NewJeans youngest member. Owner of excellent fashion sense and mature charm"
-        },
-        achievements: {
-          ko: ["NewJeans 데뷔 성공", "Louis Vuitton 앰버서더", "'Cookie' 퍼포머"],
-          en: ["Successful NewJeans debut", "Louis Vuitton ambassador", "Performer of 'Cookie'"]
-        },
-        mbtiTraits: {
-          ko: ["전략적 사고", "독립성", "분석력", "장기적 비전"],
-          en: ["Strategic thinking", "Independence", "Analytical ability", "Long-term vision"]
-        },
-        successFactors: {
-          ko: ["성숙한 매력", "패션 센스", "묘한 카리스마", "긍정적 에너지"],
-          en: ["Mature charm", "Fashion sense", "Subtle charisma", "Positive energy"]
-        }
-      },
-    ]
-  },
-  {
-    type: "INTP",
-    name: { ko: "논리술사", en: "Logician" },
-    nickname: { ko: "Logician", en: "Logician" },
-    group: { ko: "분석가형 (NT)", en: "Analyst (NT)" },
-    celebrities: [
-      {
-        name: "알버트 아인슈타인",
-        nameEn: "Albert Einstein",
-        field: "science",
-        country: "DE",
-        description: {
-          ko: "물리학자. 상대성이론으로 현대 물리학의 기초를 세운 천재",
-          en: "Physicist. Genius who established foundations of modern physics with theory of relativity"
-        },
-        achievements: {
-          ko: ["상대성이론 발표", "E=mc² 발견", "노벨물리학상 수상(1921)"],
-          en: ["Published theory of relativity", "Discovered E=mc²", "Nobel Prize in Physics (1921)"]
-        },
-        mbtiTraits: {
-          ko: ["추상적 사고", "이론 구축", "독창적 접근", "비판적 사고"],
-          en: ["Abstract thinking", "Building theories", "Original approach", "Critical thinking"]
-        },
-        successFactors: {
-          ko: ["상상력과 논리 결합", "기존 패러다임 도전", "깊은 집중력", "직관과 분석 균형"],
-          en: ["Combining imagination and logic", "Challenging existing paradigms", "Deep concentration", "Balancing intuition and analysis"]
-        }
-      },
-      {
-        name: "빌 게이츠",
-        nameEn: "Bill Gates",
-        field: "business",
-        country: "US",
-        description: {
-          ko: "마이크로소프트 공동창업자. 기술과 비즈니스의 결합으로 세상을 변화시킨 기업가",
-          en: "Co-founder of Microsoft. Entrepreneur who transformed the world by combining technology and business"
-        },
-        achievements: {
-          ko: ["Windows OS 선점", "세계 최대 소프트웨어 기업", "빌 앤드 멜린다 게이츠 재단"],
-          en: ["Dominance of Windows OS", "World's largest software company", "Bill & Melinda Gates Foundation"]
-        },
-        mbtiTraits: {
-          ko: ["논리적 분석", "시스템 이해", "지적 호기심", "비판적 사고"],
-          en: ["Logical analysis", "Understanding systems", "Intellectual curiosity", "Critical thinking"]
-        },
-        successFactors: {
-          ko: ["기술 심층 지식", "복잡한 문제 단순화", "학습과 적응력", "장기적 비전"],
-          en: ["Deep technical knowledge", "Simplifying complex problems", "Learning and adaptability", "Long-term vision"]
-        }
-      },
-      {
-        name: "찰스 다윈",
-        nameEn: "Charles Darwin",
-        field: "science",
-        country: "GB",
-        description: {
-          ko: "생물학자. 진화론의 창시자로 생명과학의 혁명을 이끈 과학자",
-          en: "Biologist. Scientist who led revolution in life sciences as founder of evolution theory"
-        },
-        achievements: {
-          ko: ["종의 기원 발표", "자연선택설 확립", "현대 생명과학 기초"],
-          en: ["Published Origin of Species", "Established natural selection theory", "Foundation of modern life sciences"]
-        },
-        mbtiTraits: {
-          ko: ["관찰력과 분석력", "자료 정리", "비판적 검증", "독립적 사고"],
-          en: ["Observation and analysis", "Data organization", "Critical verification", "Independent thinking"]
-        },
-        successFactors: {
-          ko: ["꼼꼼한 관찰", "이론 통합", "비판에 대한 강인함", "오랜 연구 인내심"],
-          en: ["Meticulous observation", "Integrating theories", "Resilience to criticism", "Patience for long-term research"]
-        }
-      },
-      {
-        name: "스티븐 호킹",
-        nameEn: "Stephen Hawking",
-        field: "science",
-        country: "GB",
-        description: {
-          ko: "이론물리학자. 블랙홀과 우주론 연구로 유명한 과학자",
-          en: "Theoretical physicist. Scientist famous for research on black holes and cosmology"
-        },
-        achievements: {
-          ko: ["호킹 복사 이론", "시간의 역사 저술", "장애 극복 과학 연구"],
-          en: ["Hawking radiation theory", "Authored A Brief History of Time", "Scientific research overcoming disability"]
-        },
-        mbtiTraits: {
-          ko: ["추상적 사고", "개념 단순화", "지적 호기심", "비판적 사고"],
-          en: ["Abstract thinking", "Simplifying concepts", "Intellectual curiosity", "Critical thinking"]
-        },
-        successFactors: {
-          ko: ["우주 개념 대중화", "끈질긴 연구", "독특한 접근", "학문적 소통"],
-          en: ["Popularizing cosmic concepts", "Tenacious research", "Unique approach", "Academic communication"]
-        }
-      },
-      {
-        name: "레이달리오",
-        nameEn: "Ray Dalio",
-        field: "business",
-        country: "US",
-        description: {
-          ko: "브리지워터 창업자. 세계 최대 헤지펀드 운용자",
-          en: "Founder of Bridgewater. World's largest hedge fund manager"
-        },
-        achievements: {
-          ko: ["세계 최대 헤지펀드 설립", "원칙(Principles) 저술", "투자 철학 시스템화"],
-          en: ["Founded world's largest hedge fund", "Authored Principles", "Systematized investment philosophy"]
-        },
-        mbtiTraits: {
-          ko: ["체계적 사고", "데이터 기반 의사결정", "시스템 분석", "논리적 접근"],
-          en: ["Systematic thinking", "Data-driven decision making", "System analysis", "Logical approach"]
-        },
-        successFactors: {
-          ko: ["투자 원칙 시스템화", "시장 메커니즘 분석", "실패로부터 학습", "장기적 투자"],
-          en: ["Systematizing investment principles", "Analyzing market mechanisms", "Learning from failures", "Long-term investment"]
-        }
-      },
-      {
-        name: "슈가 (민윤기)",
-        nameEn: "SUGA",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "BTS 멤버. 프로듀서로서 음악 제작과 솔로 활동으로 주목받는 아티스트",
-          en: "BTS member. Artist gaining attention as producer for music production and solo activities"
-        },
-        achievements: {
-          ko: ["Agust D 솔로 앨범", "BTS 히트곡 프로듀싱", "사회 메시지 전달"],
-          en: ["Agust D solo album", "Producing BTS hit songs", "Delivering social messages"]
-        },
-        mbtiTraits: {
-          ko: ["깊은 사고", "창의적 문제해결", "독립적 작업 선호", "진솔한 표현"],
-          en: ["Deep thinking", "Creative problem solving", "Prefers independent work", "Sincere expression"]
-        },
-        successFactors: {
-          ko: ["음악적 깊이", "작사/작곡 능력", "자기 성찰", "팬과의 소통"],
-          en: ["Musical depth", "Songwriting ability", "Self-reflection", "Communication with fans"]
-        }
-      },
-      {
-        name: "MrBeast",
-        nameEn: "Jimmy Donaldson",
-        field: "entertainment",
-        country: "US",
-        description: {
-          ko: "유튜버. 세계 최대 구독자 수를 보유한 콘텐츠 크리에이터",
-          en: "YouTuber. Content creator with the world's largest subscriber count"
-        },
-        achievements: {
-          ko: ["유튜브 3억 구독자 돌파", "Team Trees 캠페인", "수백만 달러 기부"],
-          en: ["300 million YouTube subscribers", "Team Trees campaign", "Donated millions of dollars"]
-        },
-        mbtiTraits: {
-          ko: ["창의적 실험", "데이터 분석", "시스템 최적화", "비전"],
-          en: ["Creative experimentation", "Data analysis", "System optimization", "Vision"]
-        },
-        successFactors: {
-          ko: ["콘텐츠 혁신", "대규모 프로덕션", "시청자 참여", "기부 문화"],
-          en: ["Content innovation", "Large-scale production", "Audience engagement", "Donation culture"]
-        }
-      }
-    ]
-  },
-  {
-    type: "ENTJ",
-    name: { ko: "통솔자", en: "Commander" },
-    nickname: { ko: "Commander", en: "Commander" },
-    group: { ko: "분석가형 (NT)", en: "Analyst (NT)" },
-    celebrities: [
-      {
-        name: "나폴레옹 보나파르트",
-        nameEn: "Napoleon Bonaparte",
-        field: "politics",
-        country: "FR",
-        description: {
-          ko: "프랑스 황제. 군사 전략가이자 유럽을 재편한 지도자",
-          en: "French Emperor. Military strategist and leader who reshaped Europe"
-        },
-        achievements: {
-          ko: ["프랑스 제국 건설", "나폴레옹 법전", "유럽 정치 지형 재편"],
-          en: ["Built French Empire", "Napoleonic Code", "Reshaped European political landscape"]
-        },
-        mbtiTraits: {
-          ko: ["전략적 사고", "강력한 추진력", "위기 대응", "목표 지향"],
-          en: ["Strategic thinking", "Strong drive", "Crisis response", "Goal-oriented"]
-        },
-        successFactors: {
-          ko: ["혁신적 군사 전략", "조직 관리", "대담한 결단", "체계적 법제"],
-          en: ["Innovative military strategy", "Organization management", "Bold decisions", "Systematic legislation"]
-        }
-      },
-      {
-        name: "잭 웰치",
-        nameEn: "Jack Welch",
-        field: "business",
-        country: "US",
-        description: {
-          ko: "전 GE CEO. '20세기 최고의 경영인'으로 불린 기업 총수",
-          en: "Former CEO of GE. Corporate leader called 'the best manager of the 20th century'"
-        },
-        achievements: {
-          ko: ["GE 기업 가치 20배 성장", "시총 1위 기업", "경영 혁신 시스템"],
-          en: ["20x growth in GE's corporate value", "World's most valuable company", "Management innovation system"]
-        },
-        mbtiTraits: {
-          ko: ["강력한 리더십", "성과 중심", "조직 변화", "효율성 추구"],
-          en: ["Strong leadership", "Performance-focused", "Organizational change", "Pursuit of efficiency"]
-        },
-        successFactors: {
-          ko: ["과감한 구조조정", "인재 육성", "수익 중심 경영", "경쟁 우위"],
-          en: ["Bold restructuring", "Talent development", "Profit-focused management", "Competitive advantage"]
-        }
-      },
-      {
-        name: "고든 램지",
-        nameEn: "Gordon Ramsay",
-        field: "entertainment",
-        country: "GB",
-        description: {
-          ko: "셰프, 방송인. 미슐랭 스타 셰프이자 미디어 스타",
-          en: "Chef and TV personality. Michelin-star chef and media star"
-        },
-        achievements: {
-          ko: ["미슐랭 16개 스타", "글로벌 레스토랑 제국", "TV 프로그램 진행"],
-          en: ["16 Michelin stars", "Global restaurant empire", "Hosting TV programs"]
-        },
-        mbtiTraits: {
-          ko: ["높은 기준", "강력한 추진력", "목표 지향", "효율성 중시"],
-          en: ["High standards", "Strong drive", "Goal-oriented", "Emphasizes efficiency"]
-        },
-        successFactors: {
-          ko: ["품질 추구", "브랜드 확장", "미디어 활용", "철저한 운영"],
-          en: ["Pursuit of quality", "Brand expansion", "Media utilization", "Thorough operations"]
-        }
-      },
-      {
-        name: "제니",
-        nameEn: "Jennie Kim",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "BLACKPINK 멤버. 패션 아이콘이자 솔로 아티스트로서 글로벌 영향력",
-          en: "BLACKPINK member. Fashion icon and solo artist with global influence"
-        },
-        achievements: {
-          ko: ["BLACKPINK 글로벌 성공", "Chanel 글로벌 앰버서더", "솔로 싱글 'SOLO'"],
-          en: ["BLACKPINK global success", "Chanel global ambassador", "Solo single 'SOLO'"]
-        },
-        mbtiTraits: {
-          ko: ["카리스마", "리더십", "완벽주의", "전략적 사고"],
-          en: ["Charisma", "Leadership", "Perfectionism", "Strategic thinking"]
-        },
-        successFactors: {
-          ko: ["묘한 매력", "패션 센스", "묵묵한 추진력", "글로벌 아이콘"],
-          en: ["Subtle charm", "Fashion sense", "Quiet determination", "Global icon"]
-        }
-      },
-      {
-        name: "킴 카다시안",
-        nameEn: "Kim Kardashian",
-        field: "entertainment",
-        country: "US",
-        description: {
-          ko: "미디어 퍼스널리티, 기업가. KKW Beauty, SKIMS 창업자",
-          en: "Media personality and entrepreneur. Founder of KKW Beauty and SKIMS"
-        },
-        achievements: {
-          ko: ["SKIMS 40억 달러 기업", "미국 변호사 시험合格", "리얼리티 TV 스타"],
-          en: ["SKIMS $4 billion business", "Passed US bar exam", "Reality TV star"]
-        },
-        mbtiTraits: {
-          ko: ["사업가 정신", "브랜드 구축", "전략적 마케팅", "추진력"],
-          en: ["Entrepreneurial spirit", "Brand building", "Strategic marketing", "Drive"]
-        },
-        successFactors: {
-          ko: ["미디어 활용", "비즈니스 다각화", "개인 브랜딩", "끈질긴 노력"],
-          en: ["Media utilization", "Business diversification", "Personal branding", "Tenacious effort"]
-        }
-      }
-    ]
-  },
-  {
-    type: "ENTP",
-    name: { ko: "변론가", en: "Debater" },
-    nickname: { ko: "Debater", en: "Debater" },
-    group: { ko: "분석가형 (NT)", en: "Analyst (NT)" },
-    celebrities: [
-      {
-        name: "토마스 에디슨",
-        nameEn: "Thomas Edison",
-        field: "science",
-        country: "US",
-        description: {
-          ko: "발명왕. 1,093개의 특허를 보유한 최고의 발명가",
-          en: "Inventor King. The greatest inventor with 1,093 patents"
-        },
-        achievements: {
-          ko: ["백열전구 상용화", "유성영화 카메라", "축음기 발명"],
-          en: ["Commercialized incandescent bulb", "Invented motion picture camera", "Invented phonograph"]
-        },
-        mbtiTraits: {
-          ko: ["창의적 문제 해결", "실험 정신", "개념 혁신", "다재다능"],
-          en: ["Creative problem solving", "Experimental spirit", "Conceptual innovation", "Versatile"]
-        },
-        successFactors: {
-          ko: ["끊임없는 실험", "실용적 발명", "실패로부터 학습", "상용화 능력"],
-          en: ["Endless experimentation", "Practical inventions", "Learning from failures", "Commercialization ability"]
-        }
-      },
-      {
-        name: "스티브 워즈니악",
-        nameEn: "Steve Wozniak",
-        field: "business",
-        country: "US",
-        description: {
-          ko: "애플 공동창업자. Apple I, II 설계한 엔지니어",
-          en: "Co-founder of Apple. Engineer who designed Apple I and II"
-        },
-        achievements: {
-          ko: ["Apple I, II 설계", "개인용 컴퓨터 혁신", "기술 대중화"],
-          en: ["Designed Apple I and II", "Revolutionized personal computers", "Technology democratization"]
-        },
-        mbtiTraits: {
-          ko: ["기술적 창의성", "혁신적 해결", "호기심", "실용적 발명"],
-          en: ["Technical creativity", "Innovative solutions", "Curiosity", "Practical inventions"]
-        },
-        successFactors: {
-          ko: ["기술과 실용성 결합", "복잡한 기술 단순화", "사용자 중심", "재미와 기술"],
-          en: ["Combining technology and practicality", "Simplifying complex technology", "User-centric", "Fun and technology"]
-        }
-      },
-      {
-        name: "마크 트웨인",
-        nameEn: "Mark Twain",
-        field: "literature",
-        country: "US",
-        description: {
-          ko: "작가. 미국 문학의 대표 작가로 풍자와 유머로 유명",
-          en: "Author. Representative American literary figure known for satire and humor"
-        },
-        achievements: {
-          ko: ["톰 소여의 모험 등 명작", "미국 문학 새 장", "사회 풍자"],
-          en: ["Classics like The Adventures of Tom Sawyer", "New chapter in American literature", "Social satire"]
-        },
-        mbtiTraits: {
-          ko: ["창의적 글쓰기", "통찰력 풍자", "독특한 관점", "주제 탐구"],
-          en: ["Creative writing", "Insightful satire", "Unique perspective", "Theme exploration"]
-        },
-        successFactors: {
-          ko: ["대중적 어필", "사회 비판과 유머", "독창적 스토리텔링", "장르 도전"],
-          en: ["Public appeal", "Social critique and humor", "Original storytelling", "Genre挑战"]
-        }
-      },
-      {
-        name: "RM (김남준)",
-        nameEn: "RM",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "BTS 리더. 철학적 가사와 리더십으로 K-pop의 글로벌화를 이끈 아이콘",
-          en: "BTS leader. Icon who led K-pop globalization with philosophical lyrics and leadership"
-        },
-        achievements: {
-          ko: ["BTS 글로벌 성공 이끌기", "유네스코 연설", "개인 앨범 'Indigo'"],
-          en: ["Led BTS to global success", "UNESCO speech", "Solo album 'Indigo'"]
-        },
-        mbtiTraits: {
-          ko: ["전략적 리더십", "철학적 사고", "언어적 재능", "장기적 비전"],
-          en: ["Strategic leadership", "Philosophical thinking", "Linguistic talent", "Long-term vision"]
-        },
-        successFactors: {
-          ko: ["팀의 비전 제시", "글로벌 소통 능력", "음악적 깊이", "팬덤과의 진정성"],
-          en: ["Presenting team vision", "Global communication ability", "Musical depth", "Authenticity with fandom"]
-        }
-      },
-      {
-        name: "퓨디파이",
-        nameEn: "PewDiePie",
-        field: "entertainment",
-        country: "SE",
-        description: {
-          ko: "유튜버. 세계 최초 개인 유튜브 채널 1억 구독자 돌파자",
-          en: "YouTuber. First individual YouTube channel to reach 100 million subscribers"
-        },
-        achievements: {
-          ko: ["1억 구독자 돌파", "게임 콘텐츠 혁신", "Book Club 시작"],
-          en: ["100 million subscribers", "Gaming content innovation", "Started Book Club"]
-        },
-        mbtiTraits: {
-          ko: ["재치와 유머", "즉흥성", "독특한 관점", "창의성"],
-          en: ["Wit and humor", "Spontaneity", "Unique perspective", "Creativity"]
-        },
-        successFactors: {
-          ko: ["진정성 있는 소통", "팬 커뮤니티", "콘텐츠 다각화", "개인 브랜딩"],
-          en: ["Authentic communication", "Fan community", "Content diversification", "Personal branding"]
-        }
-      }
-    ]
-  },
-  {
-    type: "INFJ",
-    name: { ko: "옹호자", en: "Advocate" },
-    nickname: { ko: "Advocate", en: "Advocate" },
-    group: { ko: "외교관형 (NF)", en: "Diplomat (NF)" },
-    celebrities: [
-      {
-        name: "마틴 루터 킹",
-        nameEn: "Martin Luther King Jr.",
-        field: "politics",
-        country: "US",
-        description: {
-          ko: "인권운동가. 비폭력 저항으로 인종차별에 맞선 지도자",
-          en: "Human rights activist. Leader who fought racial discrimination through nonviolent resistance"
-        },
-        achievements: {
-          ko: ["인종차별법 폐지", "노벨평화상(1964)", "미국 민권운동 상징"],
-          en: ["Abolished segregation laws", "Nobel Peace Prize (1964)", "Symbol of US civil rights movement"]
-        },
-        mbtiTraits: {
-          ko: ["이상주의", "강력한 공감", "영감 리더십", "비전과 현실 균형"],
-          en: ["Idealism", "Powerful empathy", "Inspirational leadership", "Balancing vision and reality"]
-        },
-        successFactors: {
-          ko: ["비폭력 저항", "감정 연결", "사회 변화", "신념 헌신"],
-          en: ["Nonviolent resistance", "Emotional connection", "Social change", "Dedication to beliefs"]
-        }
-      },
-      {
-        name: "넬슨 만델라",
-        nameEn: "Nelson Mandela",
-        field: "politics",
-        country: "ZA",
-        description: {
-          ko: "남아프리카공화국 전 대통령. 아파르트헤이트에 맞선 인권운동가",
-          en: "Former President of South Africa. Human rights activist who fought apartheid"
-        },
-        achievements: {
-          ko: ["인종차별 종식", "노벨평화상(1993)", "화해와 통합 상징"],
-          en: ["Ended racial discrimination", "Nobel Peace Prize (1993)", "Symbol of reconciliation and unity"]
-        },
-        mbtiTraits: {
-          ko: ["깊은 이상주의", "용서 리더십", "장기적 비전", "인내와 헌신"],
-          en: ["Deep idealism", "Leadership through forgiveness", "Long-term vision", "Patience and dedication"]
-        },
-        successFactors: {
-          ko: ["감옥에서도 포기하지 않은 신념", "적에 대한 용서", "국민 통합", "비폭력 전략"],
-          en: ["Unwavering belief even in prison", "Forgiveness of enemies", "National unity", "Nonviolent strategy"]
-        }
-      },
-      {
-        name: "오프라 윈프리",
-        nameEn: "Oprah Winfrey",
-        field: "entertainment",
-        country: "US",
-        description: {
-          ko: "방송인, 기업가. 미국 최고의 토크쇼 진행자",
-          en: "Broadcaster and entrepreneur. America's top talk show host"
-        },
-        achievements: {
-          ko: ["오프라 윈프리 쇼 25년", "미디어 제국", "필란트로피"],
-          en: ["25 years of The Oprah Winfrey Show", "Media empire", "Philanthropy"]
-        },
-        mbtiTraits: {
-          ko: ["깊은 공감", "영감 소통", "직관적 통찰", "타인 성장 관심"],
-          en: ["Deep empathy", "Inspirational communication", "Intuitive insight", "Interest in others' growth"]
-        },
-        successFactors: {
-          ko: ["진정성 인터뷰", "사회적 이슈", "자기 계발", "미디어 사업"],
-          en: ["Authentic interviews", "Social issues", "Self-development", "Media business"]
-        }
-      },
-      {
-        name: "J.K. 롤링",
-        nameEn: "J.K. Rowling",
-        field: "literature",
-        country: "GB",
-        description: {
-          ko: "작가. 해리포터 시리즈로 세계적인 베스트셀러 작가",
-          en: "Author. World-renowned bestselling author of Harry Potter series"
-        },
-        achievements: {
-          ko: ["해리포터 5억 부 판매", "영화 프랜차이즈", "성공 신화"],
-          en: ["500 million Harry Potter books sold", "Movie franchise", "Success story"]
-        },
-        mbtiTraits: {
-          ko: ["풍부한 상상력", "스토리 구성", "사회 메시지", "깊은 통찰"],
-          en: ["Rich imagination", "Story structure", "Social messages", "Deep insight"]
-        },
-        successFactors: {
-          ko: ["독창적 판타지", "성장과 우정", "인물 심리", "시리즈 기획"],
-          en: ["Original fantasy", "Growth and friendship", "Character psychology", "Series planning"]
-        }
-      },
-      {
-        name: "정국",
-        nameEn: "Jungkook",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "BTS 멤버. '골든 마네킹'으로 불리는 만능 아이돌",
-          en: "BTS member. All-round idol called the 'Golden Maknae'"
-        },
-        achievements: {
-          ko: ["Billboard Hot 100 1위 'Seven'", "FIFA 월드컵 공식 송", "솔로 앨범 'GOLDEN'"],
-          en: ["Billboard Hot 100 #1 'Seven'", "Official FIFA World Cup song", "Solo album 'GOLDEN'"]
-        },
-        mbtiTraits: {
-          ko: ["분석적 사고", "완벽주의", "논리적 접근", "호기심"],
-          en: ["Analytical thinking", "Perfectionism", "Logical approach", "Curiosity"]
-        },
-        successFactors: {
-          ko: ["만능 포지션", "꾸준한 성장", "팬 사랑", "글로벌 인기"],
-          en: ["All-round position", "Steady growth", "Fan love", "Global popularity"]
-        }
-      }
-    ]
-  },
-  {
-    type: "INFP",
-    name: { ko: "중재자", en: "Mediator" },
-    nickname: { ko: "Mediator", en: "Mediator" },
-    group: { ko: "외교관형 (NF)", en: "Diplomat (NF)" },
-    celebrities: [
-      {
-        name: "윌리엄 셰익스피어",
-        nameEn: "William Shakespeare",
-        field: "literature",
-        country: "GB",
-        description: {
-          ko: "극작가. 세계 최고의 문학 작가로 인류 보편의 감정을 탐구",
-          en: "Playwright. World's greatest literary author exploring universal human emotions"
-        },
-        achievements: {
-          ko: ["햄릿 등 37개 희곡", "현대 영어 영향", "인간 정서 탐구"],
-          en: ["37 plays including Hamlet", "Influence on modern English", "Exploration of human emotions"]
-        },
-        mbtiTraits: {
-          ko: ["깊은 감정 이해", "인간 본성 통찰", "창의적 표현", "인물 묘사"],
-          en: ["Deep emotional understanding", "Insight into human nature", "Creative expression", "Character portrayal"]
-        },
-        successFactors: {
-          ko: ["인간 심리 이해", "시대 초월 보편성", "언어 재능", "장르 마스터"],
-          en: ["Understanding human psychology", "Timeless universality", "Linguistic talent", "Genre mastery"]
-        }
-      },
-      {
-        name: "J.R.R. 톨킨",
-        nameEn: "J.R.R. Tolkien",
-        field: "literature",
-        country: "GB",
-        description: {
-          ko: "작가. 반지의 제왕으로 현대 판타지 문학의 아버지",
-          en: "Author. Father of modern fantasy literature with The Lord of the Rings"
-        },
-        achievements: {
-          ko: ["반지의 제왕 창시", "엘프어 개발", "판타지 장르 확립"],
-          en: ["Created The Lord of the Rings", "Developed Elvish language", "Established fantasy genre"]
-        },
-        mbtiTraits: {
-          ko: ["풍부한 상상력", "세계관 구축", "언어학 재능", "이상주의"],
-          en: ["Rich imagination", "World-building", "Linguistic talent", "Idealism"]
-        },
-        successFactors: {
-          ko: ["완벽한 세계관", "신화와 현대 결합", "선과 악 주제", "헌신적 창작"],
-          en: ["Perfect world-building", "Combining myth and modernity", "Good and evil theme", "Dedicated creation"]
-        }
-      },
-      {
-        name: "빈센트 반 고흐",
-        nameEn: "Vincent van Gogh",
-        field: "arts",
-        country: "NL",
-        description: {
-          ko: "화가. 후기 인상주의 대표 작가로 감정의 진정성을 담은 작품",
-          en: "Painter. Leading post-impressionist artist whose works embody emotional authenticity"
-        },
-        achievements: {
-          ko: ["별이 빛나는 밤 등 명작", "후기 인상주의 선구", "현대 미술 영향"],
-          en: ["Masterpieces like Starry Night", "Pioneer of post-impressionism", "Influence on modern art"]
-        },
-        mbtiTraits: {
-          ko: ["깊은 감정 표현", "진정성", "독특한 시각", "이상주의"],
-          en: ["Deep emotional expression", "Authenticity", "Unique perspective", "Idealism"]
-        },
-        successFactors: {
-          ko: ["진정성 감정", "독창적 색채", "자연과 삶 사랑", "헌신적 예술"],
-          en: ["Authentic emotion", "Original color palette", "Love for nature and life", "Dedicated art"]
-        }
-      },
-      {
-        name: "프리다 칼로",
-        nameEn: "Frida Kahlo",
-        field: "arts",
-        country: "MX",
-        description: {
-          ko: "화가. 멕시코의 대표 화가로 자전적 작품으로 유명",
-          en: "Painter. Mexico's representative artist known for autobiographical works"
-        },
-        achievements: {
-          ko: ["멕시코 예술 상징", "여성 예술가 독자적 입지", "자전적 초상화"],
-          en: ["Symbol of Mexican art", "Independent standing as female artist", "Autobiographical portraits"]
-        },
-        mbtiTraits: {
-          ko: ["자기 성찰", "감정 표현", "독특한 시각", "고통을 예술로"],
-          en: ["Self-reflection", "Emotional expression", "Unique perspective", "Transforming pain into art"]
-        },
-        successFactors: {
-          ko: ["솔직한 표현", "전통과 현대 결합", "고통 예술 전환", "강인한 의지"],
-          en: ["Honest expression", "Combining tradition and modernity", "Transforming pain into art", "Strong will"]
-        }
-      },
-      {
-        name: "제니",
-        nameEn: "Jennie Kim",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "BLACKPINK 멤버. 패션 아이콘이자 솔로 아티스트로서 글로벌 영향력",
-          en: "BLACKPINK member. Fashion icon and solo artist with global influence"
-        },
-        achievements: {
-          ko: ["BLACKPINK 글로벌 성공", "Chanel 글로벌 앰버서더", "솔로 싱글 'SOLO'"],
-          en: ["BLACKPINK global success", "Chanel global ambassador", "Solo single 'SOLO'"]
-        },
-        mbtiTraits: {
-          ko: ["독창적 표현", "예술 감수성", "실용적 사고", "진정성"],
-          en: ["Original expression", "Artistic sensibility", "Practical thinking", "Authenticity"]
-        },
-        successFactors: {
-          ko: ["묘한 매력", "패션 센스", "묵묵한 추진력", "글로벌 아이콘"],
-          en: ["Subtle charm", "Fashion sense", "Quiet determination", "Global icon"]
-        }
-      },
-      {
-        name: "지민",
-        nameEn: "Jimin",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "BTS 멤버. 우아한 춤선과 감성적 보컬로 사랑받는 아티스트",
-          en: "BTS member. Artist loved for elegant dance moves and emotional vocals"
-        },
-        achievements: {
-          ko: ["솔로 앨범 'FACE'", "Billboard Hot 100 1위 'Like Crazy'", "디올 글로벌 앰버서더"],
-          en: ["Solo album 'FACE'", "Billboard Hot 100 #1 'Like Crazy'", "Dior global ambassador"]
-        },
-        mbtiTraits: {
-          ko: ["감정 표현", "헌신", "완벽주의", "진정성"],
-          en: ["Emotional expression", "Dedication", "Perfectionism", "Authenticity"]
-        },
-        successFactors: {
-          ko: ["춤 실력", "묘한 매력", "팬과의 소통", "예술적 성장"],
-          en: ["Dance ability", "Subtle charm", "Communication with fans", "Artistic growth"]
-        }
-      },
-      {
-        name: "올리비아 로드리고",
-        nameEn: "Olivia Rodrigo",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "가수, 배우. 'drivers license'로 데뷔한 Z세대 팝 아이콘",
-          en: "Singer and actress. Z-generation pop icon who debuted with 'drivers license'"
-        },
-        achievements: {
-          ko: ["그래미상 3관왕", "'SOUR' 앨범 대성공", "디즈니+ '하이스쿨 뮤지컬'"],
-          en: ["3 Grammy wins", "Massive success of 'SOUR' album", "Disney+ 'High School Musical'"]
-        },
-        mbtiTraits: {
-          ko: ["감정 표현", "진정성", "창의성", "이상주의"],
-          en: ["Emotional expression", "Authenticity", "Creativity", "Idealism"]
-        },
-        successFactors: {
-          ko: ["진솔한 가사", "10대 공감", "빠른 성장", "팬과의 진정성"],
-          en: ["Sincere lyrics", "Teenage resonance", "Rapid growth", "Authenticity with fans"]
-        }
-      },
-      {
-        name: "하니",
-        nameEn: "Hanni",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "NewJeans 멤버. 베트남계 호주 출신으로 글로벌 팬덤을 보유한 아이돌",
-          en: "NewJeans member. Vietnamese-Australian idol with a global fandom"
-        },
-        achievements: {
-          ko: ["NewJeans 데뷔 성공", "Gucci 글로벌 앰버서더", "'Hype Boy' 퍼포머"],
-          en: ["Successful NewJeans debut", "Gucci global ambassador", "Performer of 'Hype Boy'"]
-        },
-        mbtiTraits: {
-          ko: ["이상주의", "창의성", "진정성", "공감 능력"],
-          en: ["Idealism", "Creativity", "Authenticity", "Empathy"]
-        },
-        successFactors: {
-          ko: ["다양한 매력", "글로벌 인기", "묘한 에너지", "팬 친화력"],
-          en: ["Various charms", "Global popularity", "Unique energy", "Fan affinity"]
-        }
-      },
-    ]
-  },
-  {
-    type: "ENFJ",
-    name: { ko: "선도자", en: "Protagonist" },
-    nickname: { ko: "Protagonist", en: "Protagonist" },
-    group: { ko: "외교관형 (NF)", en: "Diplomat (NF)" },
-    celebrities: [
-      {
-        name: "바락 오바마",
-        nameEn: "Barack Obama",
-        field: "politics",
-        country: "US",
-        description: {
-          ko: "미국 제44대 대통령. 변화와 희망의 메시지로 선거된 첫 흑인 대통령",
-          en: "44th President of the United States. First Black president elected with message of change and hope"
-        },
-        achievements: {
-          ko: ["미국 최초 흑인 대통령", "오바마케어", "노벨평화상(2009)"],
-          en: ["First Black US President", "Obamacare", "Nobel Peace Prize (2009)"]
-        },
-        mbtiTraits: {
-          ko: ["영감 리더십", "강력한 공감", "변화 열정", "효과적 소통"],
-          en: ["Inspirational leadership", "Strong empathy", "Passion for change", "Effective communication"]
-        },
-        successFactors: {
-          ko: ["희망 메시지", "감정 연결", "원칙과 실용", "세력 통합"],
-          en: ["Message of hope", "Emotional connection", "Principles and practicality", "Unifying forces"]
-        }
-      },
-      {
-        name: "달라이 라마",
-        nameEn: "Dalai Lama",
-        field: "politics",
-        country: "IN",
-        description: {
-          ko: "티베트 불교 지도자. 평화와 자비의 메시지로 세계적인 영향력",
-          en: "Tibetan Buddhist leader. World influence with message of peace and compassion"
-        },
-        achievements: {
-          ko: ["노벨평화상 수상(1989)", "티베트 독립 운통", "평화 메시지"],
-          en: ["Nobel Peace Prize (1989)", "Tibetan independence movement", "Peace message"]
-        },
-        mbtiTraits: {
-          ko: ["영감 리더십", "강력한 공감", "변화 열정", "효과적 소통"],
-          en: ["Inspirational leadership", "Strong empathy", "Passion for change", "Effective communication"]
-        },
-        successFactors: {
-          ko: ["희망 메시지", "감정 연결", "원칙과 실용", "세력 통합"],
-          en: ["Message of hope", "Emotional connection", "Principles and practicality", "Unifying forces"]
-        }
-      },
-      {
-        name: "아리아나 그란데",
-        nameEn: "Ariana Grande",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "가수, 배우. 4옥타브 음역대를 자랑하는 팝 스타",
-          en: "Singer and actress. Pop star with 4-octave vocal range"
-        },
-        achievements: {
-          ko: ["그래미상 수상", "Billboard 차트 1위 다수", "브로드웨이 복귀"],
-          en: ["Grammy Award wins", "Multiple Billboard chart #1s", "Broadway return"]
-        },
-        mbtiTraits: {
-          ko: ["사교성", "배려심", "조직력", "인정욕구"],
-          en: ["Sociability", "Consideration", "Organizational ability", "Desire for recognition"]
-        },
-        successFactors: {
-          ko: ["보컬 실력", "팬과의 유대", "음악적 진화", "사회성"],
-          en: ["Vocal skills", "Bond with fans", "Musical evolution", "Social skills"]
-        }
-      },
-      {
-        name: "해리 스타일스",
-        nameEn: "Harry Styles",
-        field: "arts",
-        country: "GB",
-        description: {
-          ko: "가수, 배우. One Direction 출신 솔로 아티스트로 패션 아이콘",
-          en: "Singer and actor. Solo artist from One Direction and fashion icon"
-        },
-        achievements: {
-          ko: ["그래미상 수상", "'Harry's House' 앨범", "영화 'Don't Worry Darling'"],
-          en: ["Grammy Award win", "'Harry's House' album", "Film 'Don't Worry Darling'"]
-        },
-        mbtiTraits: {
-          ko: ["카리스마", "공감 능력", "영감", "진정성"],
-          en: ["Charisma", "Empathy", "Inspiration", "Authenticity"]
-        },
-        successFactors: {
-          ko: ["성별 구분 없는 패션", "팬과의 특별한 유대", "음악적 진화", "긍정적 메시지"],
-          en: ["Gender-neutral fashion", "Special bond with fans", "Musical evolution", "Positive messages"]
-        }
-      },
-      {
-        name: "셀레나 고메즈",
-        nameEn: "Selena Gomez",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "가수, 배우, 프로듀서. Rare Beauty 창업자로 사업가적 면 보유",
-          en: "Singer, actress, producer. Entrepreneur as founder of Rare Beauty"
-        },
-        achievements: {
-          ko: ["Rare Beauty 20억 달러 기업", "'Only Murders in the Building'", "정신 건강 캠페인"],
-          en: ["Rare Beauty $2 billion business", "'Only Murders in the Building'", "Mental health campaigns"]
-        },
-        mbtiTraits: {
-          ko: ["공감 능력", "사회 의식", "리더십", "진정성"],
-          en: ["Empathy", "Social consciousness", "Leadership", "Authenticity"]
-        },
-        successFactors: {
-          ko: ["약점 솔직 공유", "팬과의 진정성", "사회적 메시지", "비즈니스 감각"],
-          en: ["Honestly sharing weaknesses", "Authenticity with fans", "Social messages", "Business sense"]
-        }
-      }
-    ]
-  },
-  {
-    type: "ENFP",
-    name: { ko: "활동가", en: "Campaigner" },
-    nickname: { ko: "Campaigner", en: "Campaigner" },
-    group: { ko: "외교관형 (NF)", en: "Diplomat (NF)" },
-    celebrities: [
-      {
-        name: "월트 디즈니",
-        nameEn: "Walt Disney",
-        field: "entertainment",
-        country: "US",
-        description: {
-          ko: "디즈니 창업자. 상상력으로 전 세계를 즐겁게 한 애니메이션의 대가",
-          en: "Disney founder. Animation master who delighted the world with imagination"
-        },
-        achievements: {
-          ko: ["미키마우스 창조", "월트 디즈니 월드", "애니메이션 개척"],
-          en: ["Created Mickey Mouse", "Walt Disney World", "Animation pioneer"]
-        },
-        mbtiTraits: {
-          ko: ["풍부한 상상력", "열정과 창의성", "가능성 탐구", "즐거움 추구"],
-          en: ["Rich imagination", "Passion and creativity", "Exploring possibilities", "Pursuing joy"]
-        },
-        successFactors: {
-          ko: ["상상력 현실화", "아이들 즐거움 이해", "혁신과 도전", "스토리텔링"],
-          en: ["Making imagination real", "Understanding children's joy", "Innovation and challenge", "Storytelling"]
-        }
-      },
-      {
-        name: "로버트 다우니 주니어",
-        nameEn: "Robert Downey Jr.",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "배우. 아이언맨으로 대중에게 사랑받는 할리우드 스타",
-          en: "Actor. Hollywood star loved by the public as Iron Man"
-        },
-        achievements: {
-          ko: ["아이언맨, 셜록 홈즈", "MCU 중심", "어려움 극복 후 재기"],
-          en: ["Iron Man, Sherlock Holmes", "Center of MCU", "Made comeback after overcoming difficulties"]
-        },
-        mbtiTraits: {
-          ko: ["재치와 유머", "적응력", "열정적 연기", "즉흥 재능"],
-          en: ["Wit and humor", "Adaptability", "Passionate acting", "Improvised talent"]
-        },
-        successFactors: {
-          ko: ["캐릭터 변신", "즉흥 연기", "대중 소통", "긍정성"],
-          en: ["Character transformation", "Improvised acting", "Public communication", "Positivity"]
-        }
-      },
-      {
-        name: "뷔 (김태형)",
-        nameEn: "V (Kim Taehyung)",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "BTS 멤버. 독특한 음색과 비주얼로 사랑받는 아이돌",
-          en: "BTS member. Idol loved for unique voice and visuals"
-        },
-        achievements: {
-          ko: ["솔로 앨범 'Layover'", "우디 앨런 영화 출연", "Cartier 글로벌 앰버서더"],
-          en: ["Solo album 'Layover'", "Appeared in Woody Allen film", "Cartier global ambassador"]
-        },
-        mbtiTraits: {
-          ko: ["창의성", "열정", "진정성", "예술적 감각"],
-          en: ["Creativity", "Passion", "Authenticity", "Artistic sense"]
-        },
-        successFactors: {
-          ko: ["독보적 카리스마", "팬과의 소통", "예술적 시도", "진솔함"],
-          en: ["Unique charisma", "Communication with fans", "Artistic attempts", "Sincerity"]
-        }
-      },
-      {
-        name: "xQc",
-        nameEn: "xQc",
-        field: "entertainment",
-        country: "CA",
-        description: {
-          ko: "트위치 스트리머. 세계 최대 팔로워 보유 게임 스트리머",
-          en: "Twitch streamer. Game streamer with the world's largest followers"
-        },
-        achievements: {
-          ko: ["트위치 최다 시청 시간", "오버워치 프로선수 출신", "콘텐츠 혁신"],
-          en: ["Most watched time on Twitch", "Former Overwatch pro player", "Content innovation"]
-        },
-        mbtiTraits: {
-          ko: ["즉흥성", "적응력", "에너지", "솔직함"],
-          en: ["Spontaneity", "Adaptability", "Energy", "Honesty"]
-        },
-        successFactors: {
-          ko: ["리액션 콘텐츠", "팬과의 소통", "게임 실력", "진정성"],
-          en: ["Reaction content", "Communication with fans", "Gaming skills", "Authenticity"]
-        }
-      }
-    ]
-  },
-  {
-    type: "ISTJ",
-    name: { ko: "현실주의자", en: "Logistician" },
-    nickname: { ko: "Logistician", en: "Logistician" },
-    group: { ko: "관리자형 (SJ)", en: "Sentinel (SJ)" },
-    celebrities: [
-      {
-        name: "워렌 버핏",
-        nameEn: "Warren Buffett",
-        field: "business",
-        country: "US",
-        description: {
-          ko: "투자의 전설. 버크셔 해서웨이 CEO로 가치투자의 대가",
-          en: "Legend of investment. CEO of Berkshire Hathaway and master of value investing"
-        },
-        achievements: {
-          ko: ["버크셔 1조 달러 성장", "세계 최고 부자", "기부 서약"],
-          en: ["Berkshire grew to $1 trillion", "World's richest person", "Giving pledge"]
-        },
-        mbtiTraits: {
-          ko: ["신중한 분석", "전통 중시", "장기적 관점", "신뢰와 책임"],
-          en: ["Cautious analysis", "Valuing tradition", "Long-term perspective", "Trust and responsibility"]
-        },
-        successFactors: {
-          ko: ["가치투자 원칙", "장기 시각", "철저한 분석", "규율 투자"],
-          en: ["Value investing principles", "Long-term view", "Thorough analysis", "Disciplined investment"]
-        }
-      },
-      {
-        name: "조지 워싱턴",
-        nameEn: "George Washington",
-        field: "politics",
-        country: "US",
-        description: {
-          ko: "미국 초대 대통령. 국가 건설의 기초를 다진 지도자",
-          en: "First US President. Leader who laid foundations of nation-building"
-        },
-        achievements: {
-          ko: ["미국 독립 전쟁", "초대 대통령", "정치 전통 확립"],
-          en: ["American Revolutionary War", "First President", "Established political traditions"]
-        },
-        mbtiTraits: {
-          ko: ["책임감", "전통 존중", "신중한 의사결정", "원칙 고수"],
-          en: ["Sense of responsibility", "Respecting tradition", "Cautious decision-making", "Adhering to principles"]
-        },
-        successFactors: {
-          ko: ["신중한 리더십", "전통과 변화", "국가 희생", "원칙 기반"],
-          en: ["Cautious leadership", "Tradition and change", "National sacrifice", "Principle-based"]
-        }
-      },
-      {
-        name: "앙겔라 메르켈",
-        nameEn: "Angela Merkel",
-        field: "politics",
-        country: "DE",
-        description: {
-          ko: "독일 전 총리. 16년간 유럽의 안정을 이끈 '유럽의 어머니'",
-          en: "Former German Chancellor. 'Mother of Europe' who led Europe's stability for 16 years"
-        },
-        achievements: {
-          ko: ["독일 최초 여성 총리", "16년 집권", "유럽 경제 위기 극복"],
-          en: ["Germany's first female Chancellor", "16 years in power", "Overcame European economic crisis"]
-        },
-        mbtiTraits: {
-          ko: ["체계적 접근", "안정 중시", "분석적 의사결정", "책임감"],
-          en: ["Systematic approach", "Valuing stability", "Analytical decision-making", "Sense of responsibility"]
-        },
-        successFactors: {
-          ko: ["과학적 접근", "안정 리더십", "위기 침착", "유럽 통합"],
-          en: ["Scientific approach", "Stable leadership", "Calm in crisis", "European integration"]
-        }
-      },
-      {
-        name: "제프 베조스",
-        nameEn: "Jeff Bezos",
-        field: "business",
-        country: "US",
-        description: {
-          ko: "아마존 창업자. 전자상거래와 클라우드 컴퓨팅의 선구자",
-          en: "Amazon founder. Pioneer of e-commerce and cloud computing"
-        },
-        achievements: {
-          ko: ["아마존 혁명", "AWS 개척", "블루 오리진"],
-          en: ["Amazon revolution", "Pioneered AWS", "Blue Origin"]
-        },
-        mbtiTraits: {
-          ko: ["분석적 사고", "데이터 기반", "장기적 관점", "체계적 접근"],
-          en: ["Analytical thinking", "Data-driven", "Long-term perspective", "Systematic approach"]
-        },
-        successFactors: {
-          ko: ["고객 중심", "장기 투자", "데이터 운영", "혁신 비전"],
-          en: ["Customer-centric", "Long-term investment", "Data operations", "Innovation vision"]
-        }
-      },
-      {
-        name: "카리나",
-        nameEn: "Karina",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "aespa 리더. 완벽한 춤과 비주얼로 주목받는 4세대 아이돌",
-          en: "aespa leader. 4th generation idol noted for perfect dance and visuals"
-        },
-        achievements: {
-          ko: ["aespa 리더", "Prada 앰버서더", "'Next Level' 히트"],
-          en: ["aespa leader", "Prada ambassador", "'Next Level' hit"]
-        },
-        mbtiTraits: {
-          ko: ["책임감", "완벽주의", "신중함", "체계적"],
-          en: ["Responsibility", "Perfectionism", "Caution", "Systematic"]
-        },
-        successFactors: {
-          ko: ["리더십", "묘한 춤선", "비주얼", "성실함"],
-          en: ["Leadership", "Subtle dance moves", "Visuals", "Diligence"]
-        }
-      },
-      {
-        name: "페이커",
-        nameEn: "Faker",
-        field: "sports",
-        country: "KR",
-        description: {
-          ko: "e스포츠 선수. 리그 오브 레전드 전설, '대상혁'으로 불림",
-          en: "eSports player. Legend of League of Legends, known as 'Lee Sang-hyeok'"
-        },
-        achievements: {
-          ko: ["롤드컵 4회 우승", "LCK 10회 우승", "e스포츠 전설"],
-          en: ["4 World Championship wins", "10 LCK titles", "eSports legend"]
-        },
-        mbtiTraits: {
-          ko: ["완벽주의", "냉철함", "분석력", "집중력"],
-          en: ["Perfectionism", "Composure", "Analytical ability", "Focus"]
-        },
-        successFactors: {
-          ko: ["꾸준한 연습", "전략적 플레이", "멘탈 강함", "팀 리더십"],
-          en: ["Steady practice", "Strategic play", "Strong mentality", "Team leadership"]
-        }
-      },
-      {
-        name: "채드",
-        nameEn: "MrBeast",
-        field: "entertainment",
-        country: "US",
-        description: {
-          ko: "유튜버. 기네스북에 오른 세계 최대 구독자 수 콘텐츠 크리에이터",
-          en: "YouTuber. Content creator with world's most subscribers, in Guinness Book"
-        },
-        achievements: {
-          ko: ["3억 구독자 돌파", "수백만 달러 기부", "제목 최적화 시스템"],
-          en: ["300 million subscribers", "Donated millions", "Title optimization system"]
-        },
-        mbtiTraits: {
-          ko: ["체계적", "데이터 분석", "완벽주의", "장기적 관점"],
-          en: ["Systematic", "Data analysis", "Perfectionism", "Long-term perspective"]
-        },
-        successFactors: {
-          ko: ["썸네일/제목 최적화", "대규모 프로덕션", "시청자 분석", "꾸준함"],
-          en: ["Thumbnail/title optimization", "Large-scale production", "Audience analysis", "Consistency"]
-        }
-      }
-    ]
-  },
-  {
-    type: "ISFJ",
-    name: { ko: "수호자", en: "Defender" },
-    nickname: { ko: "Defender", en: "Defender" },
-    group: { ko: "관리자형 (SJ)", en: "Sentinel (SJ)" },
-    celebrities: [
-      {
-        name: "마더 테레사",
-        nameEn: "Mother Teresa",
-        field: "politics",
-        country: "IN",
-        description: {
-          ko: "수녀, 인도주의자. 가난한 이들을 위해 평생을 바친 성인",
-          en: "Nun and humanitarian. Saint who devoted her life to the poor"
-        },
-        achievements: {
-          ko: ["노벨평화상(1979)", "성녀 시성(2016)", "복지 활동"],
-          en: ["Nobel Peace Prize (1979)", "Canonized (2016)", "Welfare activities"]
-        },
-        mbtiTraits: {
-          ko: ["헌신적 사랑", "공감과 배려", "실천적 도움", "인내"],
-          en: ["Devoted love", "Empathy and consideration", "Practical help", "Patience"]
-        },
-        successFactors: {
-          ko: ["무조건적 사랑", "실천 봉사", "소외된 이들", "평생 일관"],
-          en: ["Unconditional love", "Practical volunteering", "The marginalized", "Consistency throughout life"]
-        }
-      },
-      {
-        name: "퀸 엘리자베스 2세",
-        nameEn: "Queen Elizabeth II",
-        field: "politics",
-        country: "GB",
-        description: {
-          ko: "영국 여왕. 70년간의 재위로 국가의 상징이 된 군주",
-          en: "Queen of England. Monarch who became symbol of the nation for 70 years"
-        },
-        achievements: {
-          ko: ["영국 최장 재위(70년)", "15개 국가 원수", "안정적 상징"],
-          en: ["Longest reign in UK (70 years)", "Head of 15 countries", "Stable symbol"]
-        },
-        mbtiTraits: {
-          ko: ["의무와 책임", "전통 존중", "조용한 리더십", "인내"],
-          en: ["Duty and responsibility", "Respecting tradition", "Quiet leadership", "Patience"]
-        },
-        successFactors: {
-          ko: ["의무 헌신", "전통과 변화", "국민 연결", "일관된 태도"],
-          en: ["Dedication to duty", "Tradition and change", "Connecting with people", "Consistent attitude"]
-        }
-      },
-      {
-        name: "케이트 미들턴",
-        nameEn: "Kate Middleton",
-        field: "politics",
-        country: "GB",
-        description: {
-          ko: "케임브리지 공작부인. 현대적 왕실의 새로운 모습",
-          en: "Duchess of Cambridge. New face of modern monarchy"
-        },
-        achievements: {
-          ko: ["왕실 현대화", "정신 건강 캠페인", "전통과 현대"],
-          en: ["Modernized royal family", "Mental health campaigns", "Tradition and modernity"]
-        },
-        mbtiTraits: {
-          ko: ["배려심", "전통 존중", "조용한 리더십", "헌신"],
-          en: ["Consideration", "Respecting tradition", "Quiet leadership", "Dedication"]
-        },
-        successFactors: {
-          ko: ["왕실 의무", "민간 연결", "겸손한 이미지", "사회 이슈"],
-          en: ["Royal duties", "Connecting with public", "Humble image", "Social issues"]
-        }
-      },
-      {
-        name: "윈터",
-        nameEn: "Winter",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "aespa 멤버. 뛰어난 가창력과 성실함으로 사랑받는 아이돌",
-          en: "aespa member. Idol loved for excellent vocals and diligence"
-        },
-        achievements: {
-          ko: ["솔로 곡 'Spark'", "OST 참여", "글로벌 팬덤"],
-          en: ["Solo song 'Spark'", "OST participation", "Global fandom"]
-        },
-        mbtiTraits: {
-          ko: ["헌신", "성실함", "배려", "완벽주의"],
-          en: ["Dedication", "Diligence", "Consideration", "Perfectionism"]
-        },
-        successFactors: {
-          ko: ["꾸준한 실력 향상", "팬 서비스", "팀워크", "진정성"],
-          en: ["Steady skill improvement", "Fan service", "Teamwork", "Authenticity"]
-        }
-      },
-      {
-        name: "손흥민",
-        nameEn: "Son Heung-min",
-        field: "sports",
-        country: "KR",
-        description: {
-          ko: "축구선수. 프리미어리그 골든부트 수상자, 아시아 최고 축구선수",
-          en: "Footballer. Premier League Golden Boot winner, Asia's best footballer"
-        },
-        achievements: {
-          ko: ["프리미어리그 골든부트", "토트넘 주장", "FIFA 푸스카스상"],
-          en: ["Premier League Golden Boot", "Tottenham captain", "FIFA Puskas Award"]
-        },
-        mbtiTraits: {
-          ko: ["헌신", "성실함", "겸손", "팀워크"],
-          en: ["Dedication", "Diligence", "Humility", "Teamwork"]
-        },
-        successFactors: {
-          ko: ["꾸준한 연습", "팀원 배려", "팬 사랑", "인성"],
-          en: ["Steady practice", "Consideration for teammates", "Fan love", "Character"]
-        }
-      }
-    ]
-  },
-  {
-    type: "ESTJ",
-    name: { ko: "경영자", en: "Executive" },
-    nickname: { ko: "Executive", en: "Executive" },
-    group: { ko: "관리자형 (SJ)", en: "Sentinel (SJ)" },
-    celebrities: [
-      {
-        name: "존 F. 케네디",
-        nameEn: "John F. Kennedy",
-        field: "politics",
-        country: "US",
-        description: {
-          ko: "미국 제35대 대통령. 카리스마와 리더십으로 유명한 지도자",
-          en: "35th US President. Leader known for charisma and leadership"
-        },
-        achievements: {
-          ko: ["쿠바 미사일 위기", "아폴로 계획", "시민권법"],
-          en: ["Cuban Missile Crisis", "Apollo program", "Civil Rights Act"]
-        },
-        mbtiTraits: {
-          ko: ["강력한 리더십", "결단력", "조직 관리", "목표 지향"],
-          en: ["Strong leadership", "Decisiveness", "Organization management", "Goal-oriented"]
-        },
-        successFactors: {
-          ko: ["강력한 리더십", "위기 대응", "국민 소통", "대담한 목표"],
-          en: ["Strong leadership", "Crisis response", "Public communication", "Bold goals"]
-        }
-      },
-      {
-        name: "헨리 포드",
-        nameEn: "Henry Ford",
-        field: "business",
-        country: "US",
-        description: {
-          ko: "포드 모터스 창업자. 자동차 대중화와 생산 혁신의 주역",
-          en: "Ford Motors founder. Key figure in automobile popularization and production innovation"
-        },
-        achievements: {
-          ko: ["Model T", "컨베이어 벨트", "5달러 임금"],
-          en: ["Model T", "Conveyor belt", "$5 wage"]
-        },
-        mbtiTraits: {
-          ko: ["실용적 혁신", "효율성", "조직 관리", "결단력"],
-          en: ["Practical innovation", "Efficiency", "Organization management", "Decisiveness"]
-        },
-        successFactors: {
-          ko: ["생산 혁신", "노동자 복지", "대중화", "체계 관리"],
-          en: ["Production innovation", "Worker welfare", "Democratization", "Systematic management"]
-        }
-      },
-      {
-        name: "이건희",
-        field: "business",
-        country: "KR",
-        description: {
-          ko: "삼성전자 회장. 한국 대표 기업가이자 삼성 전성기 리더",
-          en: "Samsung Electronics chairman. Representative Korean entrepreneur and Samsung's golden age leader"
-        },
-        achievements: {
-          ko: ["반도체 사업 성공", "삼성 세계적 기업", "한국 산업 발전"],
-          en: ["Semiconductor business success", "Samsung global enterprise", "Korean industrial development"]
-        },
-        mbtiTraits: {
-          ko: ["강력한 추진력", "장기적 비전", "조직 관리", "의사결단"],
-          en: ["Strong drive", "Long-term vision", "Organization management", "Decision making"]
-        },
-        successFactors: {
-          ko: ["과감한 투자", "세계 시장 진출", "품질 경영", "인재 중시"],
-          en: ["Bold investment", "Global market entry", "Quality management", "Valuing talent"]
-        }
-      },
-      {
-        name: "민지",
-        nameEn: "Minji",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "NewJeans 멤버. 팀의 리더이자 대언니로서 책임감 있는 아이돌",
-          en: "NewJeans member. Responsible idol as team leader and eldest sister"
-        },
-        achievements: {
-          ko: ["NewJeans 데뷔 성공", "팀 리더", "Chanel Beauty 뮤즈"],
-          en: ["Successful NewJeans debut", "Team leader", "Chanel Beauty muse"]
-        },
-        mbtiTraits: {
-          ko: ["책임감", "조직력", "실행력", "논리적 사고"],
-          en: ["Responsibility", "Organizational ability", "Execution", "Logical thinking"]
-        },
-        successFactors: {
-          ko: ["리더십", "성실함", "팬 서비스", "전문성"],
-          en: ["Leadership", "Diligence", "Fan service", "Expertise"]
-        }
-      },
-      {
-        name: "스쿼드게임",
-        nameEn: "Squid Game",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "넷플릭스 드라마. 전 세계를 사로잡은 한국 콘텐츠",
-          en: "Netflix drama. Korean content that captivated the world"
-        },
-        achievements: {
-          ko: ["넷플릭스 역대 최다 시청", "에미상 수상", "K-콘텐츠 세계화"],
-          en: ["Most watched in Netflix history", "Emmy Award win", "Globalization of K-content"]
-        },
-        mbtiTraits: {
-          ko: ["조직력", "전략", "성과 중시", "효율성"],
-          en: ["Organization", "Strategy", "Focus on results", "Efficiency"]
-        },
-        successFactors: {
-          ko: ["글로벌 콘텐츠", "트렌드 분석", "제작 관리", "마케팅"],
-          en: ["Global content", "Trend analysis", "Production management", "Marketing"]
-        }
-      },
-      {
-        name: "트래비스",
-        nameEn: "Travis Scott",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "래퍼, 프로듀서. 아스트로월드 페스티벌 등으로 문화 아이콘",
-          en: "Rapper and producer. Cultural icon through Astroworld festival and more"
-        },
-        achievements: {
-          ko: ["'Sicko Mode' 빌보드 1위", "맥도날드 콜라보", "포트나이트 콘서트"],
-          en: ["'Sicko Mode' Billboard #1", "McDonald's collaboration", "Fortnite concert"]
-        },
-        mbtiTraits: {
-          ko: ["리더십", "사업가 정신", "추진력", "혁신"],
-          en: ["Leadership", "Entrepreneurial spirit", "Drive", "Innovation"]
-        },
-        successFactors: {
-          ko: ["브랜드 콜라보", "팬 커뮤니티", "문화 트렌드", "비즈니스 감각"],
-          en: ["Brand collaboration", "Fan community", "Cultural trends", "Business sense"]
-        }
-      }
-    ]
-  },
-  {
-    type: "ESFJ",
-    name: { ko: "집정관", en: "Consul" },
-    nickname: { ko: "Consul", en: "Consul" },
-    group: { ko: "관리자형 (SJ)", en: "Sentinel (SJ)" },
-    celebrities: [
-    ]
-  },
-  {
-    type: "ISTP",
-    name: { ko: "장인", en: "Virtuoso" },
-    nickname: { ko: "Virtuoso", en: "Virtuoso" },
-    group: { ko: "탐험가형 (SP)", en: "Explorer (SP)" },
-    celebrities: [
-      {
-        name: "마이클 조던",
-        nameEn: "Michael Jordan",
-        field: "sports",
-        country: "US",
-        description: {
-          ko: "농구 전설. NBA 역사상 최고의 선수",
-          en: "Basketball legend. Greatest player in NBA history"
-        },
-        achievements: {
-          ko: ["6회 챔피언", "5회 MVP", "최다 득점"],
-          en: ["6-time champion", "5-time MVP", "All-time leading scorer"]
-        },
-        mbtiTraits: {
-          ko: ["상황 판단", "기술 숙달", "경쟁심", "위기 대응"],
-          en: ["Situation judgment", "Skill mastery", "Competitiveness", "Crisis response"]
-        },
-        successFactors: {
-          ko: ["기술 연마", "승리 집착", "클러치 침착", "신체와 기술"],
-          en: ["Skill refinement", "Obsession with winning", "Clutch composure", "Body and skill"]
-        }
-      },
-      {
-        name: "클린트 이스트우드",
-        nameEn: "Clint Eastwood",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "배우, 감독. 서부극 아이콘, 오스카 수상 감독",
-          en: "Actor and director. Western icon, Oscar-winning director"
-        },
-        achievements: {
-          ko: ["4회 아칼데미상", "최고 연출가", "60년 경력"],
-          en: ["4 Academy Awards", "Best director", "60-year career"]
-        },
-        mbtiTraits: {
-          ko: ["실용적 연기", "침착함", "기술 숙달", "독립적 작업"],
-          en: ["Practical acting", "Composure", "Skill mastery", "Independent work"]
-        },
-        successFactors: {
-          ko: ["다양한 장르", "기술적 완성도", "실용적 제작", "꾸준함"],
-          en: ["Various genres", "Technical perfection", "Practical production", "Consistency"]
-        }
-      },
-      {
-        name: "알렉산더 오베치킨",
-        nameEn: "Alexander Ovechkin",
-        field: "sports",
-        country: "RU",
-        description: {
-          ko: "아이스하키 선수. NHL 전설적인 스코어러",
-          en: "Ice hockey player. Legendary scorer in NHL"
-        },
-        achievements: {
-          ko: ["스탠리컵 우승", "9회 머리스 트로피", "역대 최다 득점"],
-          en: ["Stanley Cup win", "9 Hart Trophies", "All-time leading scorer"]
-        },
-        mbtiTraits: {
-          ko: ["즉각적 판단", "기술 숙달", "경쟁심", "위기 대응"],
-          en: ["Instant judgment", "Skill mastery", "Competitiveness", "Crisis response"]
-        },
-        successFactors: {
-          ko: ["기술 연마", "승리 집착", "클로치 상황", "신체와 기술"],
-          en: ["Skill refinement", "Obsession with winning", "Clutch situations", "Body and skill"]
-        }
-      },
-      {
-        name: "해린",
-        nameEn: "Haerin",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "NewJeans 멤버. 고양이상 외모로 사랑받는 아이돌",
-          en: "NewJeans member. Idol loved for cat-like appearance"
-        },
-        achievements: {
-          ko: ["NewJeans 데뷔 성공", "Dior Jewellery 뮤즈", "'Hype Boy' 퍼포머"],
-          en: ["Successful NewJeans debut", "Dior Jewellery muse", "Performer of 'Hype Boy'"]
-        },
-        mbtiTraits: {
-          ko: ["실용적", "기술 숙달", "독립적", "적응력"],
-          en: ["Practical", "Skill mastery", "Independent", "Adaptability"]
-        },
-        successFactors: {
-          ko: ["독특한 매력", "묘한 카리스마", "안정적 실력", "글로벌 인기"],
-          en: ["Unique charm", "Subtle charisma", "Stable skills", "Global popularity"]
-        }
-      },
-      {
-        name: "카이",
-        nameEn: "Kai",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "EXO, SuperM 멤버. '춤의 신'으로 불리는 퍼포머",
-          en: "EXO and SuperM member. Performer known as 'God of Dance'"
-        },
-        achievements: {
-          ko: ["솔로 앨범 'Rover'", "Gucci 글로벌 앰버서더", "댄스 전문가"],
-          en: ["Solo album 'Rover'", "Gucci global ambassador", "Dance expert"]
-        },
-        mbtiTraits: {
-          ko: ["실용적", "기술 숙달", "즉흥성", "적응력"],
-          en: ["Practical", "Skill mastery", "Spontaneity", "Adaptability"]
-        },
-        successFactors: {
-          ko: ["춤 실력", "묘한 카리스마", "패션 센스", "묵묵한 노력"],
-          en: ["Dance ability", "Subtle charisma", "Fashion sense", "Quiet effort"]
-        }
-      },
-      {
-        name: "다니엘",
-        nameEn: "Danielle",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "NewJeans 멤버. 한국-호주 혼혈로 밝은 에너지의 소유자",
-          en: "NewJeans member. Korean-Australian mixed with bright energy"
-        },
-        achievements: {
-          ko: ["NewJeans 데뷔 성공", "Burberry 앰버서더", "'Attention' 퍼포머"],
-          en: ["Successful NewJeans debut", "Burberry ambassador", "Performer of 'Attention'"]
-        },
-        mbtiTraits: {
-          ko: ["열정", "창의성", "사교성", "자유로운 영혼"],
-          en: ["Passion", "Creativity", "Sociability", "Free spirit"]
-        },
-        successFactors: {
-          ko: ["밝은 에너지", "글로벌 매력", "팀워크", "묘한 개성"],
-          en: ["Bright energy", "Global charm", "Teamwork", "Unique personality"]
-        }
-      },
-      {
-        name: "xQc",
-        nameEn: "xQc",
-        field: "entertainment",
-        country: "CA",
-        description: {
-          ko: "트위치 스트리머. 세계 최대 팔로워 보유 게임 스트리머",
-          en: "Twitch streamer. Game streamer with the world's largest followers"
-        },
-        achievements: {
-          ko: ["트위치 최다 시청 시간", "오버워치 프로선수 출신", "콘텐츠 혁신"],
-          en: ["Most watched time on Twitch", "Former Overwatch pro player", "Content innovation"]
-        },
-        mbtiTraits: {
-          ko: ["즉흥성", "적응력", "에너지", "솔직함"],
-          en: ["Spontaneity", "Adaptability", "Energy", "Honesty"]
-        },
-        successFactors: {
-          ko: ["리액션 콘텐츠", "팬과의 소통", "게임 실력", "진정성"],
-          en: ["Reaction content", "Communication with fans", "Gaming skills", "Authenticity"]
-        }
-      }
-    ]
-  },
-  {
-    type: "ISFP",
-    name: { ko: "모험가", en: "Adventurer" },
-    nickname: { ko: "Adventurer", en: "Adventurer" },
-    group: { ko: "탐험가형 (SP)", en: "Explorer (SP)" },
-    celebrities: [
-      {
-        name: "마이클 잭슨",
-        nameEn: "Michael Jackson",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "팝의 황제. 음악과 퍼포먼스 혁신가",
-          en: "King of Pop. Innovator in music and performance"
-        },
-        achievements: {
-          ko: ["스릴러 역대 최다 판매", "문워크", "뮤직비디오 예술"],
-          en: ["Thriller best-selling album", "Moonwalk", "Music video as art"]
-        },
-        mbtiTraits: {
-          ko: ["감정 표현", "예술 감수성", "즉흥", "독특한 개성"],
-          en: ["Emotional expression", "Artistic sensibility", "Spontaneity", "Unique personality"]
-        },
-        successFactors: {
-          ko: ["음악 혁신", "감정 표현", "독창적 스타일", "예술 실험"],
-          en: ["Music innovation", "Emotional expression", "Original style", "Artistic experimentation"]
-        }
-      },
-      {
-        name: "브리트니 스피어스",
-        nameEn: "Britney Spears",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "팝 스타. 2000년대 팝 문화 아이콘",
-          en: "Pop star. 2000s pop culture icon"
-        },
-        achievements: {
-          ko: ["1억 장 판매", "틴 팝 상징", "라스베가스 쇼"],
-          en: ["100 million records sold", "Teen pop symbol", "Las Vegas show"]
-        },
-        mbtiTraits: {
-          ko: ["자유로운 표현", "감정 연결", "즉흥", "개성"],
-          en: ["Free expression", "Emotional connection", "Spontaneity", "Individuality"]
-        },
-        successFactors: {
-          ko: ["퍼포먼스 스타일", "감정 연결", "꾸준한 활동", "변화"],
-          en: ["Performance style", "Emotional connection", "Consistent activity", "Change"]
-        }
-      },
-      {
-        name: "빌리 아일리시",
-        nameEn: "Billie Eilish",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "싱어송라이터. Z세대의 아이콘이 된 독창적인 음악과 스타일의 소유자",
-          en: "Singer-songwriter. Owner of unique music and style who became Z-generation icon"
-        },
-        achievements: {
-          ko: ["그래미상 7관왕 최연소 수상", "007 주제가", "지속가능한 패션 아이콘"],
-          en: ["Youngest to win 7 Grammys", "007 theme song", "Sustainable fashion icon"]
-        },
-        mbtiTraits: {
-          ko: ["예술 감수성", "진정성", "즉흥성", "독창적 표현"],
-          en: ["Artistic sensibility", "Authenticity", "Spontaneity", "Original expression"]
-        },
-        successFactors: {
-          ko: ["독특한 음악 스타일", "진정성 있는 메시지", "비주얼 아이덴티티", "형제와의 협업"],
-          en: ["Unique music style", "Authentic messages", "Visual identity", "Collaboration with brother"]
-        }
-      },
-      {
-        name: "보우이",
-        nameEn: "David Bowie",
-        field: "arts",
-        country: "GB",
-        description: {
-          ko: "가수, 배우. '지구에 온 별'으로 불리는 예술가",
-          en: "Singer and actor. Artist known as 'Alien on Earth'"
-        },
-        achievements: {
-          ko: ["록 변화 아이콘", "재창조의 상징", "50년 경력"],
-          en: ["Rock change icon", "Symbol of reinvention", "50-year career"]
-        },
-        mbtiTraits: {
-          ko: ["예술 감수성", "진정성", "즉흥", "독특한 시각"],
-          en: ["Artistic sensibility", "Authenticity", "Spontaneity", "Unique perspective"]
-        },
-        successFactors: {
-          ko: ["음악 혁신", "재창조", "아이덴티티 실험", "예술"],
-          en: ["Music innovation", "Reinvention", "Identity experimentation", "Art"]
-        }
-      },
-      {
-        name: "태연",
-        nameEn: "Taeyeon",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "소녀시대 리더, 솔로 가수. 감성적 보컬의 여왕",
-          en: "Girls' Generation leader and solo singer. Queen of emotional vocals"
-        },
-        achievements: {
-          ko: ["소녀시대 리더", "솔로 앨범 대성공", "OST 퀸"],
-          en: ["Girls' Generation leader", "Successful solo albums", "OST Queen"]
-        },
-        mbtiTraits: {
-          ko: ["감정 표현", "예술 감수성", "진정성", "독특한 시각"],
-          en: ["Emotional expression", "Artistic sensibility", "Authenticity", "Unique perspective"]
-        },
-        successFactors: {
-          ko: ["보컬 실력", "감성적 음악", "진솔함", "꾸준한 활동"],
-          en: ["Vocal skills", "Emotional music", "Sincerity", "Consistent activity"]
-        }
-      },
-      {
-        name: "저스틴 비버",
-        nameEn: "Justin Bieber",
-        field: "arts",
-        country: "CA",
-        description: {
-          ko: "가수. 유튜브로 발굴되어 세계 스타가 된 팝 아이콘",
-          en: "Singer. Pop icon discovered on YouTube who became world star"
-        },
-        achievements: {
-          ko: ["'Baby' 10억 뷰", "그래미상 수상", "커리어 부활"],
-          en: ["'Baby' 1 billion views", "Grammy Award win", "Career revival"]
-        },
-        mbtiTraits: {
-          ko: ["감정 표현", "예술 감수성", "즉흥성", "진정성"],
-          en: ["Emotional expression", "Artistic sensibility", "Spontaneity", "Authenticity"]
-        },
-        successFactors: {
-          ko: ["진솔한 음악", "팬과의 유대", "성장하는 모습", "재창조"],
-          en: ["Sincere music", "Bond with fans", "Growing presence", "Reinvention"]
-        }
-      }
-    ]
-  },
-  {
-    type: "ESTP",
-    name: { ko: "사업가", en: "Entrepreneur" },
-    nickname: { ko: "Entrepreneur", en: "Entrepreneur" },
-    group: { ko: "탐험가형 (SP)", en: "Explorer (SP)" },
-    celebrities: [
-      {
-        name: "도널드 트럼프",
-        nameEn: "Donald Trump",
-        field: "politics",
-        country: "US",
-        description: {
-          ko: "미국 제45대 대통령. 기업가 출신 정치인",
-          en: "45th US President. Politician from business background"
-        },
-        achievements: {
-          ko: ["부동산 제국", "미국 대통령", "TV 프로그램"],
-          en: ["Real estate empire", "US President", "TV program"]
-        },
-        mbtiTraits: {
-          ko: ["상황 판단", "실용적 해결", "위험 감수", "에너지"],
-          en: ["Situation judgment", "Practical solutions", "Risk-taking", "Energy"]
-        },
-        successFactors: {
-          ko: ["기회 포착", "대중 소통", "브랜드", "즉흥 대응"],
-          en: ["Seizing opportunities", "Public communication", "Brand", "Spontaneous response"]
-        }
-      },
-      {
-        name: "르브론 제임스",
-        nameEn: "LeBron James",
-        field: "sports",
-        country: "US",
-        description: {
-          ko: "NBA 농구 선수. 현대 최고의 농구 선수",
-          en: "NBA basketball player. Greatest basketball player of modern era"
-        },
-        achievements: {
-          ko: ["4회 챔피언", "4회 MVP", "최다 득점"],
-          en: ["4-time champion", "4-time MVP", "All-time leading scorer"]
-        },
-        mbtiTraits: {
-          ko: ["즉각 판단", "경쟁심", "적응력", "리더십"],
-          en: ["Instant judgment", "Competitiveness", "Adaptability", "Leadership"]
-        },
-        successFactors: {
-          ko: ["높은 농구 IQ", "큰 경기", "비즈니스", "자기 관리"],
-          en: ["High basketball IQ", "Big games", "Business", "Self-management"]
-        }
-      },
-      {
-        name: "매돈나",
-        nameEn: "Madonna",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "팝의 여왕. 40년간 팝 음악의 중심",
-          en: "Queen of Pop. Center of pop music for 40 years"
-        },
-        achievements: {
-          ko: ["3억 장 판매", "MTV 시대 상징", "40년 최정상"],
-          en: ["300 million records sold", "MTV era symbol", "40 years at the top"]
-        },
-        mbtiTraits: {
-          ko: ["대담한 변화", "즉흥", "적응력", "에너지"],
-          en: ["Bold changes", "Spontaneity", "Adaptability", "Energy"]
-        },
-        successFactors: {
-          ko: ["재창조", "논란 활용", "퍼포먼스", "비즈니스"],
-          en: ["Reinvention", "Using controversy", "Performance", "Business"]
-        }
-      },
-      {
-        name: "제이팍",
-        nameEn: "Jay Park",
-        field: "entertainment",
-        country: "US",
-        description: {
-          ko: "래퍼, 기업가. AOMG, H1GHR MUSIC 설립자",
-          en: "Rapper and entrepreneur. Founder of AOMG and H1GHR MUSIC"
-        },
-        achievements: {
-          ko: ["AOMG 설립", "술트러스트 대성공", "한국 힙합 선도"],
-          en: ["Founded AOMG", "Yultron success", "Leading Korean hip-hop"]
-        },
-        mbtiTraits: {
-          ko: ["즉각 판단", "위험 감수", "적응력", "에너지"],
-          en: ["Instant judgment", "Risk-taking", "Adaptability", "Energy"]
-        },
-        successFactors: {
-          ko: ["사업가 정신", "팬 소통", "트렌드 선도", "다재다능"],
-          en: ["Entrepreneurial spirit", "Fan communication", "Leading trends", "Versatility"]
-        }
-      },
-      {
-        name: "포스트 말론",
-        nameEn: "Post Malone",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "래퍼, 가수. 힙합과 록을 결합한 새로운 스타일",
-          en: "Rapper and singer. New style combining hip-hop and rock"
-        },
-        achievements: {
-          ko: ["'Circles' 빌보드 1위", "다이아몬드 인증", "유니크한 스타일"],
-          en: ["'Circles' Billboard #1", "Diamond certification", "Unique style"]
-        },
-        mbtiTraits: {
-          ko: ["즉흥성", "적응력", "솔직함", "에너지"],
-          en: ["Spontaneity", "Adaptability", "Honesty", "Energy"]
-        },
-        successFactors: {
-          ko: ["진정성", "장르 혼합", "팬 친화", "묘한 매력"],
-          en: ["Authenticity", "Genre blending", "Fan affinity", "Subtle charm"]
-        }
-      }
-    ]
-  },
-  {
-    type: "ESFP",
-    name: { ko: "연예인", en: "Entertainer" },
-    nickname: { ko: "Entertainer", en: "Entertainer" },
-    group: { ko: "탐험가형 (SP)", en: "Explorer (SP)" },
-    celebrities: [
-      {
-        name: "엘튼 존",
-        nameEn: "Elton John",
-        field: "arts",
-        country: "GB",
-        description: {
-          ko: "가수, 작곡가. 화려한 퍼포먼스와 감동 음악",
-          en: "Singer and songwriter. Impressive performances and moving music"
-        },
-        achievements: {
-          ko: ["3억 장 판매", "5회 그래미", "디즈니 음악"],
-          en: ["300 million records sold", "5 Grammys", "Disney music"]
-        },
-        mbtiTraits: {
-          ko: ["무대 자유", "즉흥", "대중 소통", "열정"],
-          en: ["Stage freedom", "Spontaneity", "Public communication", "Passion"]
-        },
-        successFactors: {
-          ko: ["퍼포먼스 스타일", "감정 연결", "50년 활동", "화려함"],
-          en: ["Performance style", "Emotional connection", "50-year career", "Extravagance"]
-        }
-      },
-      {
-        name: "제이미 폭스",
-        nameEn: "Jamie Foxx",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "배우, 가수. 코미디언 출신 아카데미상 수상",
-          en: "Actor and singer. Academy Award winner from comedian background"
-        },
-        achievements: {
-          ko: ["아카데미 남우주연상", "다재다능", "라디오 DJ"],
-          en: ["Academy Award for Best Actor", "Versatile", "Radio DJ"]
-        },
-        mbtiTraits: {
-          ko: ["즉흥", "무대 자유", "다재다능", "소통"],
-          en: ["Spontaneity", "Stage freedom", "Versatility", "Communication"]
-        },
-        successFactors: {
-          ko: ["코미디에서 진지", "즉흥 재능", "음악과 연기", "매체 도전"],
-          en: ["From comedy to serious", "Improvised talent", "Music and acting", "Media challenges"]
-        }
-      },
-      {
-        name: "휘트니 휴스턴",
-        nameEn: "Whitney Houston",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "가수. '보이스'로 불리는 전설적 보컬리스트",
-          en: "Singer. Legendary vocalist known as 'The Voice'"
-        },
-        achievements: {
-          ko: ["2억 장 판매", "최다 음악상", "볼디가드 OST"],
-          en: ["200 million records sold", "Most music awards", "Bodyguard OST"]
-        },
-        mbtiTraits: {
-          ko: ["감정 표현", "무대 자유", "즉흥", "연결"],
-          en: ["Emotional expression", "Stage freedom", "Spontaneity", "Connection"]
-        },
-        successFactors: {
-          ko: ["천부적 재능", "감정 전달", "마 카리스마", "영화 음악"],
-          en: ["Natural talent", "Emotional delivery", "Star charisma", "Movie music"]
-        }
-      },
-      {
-        name: "리사",
-        nameEn: "Lisa",
-        field: "entertainment",
-        country: "KR",
-        description: {
-          ko: "BLACKPINK 멤버. 뛰어난 춤 실력으로 글로벌 아이콘",
-          en: "BLACKPINK member. Global icon with excellent dance skills"
-        },
-        achievements: {
-          ko: ["솔로 싱글 'LALISA'", "MTV VMA 수상", "Celine 글로벌 앰버서더"],
-          en: ["Solo single 'LALISA'", "MTV VMA win", "Celine global ambassador"]
-        },
-        mbtiTraits: {
-          ko: ["무대 자유", "즉흥성", "열정", "카리스마"],
-          en: ["Stage freedom", "Spontaneity", "Passion", "Charisma"]
-        },
-        successFactors: {
-          ko: ["춤 실력", "묘한 매력", "글로벌 인기", "팬 소통"],
-          en: ["Dance ability", "Subtle charm", "Global popularity", "Fan communication"]
-        }
-      },
-      {
-        name: "제이슨 더루로",
-        nameEn: "Jason Derulo",
-        field: "arts",
-        country: "US",
-        description: {
-          ko: "가수, 댄서. 틱톡으로 새로운 인기를 얻은 팝 스타",
-          en: "Singer and dancer. Pop star who gained new popularity through TikTok"
-        },
-        achievements: {
-          ko: ["'Savage Love' 틱톡 대히트", "30억 유튜브 조회수", "글로벌 투어"],
-          en: ["'Savage Love' TikTok hit", "3 billion YouTube views", "Global tour"]
-        },
-        mbtiTraits: {
-          ko: ["무대 자유", "즉흥성", "사교성", "열정"],
-          en: ["Stage freedom", "Spontaneity", "Sociability", "Passion"]
-        },
-        successFactors: {
-          ko: ["틱톡 활용", "춤 실력", "팬 소통", "콘텐츠 민감도"],
-          en: ["Using TikTok", "Dance ability", "Fan communication", "Content sensitivity"]
-        }
-      },
-      {
-        name: "애디슨",
-        nameEn: "Addison Rae",
-        field: "entertainment",
-        country: "US",
-        description: {
-          ko: "틱톡 스타, 배우. 8800만 팔로워 보유한 Z세대 아이콘",
-          en: "TikTok star and actress. Z-generation icon with 88 million followers"
-        },
-        achievements: {
-          ko: ["틱톡 8800만 팔로워", "넷플릭스 영화 주연", "Item Beauty"],
-          en: ["88 million TikTok followers", "Lead in Netflix film", "Item Beauty"]
-        },
-        mbtiTraits: {
-          ko: ["사교성", "즉흥성", "카리스마", "적응력"],
-          en: ["Sociability", "Spontaneity", "Charisma", "Adaptability"]
-        },
-        successFactors: {
-          ko: ["틱톡 트렌드", "진정성", "팬 친화", "비즈니스 확장"],
-          en: ["TikTok trends", "Authenticity", "Fan affinity", "Business expansion"]
-        }
-      }
-    ]
-  }
-];
-
-// Helper function to get celebrity groups by language
-export function getCelebrityGroups(locale: 'ko' | 'en'): MBTICelebrityGroup[] {
+// Helper function to get celebrity data in specific language
+export function getCelebritiesInLanguage(locale: 'ko' | 'en'): MBTICelebrityGroup[] {
   return bilingualCelebrityGroups.map(group => ({
     type: group.type,
     name: group.name[locale],
     nickname: group.nickname[locale],
     group: group.group[locale],
     celebrities: group.celebrities.map(celeb => ({
-      name: locale === 'ko' ? celeb.name : (celeb.nameEn || celeb.name),
+      name: celeb.name,
       nameEn: celeb.nameEn,
       field: celeb.field,
       country: celeb.country,
@@ -2179,14 +894,24 @@ export function getCelebrityGroups(locale: 'ko' | 'en'): MBTICelebrityGroup[] {
   }));
 }
 
-// Export celebrity groups by language for convenience
-export const celebrityGroupsKo: MBTICelebrityGroup[] = getCelebrityGroups('ko');
-export const celebrityGroupsEn: MBTICelebrityGroup[] = getCelebrityGroups('en');
+// Export for compatibility
+export const allBilingualCelebrities = bilingualCelebrityGroups.flatMap(group => 
+  group.celebrities.map(celeb => ({
+    ...celeb,
+    mbtiType: group.type,
+    mbtiName: group.name,
+    mbtiGroup: group.group
+  }))
+);
 
-// Get all celebrities flattened
-export function getAllCelebrities(locale: 'ko' | 'en'): (Celebrity & { mbtiType: string; mbtiName: string; mbtiGroup: string })[] {
-  const groups = getCelebrityGroups(locale);
-  return groups.flatMap(group =>
+
+// Helper functions for compatibility with existing code
+export function getCelebrityGroups(locale: 'ko' | 'en' = 'ko'): MBTICelebrityGroup[] {
+  return getCelebritiesInLanguage(locale);
+}
+
+export function getAllCelebrities(locale: 'ko' | 'en' = 'ko') {
+  return getCelebritiesInLanguage(locale).flatMap(group => 
     group.celebrities.map(celeb => ({
       ...celeb,
       mbtiType: group.type,
@@ -2196,53 +921,33 @@ export function getAllCelebrities(locale: 'ko' | 'en'): (Celebrity & { mbtiType:
   );
 }
 
-// Get field name by locale
-export function getFieldName(field: CelebrityField, locale: 'ko' | 'en'): string {
+export function getFieldName(field: CelebrityField, locale: 'ko' | 'en' = 'ko'): string {
   return bilingualFieldNames[field][locale];
 }
 
-// Get group colors by locale
-export function getGroupColors(groupKey: string, locale: 'ko' | 'en'): { bg: string; text: string; border: string } {
-  return bilingualGroupColors[groupKey]?.[locale] || {
-    bg: "from-gray-500/20 to-gray-500/20",
-    text: "text-gray-400",
-    border: "border-gray-400/30"
+export function getGroupColors(group: string, locale: 'ko' | 'en' = 'ko') {
+  // Group colors are the same for both languages
+  return groupColors[group] || groupColors["분석가형 (NT)"];
+}
+
+export function getUsedCountries(locale: 'ko' | 'en' = 'ko') {
+  const allCelebs = getAllCelebrities(locale);
+  const usedCountryCodes = [...new Set(allCelebs.map(c => c.country))];
+  return usedCountryCodes
+    .map(code => countries[code])
+    .filter(Boolean)
+    .sort((a, b) => (locale === 'ko' ? a.name.localeCompare(b.name) : a.nameEn.localeCompare(b.nameEn)));
+}
+
+export function getFieldStats(locale: 'ko' | 'en' = 'ko') {
+  const allCelebs = getAllCelebrities(locale);
+  return {
+    politics: allCelebs.filter(c => c.field === 'politics').length,
+    business: allCelebs.filter(c => c.field === 'business').length,
+    arts: allCelebs.filter(c => c.field === 'arts').length,
+    sports: allCelebs.filter(c => c.field === 'sports').length,
+    science: allCelebs.filter(c => c.field === 'science').length,
+    entertainment: allCelebs.filter(c => c.field === 'entertainment').length,
+    literature: allCelebs.filter(c => c.field === 'literature').length
   };
 }
-
-// Get used countries (countries that have celebrities)
-export function getUsedCountries(locale: 'ko' | 'en'): Country[] {
-  const allCelebs = getAllCelebrities(locale);
-  const usedCountryCodes = new Set(allCelebs.map(c => c.country));
-  return Object.values(countries).filter(c => usedCountryCodes.has(c.code));
-}
-
-// Export usedCountries for backward compatibility (Korean)
-export const usedCountries: Country[] = getUsedCountries('ko');
-
-// Get field stats by locale
-export function getFieldStats(locale: 'ko' | 'en'): Record<CelebrityField, number> {
-  const allCelebs = getAllCelebrities(locale);
-  const stats: Record<CelebrityField, number> = {
-    politics: 0,
-    business: 0,
-    arts: 0,
-    sports: 0,
-    science: 0,
-    entertainment: 0,
-    literature: 0
-  };
-  allCelebs.forEach(c => {
-    stats[c.field]++;
-  });
-  return stats;
-}
-
-// Export fieldStats for backward compatibility (Korean)
-export const fieldStats: Record<CelebrityField, number> = getFieldStats('ko');
-
-// Export allCelebrities for backward compatibility (Korean)
-export const allCelebrities = getAllCelebrities('ko');
-
-// Export celebrityGroups for backward compatibility (Korean)
-export const celebrityGroups = getCelebrityGroups('ko');
