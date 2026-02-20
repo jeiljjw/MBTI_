@@ -1,25 +1,26 @@
 "use client";
 
 import React, { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { Link, usePathname } from '@/src/i18n/routing';
 
 export function Navbar() {
   const pathname = usePathname();
+  const t = useTranslations('navbar');
   const [isOpen, setIsOpen] = useState(false);
   const [resourcesOpen, setResourcesOpen] = useState(false);
 
   const mainNavItems = [
-    { href: '/', label: 'Home' },
-    { href: '/types', label: 'Types' },
+    { href: '/', label: t('home') },
+    { href: '/types', label: t('types') },
   ];
 
   const resourceItems = [
-    { href: '/blog', label: 'Blog' },
-    { href: '/celebrities', label: 'Celebrities' },
-    { href: '/compatibility', label: 'Compatibility' },
-    { href: '/usage', label: 'Usage' },
-    { href: '/glossary', label: 'Glossary' },
+    { href: '/blog', label: t('blog') },
+    { href: '/celebrities', label: t('celebrities') },
+    { href: '/compatibility', label: t('compatibility') },
+    { href: '/usage', label: t('usage') },
+    { href: '/glossary', label: t('glossary') },
   ];
 
   return (
@@ -29,7 +30,7 @@ export function Navbar() {
           <div className="flex items-center">
             <Link href="/">
               <h1 className="text-xl font-semibold text-white hover:text-gray-200 transition-colors duration-200 cursor-pointer">
-                Simple MBTI
+                {t('title')}
               </h1>
             </Link>
           </div>
@@ -58,7 +59,7 @@ export function Navbar() {
                 onMouseEnter={() => setResourcesOpen(true)}
                 className="flex items-center space-x-1 text-white hover:text-gray-200 transition-all duration-300 pb-2 hover:border-b-2 hover:border-purple-400"
               >
-                <span>Resources</span>
+                <span>{t('resources')}</span>
                 <svg className={`w-4 h-4 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>

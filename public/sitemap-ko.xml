@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://www.simplembti.com/ko</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.simplembti.com/ko"/>
+  </url>
+
+  <!-- Test Page -->
+  <url>
+    <loc>https://www.simplembti.com/ko/test</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/test"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/test"/>
+  </url>
+
+  <!-- Types Overview -->
+  <url>
+    <loc>https://www.simplembti.com/ko/types</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types"/>
+  </url>
+
+  <!-- Individual MBTI Types -->
+  <url>
+    <loc>https://www.simplembti.com/ko/types/ISTJ</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/ISTJ"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/ISTJ"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/ISFJ</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/ISFJ"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/ISFJ"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/INFJ</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/INFJ"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/INFJ"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/INTJ</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/INTJ"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/INTJ"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/ISTP</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/ISTP"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/ISTP"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/ISFP</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/ISFP"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/ISFP"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/INFP</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/INFP"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/INFP"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/INTP</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/INTP"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/INTP"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/ESTP</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/ESTP"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/ESTP"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/ESFP</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/ESFP"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/ESFP"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/ENFP</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/ENFP"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/ENFP"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/ENTP</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/ENTP"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/ENTP"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/ESTJ</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/ESTJ"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/ESTJ"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/ESFJ</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/ESFJ"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/ESFJ"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/ENFJ</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/ENFJ"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/ENFJ"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/types/ENTJ</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/types/ENTJ"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/types/ENTJ"/>
+  </url>
+
+  <!-- Compatibility -->
+  <url>
+    <loc>https://www.simplembti.com/ko/compatibility</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/compatibility"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/compatibility"/>
+  </url>
+
+  <!-- Celebrities -->
+  <url>
+    <loc>https://www.simplembti.com/ko/celebrities</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/celebrities"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/celebrities"/>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://www.simplembti.com/ko/blog</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/blog"/>
+  </url>
+
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://www.simplembti.com/ko/blog/emotional-intelligence-mbti</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/blog/emotional-intelligence-mbti"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/blog/emotional-intelligence-mbti"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/blog/infj-complete-guide</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/blog/infj-complete-guide"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/blog/infj-complete-guide"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/blog/intj-career-strategies</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/blog/intj-career-strategies"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/blog/intj-career-strategies"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/blog/mbti-career-correlation</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/blog/mbti-career-correlation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/blog/mbti-career-correlation"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/blog/mbti-compatibility-truth</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/blog/mbti-compatibility-truth"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/blog/mbti-compatibility-truth"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/blog/mbti-conflict-resolution</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/blog/mbti-conflict-resolution"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/blog/mbti-conflict-resolution"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/blog/mbti-leadership</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/blog/mbti-leadership"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/blog/mbti-leadership"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/blog/mbti-learning-styles</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/blog/mbti-learning-styles"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/blog/mbti-learning-styles"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/blog/mbti-love-and-relationships</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/blog/mbti-love-and-relationships"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/blog/mbti-love-and-relationships"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/blog/mbti-scientific-basis</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/blog/mbti-scientific-basis"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/blog/mbti-scientific-basis"/>
+  </url>
+  <url>
+    <loc>https://www.simplembti.com/ko/blog/stress-management-by-type</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/blog/stress-management-by-type"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/blog/stress-management-by-type"/>
+  </url>
+
+  <!-- Usage -->
+  <url>
+    <loc>https://www.simplembti.com/ko/usage</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/usage"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/usage"/>
+  </url>
+
+  <!-- Glossary -->
+  <url>
+    <loc>https://www.simplembti.com/ko/glossary</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/glossary"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/glossary"/>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://www.simplembti.com/ko/about</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/about"/>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://www.simplembti.com/ko/contact</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/contact"/>
+  </url>
+
+  <!-- Privacy Policy -->
+  <url>
+    <loc>https://www.simplembti.com/ko/privacy-policy</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/privacy-policy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/privacy-policy"/>
+  </url>
+
+  <!-- Terms of Service -->
+  <url>
+    <loc>https://www.simplembti.com/ko/terms-of-service</loc>
+    <lastmod>2025-02-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://www.simplembti.com/ko/terms-of-service"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.simplembti.com/en/terms-of-service"/>
+  </url>
+
+</urlset>

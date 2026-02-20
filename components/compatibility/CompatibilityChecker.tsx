@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface MBTIType {
   code: string;
@@ -17,7 +18,8 @@ interface CompatibilityCheckerProps {
 function getCompatibility(
   type1: string, 
   type2: string, 
-  compatibilityData: Record<string, Record<string, { score: number; level: string; description: string; advice: string }>>
+  compatibilityData: Record<string, Record<string, { score: number; level: string; description: string; advice: string }>>,
+  t: (key: string) => string
 ) {
   if (compatibilityData[type1]?.[type2]) {
     return compatibilityData[type1][type2];
@@ -50,17 +52,17 @@ function getCompatibility(
   // Cap at 95
   score = Math.min(score, 95);
   
-  let level = '좋은 관계';
-  if (score >= 90) level = '최고의 궁합';
-  else if (score >= 80) level = '훌륭한 궁합';
-  else if (score >= 70) level = '좋은 관계';
-  else level = '노력이 필요한 관계';
+  let level = t('levelGood');
+  if (score >= 90) level = t('levelBest');
+  else if (score >= 80) level = t('levelGreat');
+  else if (score >= 70) level = t('levelGood');
+  else level = t('levelNeedsWork');
   
   return {
     score,
     level,
-    description: '서로 다른 성향이 균형을 이루는 관계입니다.',
-    advice: '차이점을 존중하고 서로 배우며 성장하세요.'
+    description: t('defaultDescription'),
+    advice: t('defaultAdvice')
   };
 }
 
@@ -68,6 +70,7 @@ export function CompatibilityChecker({ mbtiTypes, compatibilityData }: Compatibi
   const [type1, setType1] = useState<string>('');
   const [type2, setType2] = useState<string>('');
   const [showResult, setShowResult] = useState(false);
+  const t = useTranslations('compatibility');
 
   const handleCheckCompatibility = () => {
     if (type1 && type2) {
@@ -81,13 +84,13 @@ export function CompatibilityChecker({ mbtiTypes, compatibilityData }: Compatibi
     setShowResult(false);
   };
 
-  const result = (type1 && type2) ? getCompatibility(type1, type2, compatibilityData) : null;
+  const result = (type1 && type2) ? getCompatibility(type1, type2, compatibilityData, t) : null;
   const type1Data = mbtiTypes.find(t => t.code === type1);
   const type2Data = mbtiTypes.find(t => t.code === type2);
 
   return (
     <div className="bg-black/20 backdrop-blur-md rounded-2xl p-8 border border-white/10 mb-12">
-      <h2 className="text-2xl font-bold text-white text-center mb-8">궁합 확인하기</h2>
+      <h2 className="text-2xl font-bold text-white text-center mb-8">{t('checkCompatibility')}</h2>
       
       {!showResult ? (
         <div className="space-y-8">
@@ -95,7 +98,7 @@ export function CompatibilityChecker({ mbtiTypes, compatibilityData }: Compatibi
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* First Type */}
             <div>
-              <h3 className="text-lg font-semibold text-white mb-4 text-center">첫 번째 유형</h3>
+              <h3 className="text-lg font-semibold text-white mb-4 text-center">{t('firstType')}</h3>
               <div className="grid grid-cols-4 gap-2">
                 {mbtiTypes.map((type) => (
                   <button
@@ -122,7 +125,7 @@ export function CompatibilityChecker({ mbtiTypes, compatibilityData }: Compatibi
 
             {/* Second Type */}
             <div>
-              <h3 className="text-lg font-semibold text-white mb-4 text-center">두 번째 유형</h3>
+              <h3 className="text-lg font-semibold text-white mb-4 text-center">{t('secondType')}</h3>
               <div className="grid grid-cols-4 gap-2">
                 {mbtiTypes.map((type) => (
                   <button
@@ -159,7 +162,7 @@ export function CompatibilityChecker({ mbtiTypes, compatibilityData }: Compatibi
                   : 'bg-gray-700 text-gray-500 cursor-not-allowed'
               }`}
             >
-              궁합 확인하기
+              {t('checkCompatibility')}
             </button>
           </div>
         </div>
@@ -213,7 +216,7 @@ export function CompatibilityChecker({ mbtiTypes, compatibilityData }: Compatibi
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                     <span className="text-5xl font-bold text-white">{result.score}</span>
-                    <span className="text-sm text-gray-400 mt-1">점</span>
+                    <span className="text-sm text-gray-400 mt-1">{t('points')}</span>
                   </div>
                 </div>
               </div>
@@ -230,7 +233,7 @@ export function CompatibilityChecker({ mbtiTypes, compatibilityData }: Compatibi
 
               {/* Advice */}
               <div className="bg-purple-500/10 rounded-xl p-6 max-w-2xl mx-auto border border-purple-500/30">
-                <h4 className="text-purple-300 font-semibold mb-2">💡 관계 조언</h4>
+                <h4 className="text-purple-300 font-semibold mb-2">💡 {t('relationshipAdvice')}</h4>
                 <p className="text-gray-300">{result.advice}</p>
               </div>
 
@@ -239,7 +242,7 @@ export function CompatibilityChecker({ mbtiTypes, compatibilityData }: Compatibi
                 onClick={handleReset}
                 className="px-8 py-3 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition-all duration-300"
               >
-                다시 확인하기
+                {t('checkAgain')}
               </button>
             </div>
           )}

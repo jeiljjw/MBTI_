@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 
 interface ProgressBarProps {
   current: number;
@@ -8,13 +9,15 @@ interface ProgressBarProps {
 }
 
 const ProgressBarComponent = ({ current, total }: ProgressBarProps) => {
+  const t = useTranslations('test');
   const progress = ((current + 1) / total) * 100;
+  const remaining = total - current - 1;
 
   return (
     <div className="mb-6 sm:mb-8 px-2 sm:px-0">
       <div className="flex justify-between items-center mb-2 sm:mb-3">
         <span className="text-white text-sm sm:text-base font-medium" suppressHydrationWarning>
-          {current + 1} / {total}
+          {t('question')} {current + 1} / {total}
         </span>
         <span className="text-white text-sm sm:text-base font-medium" suppressHydrationWarning>
           {Math.round(progress)}%
@@ -29,7 +32,7 @@ const ProgressBarComponent = ({ current, total }: ProgressBarProps) => {
       </div>
       <div className="text-center mt-2 sm:mt-3">
         <span className="text-gray-400 text-xs sm:text-sm" suppressHydrationWarning>
-          {total - current - 1}개 질문 남음
+          {remaining} {remaining === 1 ? t('questionsRemainingSingular') : t('questionsRemaining')}
         </span>
       </div>
     </div>

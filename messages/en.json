@@ -1,0 +1,710 @@
+{
+  "metadata": {
+    "title": "MBTI Personality Type Test",
+    "description": "Discover your personality type with our MBTI test. Which of the 16 personality types are you?",
+    "ogTitle": "MBTI Personality Type Test",
+    "ogDescription": "Discover your personality type with our scientifically validated MBTI test."
+  },
+  "common": {
+    "language": "English",
+    "languageSwitch": "한국어",
+    "disclaimer": "This test is for entertainment purposes only and is not a professional psychological assessment."
+  },
+  "navbar": {
+    "title": "SIMPLE MBTI",
+    "home": "Home",
+    "test": "Test",
+    "types": "Types",
+    "blog": "Blog",
+    "compatibility": "Compatibility",
+    "celebrities": "Celebrities",
+    "resources": "Resources",
+    "usage": "Usage",
+    "glossary": "Glossary"
+  },
+  "footer": {
+    "copyright": "© 2024 MBTI Test. All rights reserved.",
+    "about": "About",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "contact": "Contact"
+  },
+  "questionCard": {
+    "disagree": "Disagree",
+    "agree": "Agree",
+    "touchToAnswer": "Select your answer",
+    "answers": {
+      "1": "Strongly Disagree",
+      "2": "Disagree",
+      "3": "Slightly Disagree",
+      "4": "Neutral",
+      "5": "Slightly Agree",
+      "6": "Agree",
+      "7": "Strongly Agree"
+    }
+  },
+  "home": {
+    "title": "MBTI Personality Type Test",
+    "subtitle": "Discover your personality type",
+    "description": "Discover your personality type with our scientifically validated MBTI test. Which of the 16 personality types are you?",
+    "startTest": "Start Test",
+    "learnMore": "Learn More",
+    "features": {
+      "title": "Why Take the MBTI Test?",
+      "accurate": {
+        "title": "Accurate Analysis",
+        "description": "Get accurate results with scientifically validated questions."
+      },
+      "quick": {
+        "title": "Quick Test",
+        "description": "Discover your personality type in just 5 minutes."
+      },
+      "detailed": {
+        "title": "Detailed Results",
+        "description": "Get detailed analysis of your personality traits, strengths, and weaknesses."
+      }
+    }
+  },
+  "test": {
+    "title": "MBTI Personality Type Test",
+    "progress": "Progress",
+    "question": "Question",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next",
+    "submit": "View Results",
+    "start": "Start",
+    "restart": "Restart",
+    "loading": "Analyzing results...",
+    "questionsRemaining": "questions remaining",
+    "questionsRemainingSingular": "question remaining",
+    "answers": {
+      "stronglyAgree": "Strongly Agree",
+      "agree": "Agree",
+      "neutral": "Neutral",
+      "disagree": "Disagree",
+      "stronglyDisagree": "Strongly Disagree"
+    },
+    "intro": {
+      "title": "MBTI Personality Type Test",
+      "description": "This test is designed to identify your personality type. Please answer each question honestly.",
+      "time": "Time: About 5 minutes",
+      "questions": "40 questions total"
+    }
+  },
+  "result": {
+    "title": "Your MBTI Type",
+    "type": "Type",
+    "description": "Personality Description",
+    "strengths": "Strengths",
+    "weaknesses": "Weaknesses",
+    "career": "Recommended Careers",
+    "compatibility": "Compatible Types",
+    "share": "Share Results",
+    "retake": "Retake Test",
+    "viewAllTypes": "View All Types"
+  },
+  "resultCard": {
+    "completed": "Test Completed!",
+    "yourType": "Your Type",
+    "viewTypes": "View Types",
+    "goHome": "Go Home"
+  },
+  "enhancedResultCard": {
+    "completed": "Test Completed!",
+    "errorLoading": "An error occurred while loading the result.",
+    "retake": "Retake Test",
+    "goHome": "Go Home",
+    "detailedAnalysis": "Detailed Personality Analysis",
+    "strengths": "Key Strengths",
+    "weaknesses": "Areas for Growth",
+    "careerCompatibility": "Career Compatibility",
+    "recommendedCareers": "Recommended Careers",
+    "challengingCareers": "Challenging Careers",
+    "typeComparison": "Relationship with Other Types",
+    "viewDetails": "View Details",
+    "collapse": "Collapse",
+    "similarTypes": "Similar Types",
+    "complementaryTypes": "Complementary Types",
+    "challengingTypes": "Challenging Types",
+    "famousPeople": "Famous People with This Type",
+    "shareResults": "Share Results",
+    "shareText": "My MBTI type is {type} {name}! What's your type?",
+    "linkCopied": "Link copied!",
+    "linkCopiedInstagram": "Link copied! Open Instagram app and paste to your story or post.",
+    "linkCopiedKakao": "Link copied! Paste it in KakaoTalk.",
+    "linkCopyFailed": "Failed to copy link.",
+    "kakaoTitle": "MBTI Test Result: {type} {name}",
+    "kakaoButton": "Take the Test",
+    "shareOnX": "Share on X",
+    "shareOnThreads": "Share on Threads",
+    "shareOnInstagram": "Share on Instagram",
+    "shareOnFacebook": "Share on Facebook",
+    "shareOnKakao": "Share on KakaoTalk",
+    "shareOnLine": "Share on LINE",
+    "copyLink": "Copy Link",
+    "viewDetailedAnalysis": "View Detailed Analysis",
+    "cognitiveFunctionsTitle": "Cognitive Functions Stack",
+    "cognitiveFunctionDominant": "Dominant Function",
+    "cognitiveFunctionAuxiliary": "Auxiliary Function",
+    "cognitiveFunctionTertiary": "Tertiary Function",
+    "cognitiveFunctionInferior": "Inferior Function"
+  },
+  "types": {
+    "title": "16 MBTI Personality Types",
+    "subtitle": "Explore the characteristics of each type across 4 groups",
+    "viewDetails": "View Details"
+  },
+  "typesPage": {
+    "title": "16 MBTI Types",
+    "subtitle": "Learn about each personality type",
+    "viewDetails": "View Details",
+    "characteristics": "Detailed Characteristics",
+    "cognitiveFunctions": "Cognitive Functions",
+    "dominant": "Dominant Function",
+    "auxiliary": "Auxiliary Function",
+    "tertiary": "Tertiary Function",
+    "inferior": "Inferior Function",
+    "strengths": "Strengths",
+    "weaknesses": "Weaknesses",
+    "recommendedCareers": "Recommended Careers",
+    "challengingCareers": "Challenging Careers",
+    "relationships": "Relationships & Dating Style",
+    "datingStyle": "Dating Style",
+    "communicationStyle": "Communication Style",
+    "loveLanguage": "Love Language",
+    "idealPartner": "Ideal Partner",
+    "stressManagement": "Stress Management",
+    "stressSources": "Stress Sources",
+    "copingMethods": "Coping Methods",
+    "warningSigns": "Warning Signs",
+    "growthPoints": "Growth Points",
+    "strengthsToDevelop": "Strengths to Develop",
+    "challenges": "Challenges",
+    "developmentTips": "Development Tips",
+    "celebrityExamples": "Celebrity Examples",
+    "otherTypes": "Explore Other MBTI Types",
+    "takeTest": "Discover Your MBTI Type",
+    "testDescription": "Get accurate results with 40 scientifically validated questions.",
+    "startTest": "Start Free Test",
+    "analyst": "Analyst",
+    "diplomat": "Diplomat",
+    "sentinel": "Sentinel",
+    "explorer": "Explorer",
+    "home": "Home",
+    "allTypes": "View All Types"
+  },
+  "celebritiesPage": {
+    "title": "Celebrity MBTI",
+    "subtitle": "Meet world-renowned figures representing each MBTI type",
+    "subtitleDetail": "Analyze success patterns and discover the strengths of your type",
+    "totalCelebrities": "Registered Celebrities",
+    "totalTypes": "MBTI Types",
+    "totalFields": "Fields",
+    "totalCountries": "Countries",
+    "searchPlaceholder": "Search by celebrity name...",
+    "filter": "Filter",
+    "allTypes": "All Types",
+    "allFields": "All Fields",
+    "allCountries": "All Countries",
+    "resetFilters": "Reset Filters",
+    "showingCount": "Showing {count} total",
+    "noResults": "No results found",
+    "tryDifferentSearch": "Try different search criteria",
+    "mainAchievements": "Main Achievements",
+    "mbtiTraits": "MBTI Traits",
+    "successFactors": "Success Factors",
+    "fieldDistribution": "Success Field Distribution by MBTI",
+    "insights": "Success Pattern Insights by MBTI Type",
+    "learnMore": "Learn More",
+    "mbtiTypes": "MBTI Types",
+    "compatibilityAnalysis": "Compatibility Analysis",
+    "mbtiTest": "MBTI Test",
+    "glossary": "Glossary"
+  },
+  "blog": {
+    "title": "MBTI Blog",
+    "subtitle": "Various stories about personality types",
+    "readMore": "Read More"
+  },
+  "blogPage": {
+    "title": "MBTI Blog",
+    "subtitle": "Professional insights and in-depth analysis on personality types",
+    "readMore": "Read More",
+    "readTime": "read",
+    "categoriesTitle": "Categories",
+    "categories": ["Psychology", "Career", "Relationships", "Wellness"],
+    "ctaTitle": "Discover Your MBTI Type",
+    "ctaDescription": "Get accurate personality analysis with 40 scientifically validated questions.",
+    "ctaButton": "Start Free Test"
+  },
+  "blogArticle": {
+    "home": "Home",
+    "blog": "Blog",
+    "tocTitle": "Table of Contents",
+    "readTime": "read",
+    "category": "Category",
+    "writtenOn": "Written on",
+    "relatedPosts": "Related Posts",
+    "ctaTitle": "Discover Your MBTI Type",
+    "ctaDescription": "Get accurate personality analysis with 40 scientifically validated questions.",
+    "ctaButton": "Start Free Test"
+  },
+  "compatibility": {
+    "title": "MBTI Compatibility",
+    "subtitle": "Check compatibility between types and learn relationship tips",
+    "selectType": "Select Type",
+    "yourType": "Your Type",
+    "partnerType": "Partner's Type",
+    "check": "Check Compatibility",
+    "checkCompatibility": "Check Compatibility",
+    "firstType": "First Type",
+    "secondType": "Second Type",
+    "points": "points",
+    "relationshipAdvice": "Relationship Advice",
+    "checkAgain": "Check Again",
+    "levelBest": "Best Match",
+    "levelGreat": "Great Match",
+    "levelGood": "Good Relationship",
+    "levelNeedsWork": "Needs Effort",
+    "defaultDescription": "Your different personalities create a balanced relationship.",
+    "defaultAdvice": "Respect your differences and learn from each other as you grow together.",
+    "score": "Compatibility Score",
+    "description": "Compatibility Description",
+    "levelsGuide": "Compatibility Levels Guide",
+    "relationshipTips": "Relationship Tips",
+    "famousCases": "Famous Compatibility Examples",
+    "backToHome": "Back to Home",
+    "level90": {
+      "title": "90-100 points",
+      "name": "Soulmates",
+      "desc": "Personalities are very well matched. An ideal relationship where you understand and complement each other."
+    },
+    "level80": {
+      "title": "80-89 points",
+      "name": "Great Match",
+      "desc": "You get along well and can grow together."
+    },
+    "level70": {
+      "title": "70-79 points",
+      "name": "Good Relationship",
+      "desc": "There are differences, but with effort, you can maintain a good relationship."
+    },
+    "levelBelow70": {
+      "title": "Below 70 points",
+      "name": "Needs Effort",
+      "desc": "There are many differences. Understanding and respecting each other is important."
+    },
+    "relationship": {
+      "lovers": {
+        "category": "Romantic Relationship",
+        "tips": [
+          "Understand how your partner expresses love (words vs actions)",
+          "When conflicts arise, acknowledge differences and find compromise",
+          "Develop common interests and find activities you can enjoy together"
+        ]
+      },
+      "spouse": {
+        "category": "Marriage",
+        "tips": [
+          "Consider each other's strengths when dividing household roles",
+          "Adapt to differences in communication styles",
+          "Regularly share your feelings and thoughts with each other"
+        ]
+      },
+      "parenting": {
+        "category": "Parenting",
+        "tips": [
+          "Choose education methods considering your child's MBTI",
+          "Support their growth through encouragement rather than pressure",
+          "Find learning styles that match your child's personality type"
+        ]
+      }
+    },
+    "famousExamples": {
+      "intjEnfp": {
+        "title": "Architect × Campaigner",
+        "score": "95 - Soulmates",
+        "desc": "Perfect combination of strategic thinking (INTJ) and creative energy (ENFP). Maximizes each other's strengths."
+      },
+      "istjEsfp": {
+        "title": "Logistician × Entertainer",
+        "score": "92 - Best Match",
+        "desc": "Balance of stability (ISTJ) and energy (ESFP). Complements each other's weaknesses."
+      },
+      "infjEnfp": {
+        "title": "Advocate × Campaigner",
+        "score": "88 - Great Match",
+        "desc": "Harmony of deep empathy and idealism. Understands and supports each other's emotions well."
+      }
+    }
+  },
+  "celebrities": {
+    "title": "Celebrity MBTI",
+    "subtitle": "Check the MBTI types of famous people"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Do you have questions about Simple MBTI?",
+    "emailInquiry": {
+      "title": "Email Inquiry",
+      "description": "General inquiries and technical support",
+      "email": "support@simplembti.com",
+      "responseTime": "Response within 24 hours on weekdays"
+    },
+    "featureSuggestion": {
+      "title": "Feature Suggestion",
+      "description": "New features or improvement ideas",
+      "email": "ideas@simplembti.com",
+      "responseTime": "Response within 2-3 business days"
+    },
+    "bugReport": {
+      "title": "Bug Report",
+      "description": "Service errors or issues reporting",
+      "email": "bugs@simplembti.com",
+      "responseTime": "Priority handling for urgent cases"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "question1": "How accurate is the MBTI test?",
+      "answer1": "The MBTI test is a personality type analysis tool based on statistical probabilities. It is not an absolute diagnostic tool, and behavior may vary depending on the situation. Please use it for reference purposes.",
+      "question2": "Can I save my test results?",
+      "answer2": "Currently, you can view your test results temporarily. When you sign up for membership, you will be able to save your results. More features will be added in future updates.",
+      "question3": "Can MBTI types change?",
+      "answer3": "Yes, MBTI types can change with growth and environmental changes. We recommend taking the test regularly to track your changes.",
+      "question4": "I would like professional counseling.",
+      "answer4": "Our service is intended as a reference tool. If you need professional psychological counseling, we recommend consulting with a qualified professional."
+    },
+    "contactForm": {
+      "title": "Contact Form",
+      "emailContact": "Email Inquiry",
+      "emailContactDescription": "Send your inquiries to the email address below and we will respond within 24 hours.",
+      "quickContact": "Quick Contact",
+      "responseTime": "Response time: Within 24 hours",
+      "hours": "Weekdays 09:00 - 18:00 (KST)",
+      "responsePriority": "Response Priority",
+      "urgentBug": "Urgent Bug Report",
+      "generalInquiry": "General Inquiry",
+      "featureSuggestion": "Feature Suggestion"
+    },
+    "backToHome": "Back to Home"
+  },
+  "errors": {
+    "notFound": "Page not found.",
+    "serverError": "Server error occurred.",
+    "tryAgain": "Please try again."
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "subtitle": "Simple MBTI's policy on personal information processing",
+    "articles": {
+      "article1": {
+        "title": "Article 1 (Purpose)",
+        "content": "Simple MBTI (hereinafter referred to as the \"Service\") values users' personal information and complies with relevant laws such as the 「Personal Information Protection Act」. This Privacy Policy informs you of how and for what purposes your personal information is used, and what measures are taken to protect your personal information."
+      },
+      "article2": {
+        "title": "Article 2 (Personal Information Collected)",
+        "content": "The Service collects the following personal information for membership registration and service usage.",
+        "items": ["Email address", "Nickname", "MBTI test results (optional storage)", "Service usage records"]
+      },
+      "article3": {
+        "title": "Article 3 (Purpose of Personal Information Collection and Use)",
+        "content": "The collected personal information is used for the following purposes.",
+        "items": ["Member management and service provision", "MBTI test result storage and retrieval", "Customer inquiry response", "Service improvement and analysis"]
+      },
+      "article4": {
+        "title": "Article 4 (Retention and Use Period of Personal Information)",
+        "content": "Users' personal information is, in principle, promptly deleted upon achievement of the purpose of collection and use. However, if retention is required under relevant regulations, it will be retained for the period specified by law."
+      },
+      "article5": {
+        "title": "Article 5 (Procedures and Methods of Personal Information Destruction)",
+        "content": "The Service, in principle, promptly deletes information once the purpose of personal information collection and use has been achieved.",
+        "items": ["Personal information stored in electronic files is deleted using technical methods that make reproduction impossible", "Personal information recorded on paper documents is destroyed by shredding or incineration"]
+      },
+      "article6": {
+        "title": "Article 6 (User Rights and How to Exercise Them)",
+        "content": "Users can view, modify, or request deletion of their registered personal information at any time.",
+        "items": ["View/Modify personal information: Profile in settings menu", "Delete personal information: Contact customer center", "Withdraw consent: Personal information in settings menu"]
+      },
+      "article7": {
+        "title": "Article 7 (Measures to Ensure Safety of Personal Information)",
+        "content": "The Service takes the following measures to safely manage users' personal information.",
+        "items": ["Encryption: Personal information is encrypted for storage and transmission", "Access restriction: Minimize access to personal information", "Security programs: Install and operate latest security programs", "Regular audits: Regularly inspect personal information handling status"]
+      },
+      "article8": {
+        "title": "Article 8 (Changes to Privacy Policy)",
+        "content": "This Privacy Policy may be changed according to laws and policies, and when changes are made, users will be notified at least 7 days in advance through announcements on the service."
+      }
+    },
+    "backToHome": "Back to Home"
+  },
+  "termsOfService": {
+    "title": "Terms of Service",
+    "subtitle": "Terms and conditions for using Simple MBTI service",
+    "backToHome": "Back to Home",
+    "article1Title": "Article 1 (Purpose)",
+    "article1Content": "These Terms of Service are established to stipulate the terms and conditions of service usage, rights and obligations between users and the service provider, responsibilities, and other necessary matters regarding all services provided by Simple MBTI (hereinafter referred to as the &quot;Service&quot;).",
+    "article2Title": "Article 2 (Definitions)",
+    "article2Term1": "Service",
+    "article2Def1": "refers to all online services provided by Simple MBTI.",
+    "article2Term2": "User",
+    "article2Def2": "refers to all users who access the Service and use it in accordance with these Terms of Service.",
+    "article2Term3": "MBTI Test",
+    "article2Def3": "refers to the personality type test provided by the Service.",
+    "article2Term4": "Results",
+    "article2Def4": "refers to the personality type analysis result provided after the MBTI test.",
+    "article3Title": "Article 3 (Effectiveness and Changes of Terms)",
+    "article3Intro": "These Terms of Service become effective for all users who wish to use the Service.",
+    "article3Point1": "The Service may change these Terms of Service within the scope not violating relevant laws when necessary.",
+    "article3Point2": "When changing the terms, users will be notified at least 7 days in advance through announcements on the Service.",
+    "article3Point3": "If a user does not agree to the modified terms, they may discontinue using the Service.",
+    "article4Title": "Article 4 (Provision of Services)",
+    "article4Intro": "The Service provides the following services:",
+    "article4Service1": "MBTI personality type test",
+    "article4Service2": "Test result analysis and interpretation",
+    "article4Service3": "Type-specific characteristics and descriptions",
+    "article4Service4": "Compatibility analysis",
+    "article4Service5": "Educational and informational content",
+    "article5Title": "Article 5 (Restrictions on Service Use)",
+    "article5Intro": "Service usage may be restricted in the following cases:",
+    "article5Reason1": "Infringement of others' rights or illegal activities",
+    "article5Reason2": "Interference with the normal operation of the Service",
+    "article5Reason3": "Submission of false information or misuse of others' information",
+    "article5Reason4": "Violation of these Terms of Service",
+    "article6Title": "Article 6 (Interpretation and Limitations of Results)",
+    "article6Intro": "MBTI test results are for reference only and have the following limitations:",
+    "article6Limit1": "It is not an absolute diagnostic tool.",
+    "article6Limit2": "Behavior may vary depending on the situation.",
+    "article6Limit3": "It does not replace professional psychological counseling.",
+    "article6Limit4": "Results are based on statistical probability.",
+    "article7Title": "Article 7 (Disclaimer)",
+    "article7Intro": "The Service is not responsible for the following:",
+    "article7Disclaimer1": "User decisions and actions based on test results",
+    "article7Disclaimer2": "Mental or material damages arising from Service usage",
+    "article7Disclaimer3": "Force majeure such as natural disasters, system failures, etc.",
+    "article7Disclaimer4": "Damages caused by illegal acts of third parties",
+    "article8Title": "Article 8 (Intellectual Property Rights)",
+    "article8Content": "All intellectual property rights for the Service's content, design, software, etc. belong to the Service. Users may not reproduce, distribute, or transmit these without prior written consent from the Service.",
+    "article9Title": "Article 9 (Dispute Resolution)",
+    "article9Content": "Disputes related to these Terms of Service shall be governed by the laws of the Republic of Korea, and the competent court shall be the court having jurisdiction over the location of the Service provider's headquarters."
+  },
+  "about": {
+    "metadataTitle": "About Us - MBTI Personality Type Test | Expert-Validated Content",
+    "metadataDescription": "Introduction to the MBTI test site, methodology, and expert information. Providing reliable personality type analysis based on psychological research and data.",
+    "ogTitle": "About Us - MBTI Personality Type Test",
+    "ogDescription": "Reliable MBTI analysis based on psychological research and data.",
+    "heroTitle": "About Us",
+    "heroSubtitle": "Professional and reliable MBTI analysis based on psychological research and data",
+    "missionTitle": "Our Mission",
+    "missionDescription": "This site was created to help people better understand their own and others' personality types through the MBTI (Myers-Briggs Type Indicator) personality test, and to aid in relationship improvement and personal growth. We provide accurate and reliable information based on scientific evidence and research data to help people discover their potential and live better lives.",
+    "scienceTitle": "Scientific Basis",
+    "scienceDesc": "Research-based content",
+    "expertiseTitle": "Expertise",
+    "expertiseDesc": "Psychology expert validation",
+    "practicalityTitle": "Practicality",
+    "practicalityDesc": "Actionable daily insights",
+    "teamTitle": "Expert Team",
+    "expert1Name": "Dr. Park Jun-young",
+    "expert1Title": "Ph.D. in Clinical Psychology",
+    "expert1Edu": "Ph.D. in Psychology, Seoul National University",
+    "expert1Work": "Former Senior Researcher, Samsung HR Research Institute",
+    "expert1Member": "Regular Member, Korean Psychological Association",
+    "expert1Exp": "15+ years in personality psychology research",
+    "expert1Quote": "MBTI can be a useful tool for self-understanding. Our goal is to provide practical value while recognizing its scientific limitations.",
+    "expert2Name": "Dr. Lee Min-ah",
+    "expert2Title": "Ph.D. in Counseling Psychology",
+    "expert2Edu": "Ph.D. in Education, Yonsei University Graduate School",
+    "expert2Work": "Vice President, Korean Counseling Association",
+    "expert2Cert": "Level 1 Career Counselor Certification",
+    "expert2Exp": "10+ years of corporate coaching experience",
+    "expert2Quote": "Self-awareness through MBTI can greatly help personal growth and career development. It's important to understand and respect the strengths of different types.",
+    "methodologyTitle": "Methodology & Data Sources",
+    "researchBaseTitle": "Validated Research Base",
+    "researchBaseDesc": "Our content is based on authoritative research and academic sources:",
+    "testDesignTitle": "Test Design Principles",
+    "standardizedQuestions": "Standardized Questions:",
+    "standardizedQuestionsDesc": "Reliability ensured through validated MBTI items",
+    "balancedPlacement": "Balanced Placement:",
+    "balancedPlacementDesc": "Randomized question order to minimize bias",
+    "scoreWeight": "Score Weighting:",
+    "scoreWeightDesc": "Statistical weighting applied to each response",
+    "privacy": "Privacy Protection:",
+    "privacyDesc": "Data encryption and anonymization",
+    "partnershipsTitle": "Academic Partnerships",
+    "partnershipsDesc": "We collaborate with the following organizations to maintain academic accuracy:",
+    "org1": "Korean Psychological Association",
+    "org2": "Korean Counseling Association",
+    "org3": "Korean Society for Industrial and Organizational Psychology",
+    "org4": "Korean Association for Human Resource Management",
+    "limitationsTitle": "Ethical Disclosure & Limitations",
+    "limitation1": "MBTI is a tool for understanding preferences, not a scientific diagnostic tool.",
+    "limitation2": "Results are for reference and do not fully describe all characteristics of an individual.",
+    "limitation3": "It should not be used as the sole criterion for employment or important decisions.",
+    "limitation4": "Personal information is encrypted and stored, and not shared with third parties.",
+    "limitation5": "All content is for informational purposes and cannot replace professional counseling.",
+    "contactTitle": "Contact Us",
+    "contactDesc": "Feel free to contact us if you have any questions about the test or site, partnership proposals, or academic feedback.",
+    "sendEmail": "Send Email",
+    "contactPage": "Contact Page",
+    "backHome": "Back to Home"
+  },
+  "usage": {
+    "title": "Practical Applications",
+    "subtitle": "Learn how to effectively use MBTI in your daily life, career, and relationships",
+    "careerTitle": "Career Recommendations",
+    "analystGroup": "Analyst (NT)",
+    "analystGroupDesc": "Rationality and Intellectual Ability",
+    "diplomatGroup": "Diplomat (NF)",
+    "diplomatGroupDesc": "Empathy and Idealism",
+    "sentinelGroup": "Sentinel (SJ)",
+    "sentinelGroupDesc": "Order and Stability",
+    "explorerGroup": "Explorer (SP)",
+    "explorerGroupDesc": "Spontaneity and Flexibility",
+    "recommendedCareers": "Recommended Careers",
+    "strengths": "Strengths",
+    "workStyle": "Work Style",
+    "relationshipTipsTitle": "Relationship Tips",
+    "romanticRelationship": "Romantic Relationships",
+    "marriageRelationship": "Marriage",
+    "parenting": "Parenting",
+    "dailyLifeTitle": "Daily Life Applications",
+    "stressManagement": "Stress Management",
+    "stressManagementDesc": "Learn effective stress relief methods for each personality type",
+    "timeManagement": "Time Management",
+    "timeManagementDesc": "Apply time management methods suited to your type",
+    "decisionMaking": "Decision Making",
+    "decisionMakingDesc": "Use decision-making methods that leverage each type's strengths",
+    "iType": "I Type",
+    "eType": "E Type",
+    "nType": "N Type",
+    "sType": "S Type",
+    "jType": "J Type",
+    "pType": "P Type",
+    "tType": "T Type",
+    "fType": "F Type",
+    "aloneTime": "Time alone",
+    "socialActivity": "Social activities with friends",
+    "futurePlanning": "Future planning",
+    "routineMaintenance": "Daily routine maintenance",
+    "detailedSchedule": "Detailed schedule planning",
+    "flexibleTime": "Flexible time management",
+    "focusTime": "Focus time",
+    "socialScheduling": "Social scheduling",
+    "logicalAnalysis": "Prioritize logical analysis",
+    "emotionalConsideration": "Consider emotional impact",
+    "pastExperience": "Refer to past experience",
+    "futurePossibilities": "Explore future possibilities",
+    "understandLoveLanguage": "Understand how your partner expresses love (words vs actions)",
+    "acceptDifferences": "Accept differences and find compromise during conflicts",
+    "commonInterests": "Develop common interests and find activities to enjoy together",
+    "roleDistribution": "Consider each other's strengths when dividing household roles",
+    "adaptCommunication": "Adapt to differences in communication styles",
+    "regularSharing": "Regularly share feelings and thoughts with each other",
+    "mbtiBasedEducation": "Choose education methods based on your child's MBTI",
+    "encouragement": "Support growth through encouragement rather than coercion",
+    "learningStyle": "Find learning styles that match your child's personality type",
+    "warningTitle": "Important Notice",
+    "warningContent": "MBTI is just a reference tool and does not perfectly describe your personality. Behavior can vary depending on the situation. If you need professional counseling, please seek help from a qualified expert.",
+    "learnMoreTitle": "Learn More",
+    "typesLink": "MBTI Types",
+    "typesLinkDesc": "Characteristics of the 16 personality types",
+    "celebritiesLink": "Celebrity MBTI",
+    "celebritiesLinkDesc": "Representative figures for each type",
+    "compatibilityLink": "MBTI Compatibility",
+    "compatibilityLinkDesc": "Personality type compatibility analysis",
+    "glossaryLink": "Glossary",
+    "glossaryLinkDesc": "MBTI concepts and terminology",
+    "backToHome": "Back to Home"
+  },
+  "glossary": {
+    "title": "Glossary",
+    "subtitle": "Easily understand MBTI terms and concepts",
+    "quickReference": "Quick Reference Guide",
+    "studyGuide": "MBTI Study Guide",
+    "learnMore": "Learn More",
+    "backToHome": "Back to Home",
+    "categories": {
+      "basic": "Basic Concepts",
+      "dichotomy": "Four Dichotomies",
+      "cognitive": "Cognitive Functions",
+      "advanced": "Advanced Concepts",
+      "typeFeatures": "Type Characteristics",
+      "history": "History & Development",
+      "practical": "Practical Concepts"
+    },
+    "quickRef": {
+      "ei": "Extraversion vs Introversion",
+      "e": "Energy from external world",
+      "i": "Energy from internal world",
+      "sn": "Sensing vs Intuition",
+      "s": "Focus on current facts",
+      "n": "Explore future possibilities",
+      "tf": "Thinking vs Feeling",
+      "t": "Logical judgment",
+      "f": "Emotional judgment",
+      "jp": "Judging vs Perceiving",
+      "j": "Planned approach",
+      "p": "Flexible approach"
+    },
+    "studyTips": {
+      "beginner": {
+        "title": "For Beginners",
+        "tips": [
+          "Start with the basic concepts of the four dichotomies",
+          "Accurately identify your own type",
+          "Read the type characteristics repeatedly",
+          "Analyze the types of people close to you",
+          "Don't treat MBTI results as absolute truth"
+        ]
+      },
+      "advanced": {
+        "title": "Advanced Study",
+        "tips": [
+          "Study the concept of cognitive functions in depth",
+          "Understand the function stack of each type",
+          "Observe behavior patterns under stress",
+          "Interact with people of various types",
+          "Learn about MBTI limitations and misconceptions"
+        ]
+      },
+      "practical": {
+        "title": "Practical Application",
+        "tips": [
+          "Consider the other person's type when communicating",
+          "Apply type-specific coping methods in conflicts",
+          "Utilize your strengths in career choices",
+          "Respect each other's differences in relationships",
+          "Practice continuous self-reflection"
+        ]
+      },
+      "warning": {
+        "title": "Cautions",
+        "tips": [
+          "MBTI is not a scientific diagnostic tool",
+          "Don't categorize people simply as labels",
+          "Types can change with growth and circumstances",
+          "It cannot replace professional counseling",
+          "Continuous learning and flexible thinking are important"
+        ]
+      }
+    },
+    "links": {
+      "types": {
+        "title": "MBTI Types",
+        "description": "Characteristics of 16 personality types"
+      },
+      "celebrities": {
+        "title": "Celebrity MBTI",
+        "description": "Representative figures for each type"
+      },
+      "compatibility": {
+        "title": "MBTI Compatibility",
+        "description": "Personality type compatibility analysis"
+      },
+      "usage": {
+        "title": "Practical Usage",
+        "description": "Career, dating, and daily life applications"
+      }
+    }
+  }
+}

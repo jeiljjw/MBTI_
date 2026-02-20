@@ -1,4 +1,36 @@
+# robots.txt for simplembti.com
+# Updated: 2025-02-20
+
+# Allow all search engines
 User-agent: *
 Allow: /
 
-Sitemap: https://simplembti.com/sitemap.xml
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /_next/
+Disallow: /_vercel/
+
+# Allow specific bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# Crawl delay for aggressive bots
+User-agent: *
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://www.simplembti.com/sitemap.xml
+Sitemap: https://www.simplembti.com/sitemap-ko.xml
+Sitemap: https://www.simplembti.com/sitemap-en.xml
+
+# Host (preferred domain)
+Host: https://www.simplembti.com
