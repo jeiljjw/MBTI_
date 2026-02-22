@@ -83,7 +83,7 @@ function LoveKo({ t }: { t: (key: string) => string }) {
             </ul>
             <div className="bg-pink-900/20 border-l-4 border-pink-500 p-4 my-6">
               <p className="text-pink-200 text-sm">
-                <strong>핵심 포인트:</strong> 어떤 유형이 "좋은" 연인인 것은 아닙니다. 
+                <strong>핵심 포인트:</strong> 어떤 유형이 &quot;좋은&quot; 연인인 것은 아닙니다. 
                 중요한 것은 자신의 유형을 이해하고, 파트너의 필요를 인식하며, 서로의 차이를 존중하는 것입니다.
               </p>
             </div>
@@ -105,8 +105,7 @@ function LoveKo({ t }: { t: (key: string) => string }) {
 
             <h3 className="text-xl font-bold text-white mb-3">INTP - 논리술사</h3>
             <p className="text-gray-300 leading-relaxed mb-4">
-              INTP는 연애에서 이상주의적입니다. 완벽한 파트너를 찾으려 하고, 관계의 '
-              왜'를 분석하려 합니다. 친밀한 관계에서는 내향적이고 수줍어 보일 수 있습니다.
+              INTP는 연애에서 이상주의적입니다. 완벽한 파트너를 찾으려 하고, 관계의 &apos;왜&apos;를 분석하려 합니다. 친밀한 관계에서는 내향적이고 수줍어 보일 수 있습니다.
             </p>
             <ul className="list-disc list-inside text-gray-300 space-y-2 mb-4">
               <li><strong>사랑 언어:</strong> 지적 교감, 공간 제공, 창의적 활동</li>

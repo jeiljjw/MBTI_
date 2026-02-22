@@ -1,10 +1,8 @@
-import { setRequestLocale } from 'next-intl/server';
-import { Link } from '@/src/i18n/routing';
 import { BeamsBackground } from "@/components/ui/beams-background";
 import Script from "next/script";
 import { HomeContent } from './HomeContent';
 
-export default function Home({ params }: { params: Promise<{ locale: string }> }) {
+export default function Home(_props: { params: Promise<{ locale: string }> }) {
   return (
     <>
       <Script

@@ -1078,7 +1078,7 @@ export const countryStats = (Object.keys(countries) as CountryCode[]).reduce((ac
 
 // 사용된 국가 목록 (유명인이 있는 국가만)
 export const usedCountries = Object.entries(countryStats)
-  .filter(([_, count]) => count > 0)
+  .filter(([_key, count]) => count > 0)
   .map(([code]) => countries[code as CountryCode])
   .sort((a, b) => b.name.localeCompare(a.name));
 

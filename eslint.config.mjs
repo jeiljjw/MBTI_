@@ -16,7 +16,7 @@ const eslintConfig = defineConfig([
   {
     rules: {
       // 추가 규칙들
-      '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-unused-vars': ['warn', { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
       'react/no-unescaped-entities': 'warn'
     }
   }

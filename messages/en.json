@@ -44,7 +44,7 @@
     }
   },
   "home": {
-    "title": "MBTI Personality Type Test",
+    "title": "MBTI\nPersonality Type Test",
     "subtitle": "Discover your personality type",
     "description": "Discover your personality type with our scientifically validated MBTI test. Which of the 16 personality types are you?",
     "startTest": "Start Test",
@@ -66,7 +66,7 @@
     }
   },
   "test": {
-    "title": "MBTI Personality Type Test",
+    "title": "MBTI\nPersonality Type Test",
     "progress": "Progress",
     "question": "Question",
     "of": "of",
@@ -86,7 +86,7 @@
       "stronglyDisagree": "Strongly Disagree"
     },
     "intro": {
-      "title": "MBTI Personality Type Test",
+      "title": "MBTI\nPersonality Type Test",
       "description": "This test is designed to identify your personality type. Please answer each question honestly.",
       "time": "Time: About 5 minutes",
       "questions": "40 questions total"

@@ -925,7 +925,7 @@ export function getFieldName(field: CelebrityField, locale: 'ko' | 'en' = 'ko'):
   return bilingualFieldNames[field][locale];
 }
 
-export function getGroupColors(group: string, locale: 'ko' | 'en' = 'ko') {
+export function getGroupColors(group: string, _locale: 'ko' | 'en' = 'ko') {
   // Group colors are the same for both languages
   return groupColors[group] || groupColors["분석가형 (NT)"];
 }

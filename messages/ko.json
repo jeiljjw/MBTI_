@@ -44,7 +44,7 @@
     }
   },
   "home": {
-    "title": "MBTI 성격 유형 테스트",
+    "title": "MBTI\n성격 유형 테스트",
     "subtitle": "당신의 성격 유형을 알아보세요",
     "description": "과학적으로 검증된 MBTI 테스트로 당신의 성격 유형을 발견하세요. 16가지 성격 유형 중 당신은 무엇일까요?",
     "startTest": "테스트 시작하기",
@@ -66,7 +66,7 @@
     }
   },
   "test": {
-    "title": "MBTI 성격 유형 테스트",
+    "title": "MBTI\n성격 유형 테스트",
     "progress": "진행률",
     "question": "질문",
     "of": "중",
@@ -86,7 +86,7 @@
       "stronglyDisagree": "매우 비동의함"
     },
     "intro": {
-      "title": "MBTI 성격 유형 테스트",
+      "title": "MBTI\n성격 유형 테스트",
       "description": "이 테스트는 당신의 성격 유형을 파악하기 위한 것입니다. 각 질문에 솔직하게 답변해 주세요.",
       "time": "소요 시간: 약 5분",
       "questions": "총 40개의 질문"
