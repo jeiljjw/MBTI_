@@ -111,6 +111,30 @@ const articlesKo = [
     readTime: "12분",
     date: "2026-02-20",
   },
+  {
+    slug: "mbti-self-improvement",
+    title: "MBTI 자기계발 가이드: 유형별 성장 전략과 발전 방법",
+    excerpt: "각 MBTI 유형별로 자기계발 방법이 다릅니다. 자신의 강점을 살리고 약점을 보완하는 맞춤형 성장 전략을 알아봅니다.",
+    category: "심리학",
+    readTime: "8분",
+    date: "2026-02-22",
+  },
+  {
+    slug: "mbti-communication-styles",
+    title: "MBTI 소통 스타일: 유형별 맞춤 커뮤니케이션 가이드",
+    excerpt: "타인과 효과적으로 소통하는 방법은 MBTI 유형에 따라 다릅니다. 각 유형의 소통 스타일과 충돌 예방법을 알아봅니다.",
+    category: "관계",
+    readTime: "9분",
+    date: "2026-02-22",
+  },
+  {
+    slug: "mbti-parenting-guide",
+    title: "MBTI 육아 가이드: 자녀 유형별 맞춤 교육 전략",
+    excerpt: "자녀의 MBTI 유형에 따라 다른 육아 접근이 필요합니다. 각 유형의 아이에게 맞는 교육 방법과 소통 전략을 알아봅니다.",
+    category: "관계",
+    readTime: "10분",
+    date: "2026-02-23",
+  },
 ];
 
 const articlesEn = [
@@ -201,6 +225,30 @@ const articlesEn = [
     category: "Career",
     readTime: "12 min",
     date: "2026-02-20",
+  },
+  {
+    slug: "mbti-self-improvement",
+    title: "MBTI Self-Improvement Guide: Growth Strategies by Type",
+    excerpt: "Self-improvement methods differ for each MBTI type. Learn customized growth strategies that leverage your strengths and compensate for weaknesses.",
+    category: "Psychology",
+    readTime: "8 min",
+    date: "2026-02-22",
+  },
+  {
+    slug: "mbti-communication-styles",
+    title: "MBTI Communication Styles: Customized Communication Guide",
+    excerpt: "Effective communication methods vary by MBTI type. Learn about each type's communication style and conflict prevention strategies.",
+    category: "Relationships",
+    readTime: "9 min",
+    date: "2026-02-22",
+  },
+  {
+    slug: "mbti-parenting-guide",
+    title: "MBTI Parenting Guide: Customized Education Strategies by Child Type",
+    excerpt: "Different parenting approaches are needed based on your child's MBTI type. Learn education methods and communication strategies suited for each type.",
+    category: "Relationships",
+    readTime: "10 min",
+    date: "2026-02-23",
   },
 ];
 

@@ -49,6 +49,49 @@
     "description": "Discover your personality type with our scientifically validated MBTI test. Which of the 16 personality types are you?",
     "startTest": "Start Test",
     "learnMore": "Learn More",
+    "trust": {
+      "accuracy": "Accuracy",
+      "time": "Time",
+      "questions": "Questions",
+      "price": "Price",
+      "accuracyValue": "92%",
+      "timeValue": "10min",
+      "questionsValue": "40",
+      "priceValue": "Free"
+    },
+    "navigation": {
+      "title": "Explore More",
+      "test": {
+        "title": "MBTI Test",
+        "description": "Discover your personality type",
+        "cta": "Start"
+      },
+      "types": {
+        "title": "16 Types",
+        "description": "Explore detailed descriptions of all types",
+        "cta": "View"
+      },
+      "compatibility": {
+        "title": "Compatibility",
+        "description": "Which type are you most compatible with?",
+        "cta": "Check"
+      },
+      "celebrities": {
+        "title": "Celebrity MBTI",
+        "description": "What are the personality types of celebrities?",
+        "cta": "Explore"
+      },
+      "blog": {
+        "title": "Blog",
+        "description": "Read various articles about MBTI",
+        "cta": "Read"
+      },
+      "glossary": {
+        "title": "Glossary",
+        "description": "Learn MBTI-related terms",
+        "cta": "View"
+      }
+    },
     "features": {
       "title": "Why Take the MBTI Test?",
       "accurate": {
@@ -62,6 +105,42 @@
       "detailed": {
         "title": "Detailed Results",
         "description": "Get detailed analysis of your personality traits, strengths, and weaknesses."
+      }
+    },
+    "reviews": {
+      "title": "User Reviews",
+      "subtitle": "Valuable reviews from people who took the test"
+    },
+    "stats": {
+      "users": "Tests Completed",
+      "accuracy": "Accuracy",
+      "types": "MBTI Types",
+      "rating": "Rating"
+    },
+    "latestBlog": {
+      "title": "Latest Posts",
+      "subtitle": "Read various articles about MBTI",
+      "readMore": "Read More",
+      "viewAll": "View All Posts"
+    },
+    "FAQ": {
+      "title": "FAQ",
+      "subtitle": "Frequently asked questions about MBTI",
+      "1": {
+        "question": "How accurate is the MBTI test?",
+        "answer": "MBTI is a personality type analysis tool based on statistical probabilities. It is not an absolute diagnostic tool, and behavior may vary depending on the situation. Please use it for reference purposes."
+      },
+      "2": {
+        "question": "How long does the test take?",
+        "answer": "The test consists of 40 questions and takes approximately 10-15 minutes to complete. Take your time and answer honestly."
+      },
+      "3": {
+        "question": "How do I interpret the results?",
+        "answer": "On the results page, you can see your detailed MBTI type description, strengths, weaknesses, and suitable career paths."
+      },
+      "4": {
+        "question": "Is the test free?",
+        "answer": "Yes, it is completely free. You can start the test right away without any registration or payment."
       }
     }
   },
@@ -434,6 +513,11 @@
       "article8": {
         "title": "Article 8 (Changes to Privacy Policy)",
         "content": "This Privacy Policy may be changed according to laws and policies, and when changes are made, users will be notified at least 7 days in advance through announcements on the service."
+      },
+      "article9": {
+        "title": "Article 9 (Advertising and Third-Party Cookies)",
+        "content": "This service displays advertisements through third-party advertising networks including Google AdSense. For this purpose, Google and third-party advertising partners store cookies on users' browsers to provide personalized ads tailored to users' interests.",
+        "items": ["Google AdSense cookies (DoubleClick)", "Interest-based ad personalization", "Ad performance measurement", "Click fraud prevention", "User profiling and retargeting"]
       }
     },
     "backToHome": "Back to Home"

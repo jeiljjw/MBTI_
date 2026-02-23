@@ -92,6 +92,16 @@ export function PrivacyPolicyContent() {
                 {t('articles.article8.content')}
               </p>
             </section>
+
+            <section>
+              <h2 className="text-2xl font-bold text-white mb-4">{t('articles.article9.title')}</h2>
+              <p className="text-gray-300 leading-relaxed mb-3">{t('articles.article9.content')}</p>
+              <ul className="text-gray-300 space-y-2 ml-4">
+                {t.raw('articles.article9.items').map((item: string, index: number) => (
+                  <li key={index}>• {item}</li>
+                ))}
+              </ul>
+            </section>
           </div>
         </div>
 

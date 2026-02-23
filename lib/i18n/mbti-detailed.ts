@@ -161,7 +161,7 @@ They envision future possibilities through creative and intuitive thinking, and 
       datingStyle: "INFJs seek very serious and deep relationships in dating. They want spiritual and emotional connection and prefer deep conversations over surface-level interactions. They like giving rather than receiving love, and encourage and support their partner's growth. They imagine long-term partnerships and future together.",
       communicationStyle: "Prefers deep and meaningful conversations. Listens carefully to others and shows genuine interest. Open to emotional topics as well.",
       loveLanguage: ["Deep conversation", "Quality time", "Care", "Encouragement", "Trust and honesty"],
-      idealPartner: "INFJs want a partner they can share deep connection and growth with. Intuitive types like ENFP or INFP can共鸣 INFJ's vision, while INTJ or ENTJ can provide intellectual connection."
+      idealPartner: "INFJs want a partner they can share deep connection and growth with. Intuitive types like ENFP or INFP can resonate with INFJ's vision, while INTJ or ENTJ can provide intellectual connection."
     },
     
     stressManagement: {

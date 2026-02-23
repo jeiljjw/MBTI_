@@ -477,7 +477,7 @@ export const bilingualCelebrityGroups: BilingualMBTICelebrityGroup[] = [
           en: "Media personality and entrepreneur. Founder of KKW Beauty and SKIMS"
         },
         achievements: {
-          ko: ["SKIMS 40억 달러 기업", "미국 변호사 시험合格", "리얼리티 TV 스타"],
+          ko: ["SKIMS 40억 달러 기업", "미국 변호사 시험 통과", "리얼리티 TV 스타"],
           en: ["SKIMS $4 billion business", "Passed US bar exam", "Reality TV star"]
         },
         mbtiTraits: {
@@ -560,7 +560,7 @@ export const bilingualCelebrityGroups: BilingualMBTICelebrityGroup[] = [
         },
         successFactors: {
           ko: ["대중적 어필", "사회 비판과 유머", "독창적 스토리텔링", "장르 도전"],
-          en: ["Public appeal", "Social critique and humor", "Original storytelling", "Genre挑战"]
+          en: ["Public appeal", "Social critique and humor", "Original storytelling", "Genre challenge"]
         }
       },
       {

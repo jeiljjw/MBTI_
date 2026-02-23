@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useMemo } from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface AnimatedGradientBackgroundProps {
     className?: string;
     children?: React.ReactNode;
     intensity?: "subtle" | "medium" | "strong";
+    minHeight?: string;
 }
 
 interface Beam {
@@ -43,11 +43,12 @@ export function BeamsBackground({
     className,
     children,
     intensity = "strong",
+    minHeight = "min-h-screen",
 }: AnimatedGradientBackgroundProps) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const beamsRef = useRef<Beam[]>([]);
     const animationFrameRef = useRef<number>(0);
-    const MINIMUM_BEAMS = 20;
+    const MINIMUM_BEAMS = 12; // Reduced from 20
 
     const opacityMap = useMemo(() => ({
         subtle: 0.7,
@@ -63,14 +64,14 @@ export function BeamsBackground({
         if (!ctx) return;
 
         const updateCanvasSize = () => {
-            const dpr = window.devicePixelRatio || 1;
+            const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap DPR at 2
             canvas.width = window.innerWidth * dpr;
             canvas.height = window.innerHeight * dpr;
             canvas.style.width = `${window.innerWidth}px`;
             canvas.style.height = `${window.innerHeight}px`;
             ctx.scale(dpr, dpr);
 
-            const totalBeams = MINIMUM_BEAMS * 1.5;
+            const totalBeams = MINIMUM_BEAMS;
             beamsRef.current = Array.from({ length: totalBeams }, () =>
                 createBeam(canvas.width, canvas.height)
             );
@@ -139,7 +140,7 @@ export function BeamsBackground({
             if (!canvas || !ctx) return;
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.filter = "blur(35px)";
+            // Blur is now only applied via CSS - much more performant
 
             const totalBeams = beamsRef.current.length;
             beamsRef.current.forEach((beam, index) => {
@@ -170,54 +171,33 @@ export function BeamsBackground({
     return (
         <div
             className={cn(
-                "relative min-h-screen w-full overflow-hidden bg-neutral-950",
+                `relative w-full overflow-hidden bg-neutral-950 ${minHeight}`,
                 className
             )}
         >
             <canvas
                 ref={canvasRef}
-                className="absolute inset-0"
-                style={{ filter: "blur(15px)" }}
+                className="absolute inset-0 will-change-transform"
+                style={{ filter: "blur(35px)" }}
             />
 
-            <motion.div
-                className="absolute inset-0 bg-neutral-950/5"
-                animate={{
-                    opacity: [0.05, 0.15, 0.05],
-                }}
-                transition={{
-                    duration: 10,
-                    ease: "easeInOut",
-                    repeat: Number.POSITIVE_INFINITY,
-                }}
-                style={{
-                    backdropFilter: "blur(50px)",
-                }}
-            />
+            {/* Edge darkening overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-neutral-950/60 via-transparent to-neutral-950/60" />
+            <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/50 via-transparent to-neutral-950/60" />
 
-            <div className="relative z-10 flex h-screen w-full items-center justify-center">
+            <div className="relative z-10 flex w-full h-full items-center justify-center">
                 {children ? (
                     children
                 ) : (
                     <div className="flex flex-col items-center justify-center gap-6 px-4 text-center">
-                        <motion.h1
-                            className="text-6xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                        >
+                        <h1 className="text-6xl md:text-7xl lg:text-8xl font-semibold text-white tracking-tighter">
                             Beams
                             <br />
                             Background
-                        </motion.h1>
-                        <motion.p
-                            className="text-lg md:text-2xl lg:text-3xl text-white/70 tracking-tighter"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                        >
+                        </h1>
+                        <p className="text-lg md:text-2xl lg:text-3xl text-white/70 tracking-tighter">
                             For your pleasure
-                        </motion.p>
+                        </p>
                     </div>
                 )}
             </div>

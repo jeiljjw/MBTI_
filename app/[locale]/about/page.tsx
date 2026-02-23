@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: t('metadataTitle'),
     description: t('metadataDescription'),
-    keywords: ["MBTI", "성격 유형", "테스트", "심리학", "자기 이해", "전문가", "研究"],
+    keywords: ["MBTI", "성격 유형", "테스트", "심리학", "자기 이해", "전문가", "연구"],
     openGraph: {
       title: t('ogTitle'),
       description: t('ogDescription'),

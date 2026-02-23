@@ -26,24 +26,24 @@ export function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/50 border-b border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
             <Link href="/">
-              <h1 className="text-xl font-semibold text-white hover:text-gray-200 transition-colors duration-200 cursor-pointer">
+              <h1 className="text-2xl font-semibold text-white hover:text-gray-200 transition-colors duration-200 cursor-pointer">
                 {t('title')}
               </h1>
             </Link>
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-8">
             {mainNavItems.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative text-white hover:text-gray-200 transition-all duration-300 pb-2 ${
+                  className={`relative text-lg text-white hover:text-gray-200 transition-all duration-300 pb-2 ${
                     isActive ? 'border-b-2 border-white' : 'hover:border-b-2 hover:border-purple-400'
                   }`}
                 >
@@ -57,10 +57,10 @@ export function Navbar() {
               <button
                 onClick={() => setResourcesOpen(!resourcesOpen)}
                 onMouseEnter={() => setResourcesOpen(true)}
-                className="flex items-center space-x-1 text-white hover:text-gray-200 transition-all duration-300 pb-2 hover:border-b-2 hover:border-purple-400"
+                className="flex items-center space-x-1 text-lg text-white hover:text-gray-200 transition-all duration-300 pb-2 hover:border-b-2 hover:border-purple-400"
               >
                 <span>{t('resources')}</span>
-                <svg className={`w-4 h-4 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={`w-5 h-5 transition-transform ${resourcesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
@@ -77,7 +77,7 @@ export function Navbar() {
                         <Link
                           key={item.href}
                           href={item.href}
-                          className={`block px-4 py-2 text-sm transition-colors ${
+                          className={`block px-4 py-3 text-lg transition-colors ${
                             isActive 
                               ? 'bg-purple-600 text-white' 
                               : 'text-gray-300 hover:bg-purple-600/20 hover:text-white'
@@ -122,7 +122,7 @@ export function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-300 ${
+                    className={`block px-3 py-3 rounded-md text-lg font-medium transition-all duration-300 ${
                       isActive
                         ? 'bg-purple-600 text-white'
                         : 'text-gray-300 hover:text-white hover:bg-purple-600/20'
@@ -141,7 +141,7 @@ export function Navbar() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-300 ${
+                    className={`block px-3 py-3 rounded-md text-lg font-medium transition-all duration-300 ${
                       isActive
                         ? 'bg-purple-600 text-white'
                         : 'text-gray-300 hover:text-white hover:bg-purple-600/20'

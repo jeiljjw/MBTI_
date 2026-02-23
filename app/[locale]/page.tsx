@@ -1,4 +1,3 @@
-import { BeamsBackground } from "@/components/ui/beams-background";
 import Script from "next/script";
 import { HomeContent } from './HomeContent';
 
@@ -41,9 +40,7 @@ export default function Home(_props: { params: Promise<{ locale: string }> }) {
           }),
         }}
       />
-      <BeamsBackground>
-        <HomeContent />
-      </BeamsBackground>
+      <HomeContent />
     </>
   );
 }
