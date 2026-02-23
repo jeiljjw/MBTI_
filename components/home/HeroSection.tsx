@@ -10,7 +10,7 @@ export function HeroSection({ t }: { t: (key: string) => string }) {
       {/* Content */}
       <div className="w-full max-w-5xl mx-auto text-center space-y-8 px-4">
         {/* 제목 */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-semibold bg-gradient-to-r from-gray-100 to-gray-300 bg-clip-text text-transparent tracking-tighter whitespace-pre-line">
+        <h1 className="font-semibold bg-gradient-to-r from-gray-100 to-gray-300 bg-clip-text text-transparent tracking-tighter text-[clamp(2rem,7vw,4rem)] md:text-6xl lg:text-8xl whitespace-nowrap md:whitespace-pre-line">
           {t('title')}
         </h1>
         
