@@ -15,7 +15,7 @@ const notoSansKR = Noto_Sans_KR({
   subsets: ["latin"],
   weight: ["400", "500", "700"], // 필요한 weight만 로드
   display: 'swap', // 폰트 로딩 최적화
-  preload: true,
+  preload: false, // 한국어 폰트는太大하여 preload 비권장
   fallback: ['system-ui', 'arial'],
 });
 
@@ -77,6 +77,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       languages: {
         'ko': `${baseUrl}/ko`,
         'en': `${baseUrl}/en`,
+        'x-default': `${baseUrl}/ko`,
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
       },
     },
   };
@@ -113,19 +125,58 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3266167319535063"
-          crossOrigin="anonymous"></script>
+        {/* Google Fonts - Noto Sans KR */}
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+        />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3266167319535063"
+          crossOrigin="anonymous"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Simple MBTI",
+              "url": "https://www.simplembti.com",
+              "logo": "https://www.simplembti.com/og-image.png",
+              "description": "과학적으로 검증된 MBTI 성격 유형 테스트",
+              "sameAs": [
+                "https://www.facebook.com/simplembti",
+                "https://www.instagram.com/simplembti",
+                "https://twitter.com/simplembti"
+              ],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "email": "77billionair@gmail.com",
+                "availableLanguage": ["Korean", "English"]
+              },
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://www.simplembti.com/{search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
       </head>
 
       <body
         className={`${notoSansKR.variable} antialiased`}
       >
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3266167319535063"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
         <NextIntlClientProvider messages={messages}>
           <ServiceWorkerRegister />
           <Navbar />

@@ -4,6 +4,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import dynamic from 'next/dynamic';
+import Script from 'next/script';
 import { loadQuestions } from '@/lib/lazy-loaders';
 import type { TestState, MBTIType, Question } from '@/lib/types/test';
 
@@ -22,6 +23,43 @@ const EnhancedResultCard = dynamic(
   () => import('@/components/test/EnhancedResultCard').then(mod => mod.EnhancedResultCard),
   { ssr: false }
 );
+
+// Quiz Schema for SEO
+function getQuizSchema(locale: 'ko' | 'en') {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Quiz",
+    "name": locale === 'ko' ? "MBTI 성격 유형 테스트" : "MBTI Personality Type Test",
+    "description": locale === 'ko' 
+      ? "과학적으로 검증된 MBTI 성격 유형 테스트" 
+      : "Scientifically validated MBTI personality type test",
+    "about": {
+      "@type": "Thing",
+      "name": "MBTI Personality Type",
+      "description": "Myers-Briggs Type Indicator based personality assessment"
+    },
+    "hasPart": [{
+      "@type": "Question",
+      "name": "MBTI Question 1",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Various personality traits"
+      },
+      "suggestedAnswer": [
+        { "@type": "Answer", "text": "Strongly agree" },
+        { "@type": "Answer", "text": "Agree" },
+        { "@type": "Answer", "text": "Neutral" },
+        { "@type": "Answer", "text": "Disagree" },
+        { "@type": "Answer", "text": "Strongly disagree" }
+      ]
+    }],
+    "educationalLevel": "https://schema.org/General",
+    "assesses": "Personality traits based on Jungian psychology",
+    "temporal": "PT15M",
+    "numberOfQuestions": 40,
+    "resultVariable": "MBTI Personality Type"
+  };
+}
 
 // Shuffle function
 function shuffleArray<T>(array: T[]): T[] {
@@ -136,37 +174,72 @@ export default function MBTITest() {
   // 서버에서는 로딩 표시
   if (!isClient || questionsLoading || questions.length === 0) {
     return (
-      <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center px-3 sm:px-4 md:px-6 pt-16 sm:pt-20 pb-6 sm:pb-8">
-        <div className="w-full max-w-sm sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
-          <div className="animate-pulse flex flex-col items-center">
-            <div className="h-4 w-32 bg-gray-700 rounded mb-8"></div>
-            <div className="w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl xl:w-[600px] min-h-[260px] sm:min-h-[280px] md:min-h-[300px] bg-gray-800 rounded-xl"></div>
+      <>
+        <Script
+          id="quiz-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(getQuizSchema(locale))
+          }}
+        />
+        <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center px-3 sm:px-4 md:px-6 pt-16 sm:pt-20 pb-6 sm:pb-8">
+          <div className="w-full max-w-sm sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
+            <div className="animate-pulse flex flex-col items-center">
+              <div className="h-4 w-32 bg-gray-700 rounded mb-8"></div>
+              <div className="w-full max-w-xs sm:max-w-sm md:max-w-lg lg:max-w-xl xl:w-[600px] min-h-[260px] sm:min-h-[280px] md:min-h-[300px] bg-gray-800 rounded-xl"></div>
+            </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 
   if (showResult && result) {
     return (
-      <div className="min-h-screen bg-neutral-950 pt-24 pb-16">
-        <div className="max-w-4xl mx-auto px-4 py-8">
-          <EnhancedResultCard
-            result={result}
-            onGoHome={goHome}
-            onRetake={resetTest}
-          />
+      <>
+        <Script
+          id="quiz-schema-result"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              ...getQuizSchema(locale),
+              "@type": "Article",
+              "about": {
+                "@type": "Thing",
+                "name": `MBTI Type: ${result}`,
+                "description": `Your MBTI personality type is ${result}`
+              }
+            })
+          }}
+        />
+        <div className="min-h-screen bg-neutral-950 pt-24 pb-16">
+          <div className="max-w-4xl mx-auto px-4 py-8">
+            <EnhancedResultCard
+              result={result}
+              onGoHome={goHome}
+              onRetake={resetTest}
+            />
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center px-3 sm:px-4 md:px-6 pt-16 sm:pt-20 pb-6 sm:pb-8">
-      <div className="w-full max-w-sm sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
-        <ProgressBar current={testState.currentQuestionIndex} total={testState.shuffledQuestions.length} />
-        <QuestionCard question={currentQuestion} onAnswer={handleAnswer} />
+    <>
+      <Script
+        id="quiz-schema-question"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(getQuizSchema(locale))
+        }}
+      />
+      <div className="min-h-screen bg-neutral-950 flex flex-col items-center justify-center px-3 sm:px-4 md:px-6 pt-16 sm:pt-20 pb-6 sm:pb-8">
+        <div className="w-full max-w-sm sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto">
+          <ProgressBar current={testState.currentQuestionIndex} total={testState.shuffledQuestions.length} />
+          <QuestionCard question={currentQuestion} onAnswer={handleAnswer} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

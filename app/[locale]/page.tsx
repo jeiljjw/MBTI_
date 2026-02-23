@@ -1,9 +1,37 @@
 import Script from "next/script";
 import { HomeContent } from './HomeContent';
 
+// WebSite Schema with SearchAction
 export default function Home(_props: { params: Promise<{ locale: string }> }) {
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Simple MBTI",
+    "url": "https://www.simplembti.com",
+    "description": "과학적으로 검증된 MBTI 성격 유형 테스트",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://www.simplembti.com/test"
+      },
+      "name": "Take MBTI Test"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Simple MBTI"
+    }
+  };
+
   return (
     <>
+      <Script
+        id="website-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteSchema)
+        }}
+      />
       <Script
         id="faq-schema"
         type="application/ld+json"

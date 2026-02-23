@@ -139,6 +139,16 @@ export async function generateMetadata({ params }: Props) {
   return {
     title: t('title'),
     description: t('subtitle'),
+    keywords: locale === 'ko' 
+      ? ["MBTI", "궁합", "성격 궁합", "MBTI 궁합", "관계", "연애", "호환성"]
+      : ["MBTI", "compatibility", "personality match", "relationships", "dating", "compatibility test"],
+    openGraph: {
+      title: locale === 'ko' ? 'MBTI 궁합 분석 | Simple MBTI' : 'MBTI Compatibility | Simple MBTI',
+      description: locale === 'ko'
+        ? '두 사람 사이의 MBTI 궁합을 분석하고 관계 팁을 알아보세요.'
+        : 'Analyze MBTI compatibility between two people and learn relationship tips.',
+      type: 'website',
+    },
   };
 }
 

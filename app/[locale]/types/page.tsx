@@ -12,6 +12,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   return {
     title: t('title'),
+    description: locale === 'ko' 
+      ? '16가지 MBTI 성격 유형의 상세한 설명을 확인하세요. 분석가, 외교관, 관리자, 탐험가 그룹별 특징과 강점을 알아보세요.'
+      : 'Explore all 16 MBTI personality types. Learn about Analysts, Diplomats, Sentinels, and Explorers with detailed descriptions.',
+    openGraph: {
+      title: locale === 'ko' ? '16가지 MBTI 유형 | Simple MBTI' : '16 MBTI Types | Simple MBTI',
+      description: locale === 'ko'
+        ? '16가지 MBTI 성격 유형의 상세한 설명을 확인하세요.'
+        : 'Explore all 16 MBTI personality types with detailed descriptions.',
+      type: 'website',
+    },
   };
 }
 

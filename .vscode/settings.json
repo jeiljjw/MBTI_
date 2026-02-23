@@ -1,3 +1,6 @@
 {
-    "kiroAgent.configureMCP": "Disabled"
+    "kiroAgent.configureMCP": "Disabled",
+    "css.validate": false,
+    "less.validate": false,
+    "scss.validate": false
 }

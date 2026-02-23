@@ -1,5 +1,5 @@
 # robots.txt for simplembti.com
-# Updated: 2025-02-20
+# Updated: 2026-02-23
 
 # Allow all search engines
 User-agent: *

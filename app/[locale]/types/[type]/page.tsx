@@ -102,6 +102,29 @@ export default async function MBTITypeDetailPage({ params }: Props) {
     "about": {
       "@type": "Thing",
       "name": "MBTI Personality Type"
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": locale === 'ko' ? '홈' : 'Home',
+          "item": `https://www.simplembti.com/${locale === 'ko' ? '' : locale + '/'}`
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": locale === 'ko' ? 'MBTI 유형' : 'MBTI Types',
+          "item": `https://www.simplembti.com/${locale === 'ko' ? 'types' : locale + '/types'}`
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": `${detail.code} ${detail.name}`,
+          "item": `https://www.simplembti.com/${locale === 'ko' ? 'types/' + detail.code : locale + '/types/' + detail.code}`
+        }
+      ]
     }
   };
   
