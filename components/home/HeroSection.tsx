@@ -20,7 +20,7 @@ export function HeroSection({ t }: { t: (key: string) => string }) {
         </p>
 
         {/* Trust Badge */}
-        <div className="py-4">
+        <div className="py-6">
           <TrustBadge />
         </div>
 
