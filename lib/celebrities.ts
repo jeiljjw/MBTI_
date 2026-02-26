@@ -72,7 +72,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         field: "business",
         country: "US",
         description: "테슬라, 스페이스X CEO. 혁신적인 비전과 끊임없는 도전으로 기술 산업을 재편한 기업가",
-        achievements: ["전기자동차 대중화 선도", "민간 우주 여행 시대 개막", "뉴롤링크 설립"],
+        achievements: ["전기자동차 대중화 선도", "민간 우주 여행 시대 개막", "뉴럴링크 설립"],
         mbtiTraits: ["장기적 비전 수립", "복잡한 시스템 설계", "전략적 사고", "완벽주의"],
         successFactors: ["미래 지향적 비전", "논리적 문제 해결", "도전적 목표 추진", "혁신 집착"]
       },
@@ -92,7 +92,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         field: "science",
         country: "GB",
         description: "물리학자, 수학자. 고전역학의 기초를 세운 과학의 아버지",
-        achievements: ["만유인력 법칙 발견", "울동 법칙 정립", "미적분학 개발"],
+        achievements: ["만유인력 법칙 발견", "운동 법칙 정립", "미적분학 개발"],
         mbtiTraits: ["깊은 집중력", "이론 체계화", "독립적 연구", "완벽주의"],
         successFactors: ["철저한 논리 분석", "자연 질서 탐구", "깊은 사고", "이론 체계화"]
       },
@@ -122,7 +122,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         field: "arts",
         country: "GB",
         description: "영화 감독. 복잡한 서사 구조와 철학적 깊이로 유명한 감독",
-        achievements: ["인셉션, 다크나이트 등 흥행작", "아칼데미상 최우수 감독상", "복잡한 서사 대중화"],
+        achievements: ["인셉션, 다크나이트 등 흥행작", "아카데미상 최우수 감독상", "복잡한 서사 대중화"],
         mbtiTraits: ["복잡한 시나리오", "철학적 통찰", "완벽주의 연출", "장기적 기획"],
         successFactors: ["복잡한 개념의 대중적 풀이", "기술적 완벽주의", "독창적 스토리텔링", "철학과 오락성 결합"]
       },
@@ -176,7 +176,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         successFactors: ["우주 개념 대중화", "끈질긴 연구", "독특한 접근", "학문적 소통"]
       },
       {
-        name: "레이달리오",
+        name: "레이 달리오",
         nameEn: "Ray Dalio",
         field: "business",
         country: "US",
@@ -200,7 +200,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         nameEn: "Jungkook",
         field: "entertainment",
         country: "KR",
-        description: "BTS 멤버. '골든 마네킹'으로 불리는 만능 아이돌",
+        description: "BTS 멤버. '황금 막내'로 불리는 만능 아이돌",
         achievements: ["Billboard Hot 100 1위 'Seven'", "FIFA 월드컵 공식 송", "솔로 앨범 'GOLDEN'"],
         mbtiTraits: ["논리적 사고", "창의적 문제해결", "호기심", "분석력"],
         successFactors: ["만능 포지션", "꾸준한 성장", "팬 사랑", "글로벌 인기"]
@@ -463,7 +463,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         field: "politics",
         country: "IN",
         description: "티베트 불교 지도자. 평화와 자비의 메시지로 세계적인 영향력",
-        achievements: ["노벨평화상 수상(1989)", "티베트 독립 운통", "평화 메시지"],
+        achievements: ["노벨평화상 수상(1989)", "티베트 독립 운동", "평화 메시지"],
         mbtiTraits: ["영감 리더십", "강력한 공감", "변화 열정", "효과적 소통"],
         successFactors: ["희망 메시지", "감정 연결", "원칙과 실용", "세력 통합"]
       },
@@ -721,7 +721,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         successFactors: ["리더십", "성실함", "팬 서비스", "전문성"]
       },
       {
-        name: "스쿼드게임",
+        name: "오징어 게임",
         nameEn: "Squid Game",
         field: "entertainment",
         country: "KR",
@@ -782,7 +782,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         field: "arts",
         country: "US",
         description: "배우, 감독. 서부극 아이콘, 오스카 수상 감독",
-        achievements: ["4회 아칼데미상", "최고 연출가", "60년 경력"],
+        achievements: ["4회 아카데미상", "최고 연출가", "60년 경력"],
         mbtiTraits: ["실용적 연기", "침착함", "기술 숙달", "독립적 작업"],
         successFactors: ["다양한 장르", "기술적 완성도", "실용적 제작", "꾸준함"]
       },
@@ -792,9 +792,9 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         field: "sports",
         country: "RU",
         description: "아이스하키 선수. NHL 전설적인 스코어러",
-        achievements: ["스탠리컵 우승", "9회 머리스 트로피", " 역대 최다 득점"],
+        achievements: ["스탠리컵 우승", "9회 머리스 트로피", "역대 최다 득점"],
         mbtiTraits: ["즉각적 판단", "기술 숙달", "경쟁심", "위기 대응"],
-        successFactors: ["기술 연마", "승리 집착", "클로치 상황", "신체와 기술"]
+        successFactors: ["기술 연마", "승리 집착", "클러치 상황", "신체와 기술"]
       },
       {
         name: "해린",
@@ -845,7 +845,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         successFactors: ["독특한 음악 스타일", "진정성 있는 메시지", "비주얼 아이덴티티", "형제와의 협업"]
       },
       {
-        name: "보우이",
+        name: "데이비드 보위",
         nameEn: "David Bowie",
         field: "arts",
         country: "GB",
@@ -923,7 +923,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         successFactors: ["높은 농구 IQ", "큰 경기", "비즈니스", "자기 관리"]
       },
       {
-        name: "매돈나",
+        name: "마돈나",
         nameEn: "Madonna",
         field: "arts",
         country: "US",
@@ -938,7 +938,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         field: "entertainment",
         country: "US",
         description: "래퍼, 기업가. AOMG, H1GHR MUSIC 설립자",
-        achievements: ["AOMG 설립", "술트러스트 대성공", "한국 힙합 선도"],
+        achievements: ["AOMG 설립", "원소주 대성공", "한국 힙합 선도"],
         mbtiTraits: ["즉각 판단", "위험 감수", "적응력", "에너지"],
         successFactors: ["사업가 정신", "팬 소통", "트렌드 선도", "다재다능"]
       },
@@ -1016,9 +1016,9 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         field: "arts",
         country: "US",
         description: "가수. '보이스'로 불리는 전설적 보컬리스트",
-        achievements: ["2억 장 판매", "최다 음악상", "볼디가드 OST"],
-        mbtiTraits: ["감정 표현", "묘 묘 자유", "즉흥", "연결"],
-        successFactors: ["천부적 재능", "감정 전달", "묘 카리스마", "영화 음악"]
+        achievements: ["2억 장 판매", "최다 음악상", "보디가드 OST"],
+        mbtiTraits: ["감정 표현", "무대 자유", "즉흥", "연결"],
+        successFactors: ["천부적 재능", "감정 전달", "묘한 카리스마", "영화 음악"]
       },
       {
         name: "리사",
@@ -1027,7 +1027,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         country: "KR",
         description: "BLACKPINK 멤버. 뛰어난 춤 실력으로 글로벌 아이콘",
         achievements: ["솔로 싱글 'LALISA'", "MTV VMA 수상", "Celine 글로벌 앰버서더"],
-        mbtiTraits: ["묘 자유", "즉흥성", "열정", "카리스마"],
+        mbtiTraits: ["무대 자유", "즉흥성", "열정", "카리스마"],
         successFactors: ["춤 실력", "묘한 매력", "글로벌 인기", "팬 소통"]
       },
       {
@@ -1037,7 +1037,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         country: "US",
         description: "가수, 댄서. 틱톡으로 새로운 인기를 얻은 팝 스타",
         achievements: ["'Savage Love' 틱톡 대히트", "30억 유튜브 조회수", "글로벌 투어"],
-        mbtiTraits: ["묘 자유", "즉흥성", "사교성", "열정"],
+        mbtiTraits: ["무대 자유", "즉흥성", "사교성", "열정"],
         successFactors: ["틱톡 활용", "춤 실력", "팬 소통", "콘텐츠 민감도"]
       },
       {
