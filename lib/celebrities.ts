@@ -721,14 +721,14 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         successFactors: ["리더십", "성실함", "팬 서비스", "전문성"]
       },
       {
-        name: "오징어 게임",
-        nameEn: "Squid Game",
-        field: "entertainment",
-        country: "KR",
-        description: "넷플릭스 드라마. 전 세계를 사로잡은 한국 콘텐츠",
-        achievements: ["넷플릭스 역대 최다 시청", "에미상 수상", "K-콘텐츠 세계화"],
-        mbtiTraits: ["조직력", "전략", "성과 중시", "효율성"],
-        successFactors: ["글로벌 콘텐츠", "트렌드 분석", "제작 관리", "마케팅"]
+        name: "마가렛 대처",
+        nameEn: "Margaret Thatcher",
+        field: "politics",
+        country: "GB",
+        description: "영국 최초의 여성 총리. '철의 여인'으로 불리며 강력한 리더십과 보수주의 정책을 이끎.",
+        achievements: ["영국 최초 여성 총리", "영국 경제 구조 개선", "포클랜드 전쟁 승리"],
+        mbtiTraits: ["강력한 리더십", "원칙 고수", "결단력", "추진력"],
+        successFactors: ["확고한 신념", "과감한 경제 개혁", "안보 강화", "일관된 정책"]
       },
       {
         name: "트래비스",

@@ -117,9 +117,9 @@ They highly value tradition and family values and prefer stable environments. Th
     },
 
     celebrities: [
-      { name: "John F. Kennedy", description: "The 35th President of the United States, demonstrating ISFJ's charisma and warmth. His empathy and human approach were loved by many people." },
-      { name: "Saint Peter", description: "The first Pope of Christianity, demonstrating ISFJ's dedication and faith. A faithful protector who led the church." },
-      { name: "Elsa", description: "The main character of Disney's Frozen, demonstrating ISFJ's dedicated sisterly love and protective instincts." }
+      { name: "Mother Teresa", description: "A nun who dedicated her life to the poor, symbolizing ISFJ's altruism and protective instincts. Her dedicated service moved the whole world." },
+      { name: "Queen Elizabeth II", description: "The longest-reigning monarch in British history, demonstrating the typical responsibility and patience of an ISFJ who dedicated her life to duty for her country and people." },
+      { name: "Kate Middleton", description: "The Princess of Wales, demonstrating ISFJ's consideration and dignity as she performs royal duties with a quiet but dedicated attitude." }
     ]
   },
 
@@ -297,8 +297,8 @@ They have interest in tools and machines and enjoy finding practical solutions. 
     },
 
     celebrities: [
-      { name: "James Bond", description: "Literary and film character, demonstrating ISTP's boldness, technical mastery, and calmness. Their immediate response ability and risk-taking nature are quintessential ISTP." },
-      { name: "Clara Barton", description: "Pioneer in nursing, demonstrating ISTP's practical problem-solving ability and technical innovation. Founded the American Red Cross." },
+      { name: "Clint Eastwood", description: "A film director and actor, showing ISTP's restrained charisma and practical problem-solving attitude. He is a master who creates results through action rather than words." },
+      { name: "Bear Grylls", description: "A survival expert who clearly demonstrates ISTP's exceptional adaptability and cool-headedness in crisis situations." },
       { name: "Michael Jordan", description: "Basketball legend, demonstrating ISTP's competitive spirit, technical mastery, and crisis response ability. His calmness and decisiveness shone in important moments of games." }
     ]
   },
@@ -538,7 +538,7 @@ They prefer realistic and practical approaches and are action-oriented. They are
 
     celebrities: [
       { name: "Donald Trump", description: "American businessman and politician, demonstrating ESTP's realistic approach and social nature. His risk-taking nature and spontaneous decision-making are quintessential ESTP." },
-      { name: "Mike Tyson", description: "Boxer, demonstrating ESTP's boldness and crisis response ability. His immediate power and aggressive style are characteristic of ESTP." },
+      { name: "Madonna", description: "The Queen of Pop, demonstrating ESTP's bold challenging spirit and sharp sense for reading public trends. Her energy in constantly attempting change is a characteristic of ESTP." },
       { name: "Ernest Hemingway", description: "Novelist, demonstrating ESTP's direct experience and action-oriented nature. His works contain direct exploration of life and death." }
     ]
   },

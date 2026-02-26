@@ -125,7 +125,6 @@ const englishTranslations: Record<string, string> = {
   "포드 모터스 창업자. 자동차 대중화와 생산 혁신의 주역": "Ford Motors founder. Key figure in automobile popularization and production innovation",
   "삼성전자 회장. 한국 대표 기업가이자 삼성 전성기 리더": "Samsung Electronics Chairman. Korea's representative entrepreneur and Samsung's golden age leader",
   "NewJeans 멤버. 팀의 리더이자 대언니로서 책임감 있는 아이돌": "NewJeans member. Responsible idol as team leader and eldest sister",
-  "넷플릭스 드라마. 전 세계를 사로잡은 한국 콘텐츠": "Netflix drama. Korean content that captivated the world",
   "래퍼, 프로듀서. 아스트로월드 페스티벌 등으로 문화 아이콘": "Rapper and producer. Cultural icon with Astroworld Festival and more",
   "농구 전설. NBA 역사상 최고의 선수": "Basketball legend. Greatest player in NBA history",
   "배우, 감독. 서부극 아이콘, 오스카 수상 감독": "Actor and director. Western film icon and Oscar-winning director",
@@ -317,9 +316,6 @@ const englishTranslations: Record<string, string> = {
   "한국 산업 발전": "Korean industrial development",
   "팀 리더": "Team leader",
   "Chanel Beauty 뮤즈": "Chanel Beauty muse",
-  "넷플릭스 역대 최다 시청": "Netflix all-time most viewed",
-  "에미상 수상": "Emmy Award winner",
-  "K-콘텐츠 세계화": "K-content globalization",
   "'Sicko Mode' 빌보드 1위": "'Sicko Mode' Billboard #1",
   "맥도날드 콜라보": "McDonald's collaboration",
   "포트나이트 콘서트": "Fortnite concert",
@@ -755,10 +751,6 @@ const englishTranslations: Record<string, string> = {
   "품질 경영": "Quality management",
   "인재 중시": "Emphasis on talent",
   "전문성": "Professionalism",
-  "글로벌 콘텐츠": "Global content",
-  "트렌드 분석": "Trend analysis",
-  "제작 관리": "Production management",
-  "마케팅": "Marketing",
   "브랜드 콜라보": "Brand collaboration",
   "문화 트렌드": "Cultural trends",
   "기술 연마": "Skill refinement",
@@ -845,7 +837,16 @@ const englishTranslations: Record<string, string> = {
   "낙천적이고 밝은 에너지": "Optimistic and bright energy",
   "주변 지인들을 챙기는 배려심": "Thoughtfulness in taking care of those around him",
   "엄격한 규율과 노력": "Strict discipline and effort",
-  "팬들과의 적극적인 소통": "Active communication with fans"
+  "팬들과의 적극적인 소통": "Active communication with fans",
+  // Margaret Thatcher (마가렛 대처)
+  "영국 최초의 여성 총리. '철의 여인'으로 불리며 강력한 리더십과 보수주의 정책을 이끎.": "First female Prime Minister of the United Kingdom. Known as the 'Iron Lady', she led with strong leadership and conservative policies.",
+  "영국 최초 여성 총리": "First female Prime Minister of the UK",
+  "영국 경제 구조 개선": "Improved the British economic structure",
+  "포클랜드 전쟁 승리": "Victory in the Falklands War",
+  "확고한 신념": "Firm beliefs",
+  "과감한 경제 개혁": "Bold economic reforms",
+  "안보 강화": "Strengthened security",
+  "일관된 정책": "Consistent policies",
 };
 
 function translateToEnglish(text: string): string {
