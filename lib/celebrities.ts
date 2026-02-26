@@ -4,7 +4,7 @@
 export type CelebrityField = 'politics' | 'business' | 'arts' | 'sports' | 'science' | 'entertainment' | 'literature';
 
 // 국가 코드 타입
-export type CountryCode = 
+export type CountryCode =
   | 'US' | 'KR' | 'GB' | 'CA' | 'AU' | 'DE' | 'FR' | 'IT' | 'ES' | 'JP' | 'CN' | 'IN' | 'ZA' | 'MX' | 'RU' | 'CH' | 'SE' | 'DK' | 'NL' | 'AT';
 
 // 국가 정보 인터페이스
@@ -281,7 +281,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         mbtiTraits: ["기술적 창의성", "혁신적 해결", "호기심", "실용적 발명"],
         successFactors: ["기술과 실용성 결합", "복잡한 기술 단순화", "사용자 중심", "재미와 기술"]
       },
-{
+      {
         name: "마크 트웨인",
         nameEn: "Mark Twain",
         field: "literature",
@@ -350,7 +350,16 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         mbtiTraits: ["풍부한 상상력", "스토리 구성", "사회 메시지", "깊은 통찰"],
         successFactors: ["독창적 판타지", "성장과 우정", "인물 심리", "시리즈 기획"]
       },
-
+      {
+        name: "아이유 (이지은)",
+        nameEn: "IU",
+        field: "entertainment",
+        country: "KR",
+        description: "싱어송라이터이자 배우. 깊은 가사와 독보적인 음악성으로 국민적인 사랑을 받는 아티스트",
+        achievements: ["국내 최다 음원 1위 보유", "Golden Disc 대상 3회", "칸 영화제 초청 배우"],
+        mbtiTraits: ["섬세한 감수성", "철학적인 가사", "신중한 완벽주의", "조용하지만 강한 영향력"],
+        successFactors: ["자신만의 확고한 가치관", "팬들과의 깊은 공감", "끊임없는 자기 성찰", "다재다능한 예술성"]
+      }
     ]
   },
   {
@@ -448,7 +457,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         mbtiTraits: ["영감 리더십", "강력한 공감", "변화 열정", "효과적 소통"],
         successFactors: ["희망 메시지", "감정 연결", "원칙과 실용", "세력 통합"]
       },
-{
+      {
         name: "달라이 라마",
         nameEn: "Dalai Lama",
         field: "politics",
@@ -664,17 +673,6 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         mbtiTraits: ["배려심", "전통 존중", "조용한 리더십", "헌신"],
         successFactors: ["왕실 의무", "민간 연결", "겸손한 이미지", "사회 이슈"]
       },
-
-      {
-        name: "손흥민",
-        nameEn: "Son Heung-min",
-        field: "sports",
-        country: "KR",
-        description: "축구선수. 프리미어리그 골든부트 수상자, 아시아 최고 축구선수",
-        achievements: ["프리미어리그 골든부트", "토트넘 주장", "FIFA 푸스카스상"],
-        mbtiTraits: ["헌신", "성실함", "겸손", "팀워크"],
-        successFactors: ["꾸준한 연습", "팀원 배려", "팬 사랑", "인성"]
-      }
     ]
   },
   {
@@ -750,7 +748,16 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
     nickname: "Consul",
     group: "관리자형 (SJ)",
     celebrities: [
-
+      {
+        name: "손흥민",
+        nameEn: "Son Heung-min",
+        field: "sports",
+        country: "KR",
+        description: "대한민국 축구 대표팀 주장이자 토트넘 홋스퍼의 에이스. 아시아 축구의 새 역사를 쓰는 선수",
+        achievements: ["프리미어리그 득점왕 (골든부트)", "푸스카스상 수상", "토트넘 홋스퍼 주장"],
+        mbtiTraits: ["뛰어난 사교성", "성실한 자기관리", "팀 중심의 리더십", "겸손한 태도"],
+        successFactors: ["낙천적이고 밝은 에너지", "주변 지인들을 챙기는 배려심", "엄격한 규율과 노력", "팬들과의 적극적인 소통"]
+      }
     ]
   },
   {
@@ -798,9 +805,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         achievements: ["NewJeans 데뷔 성공", "Dior Jewellery 뮤즈", "'Hype Boy' 퍼포머"],
         mbtiTraits: ["실용적", "기술 숙달", "독립적", "적응력"],
         successFactors: ["독특한 매력", "묘한 카리스마", "안정적 실력", "글로벌 인기"]
-      },
-
-
+      }
     ]
   },
   {
@@ -1005,7 +1010,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
         mbtiTraits: ["즉흥", "무대 자유", "다재다능", "소통"],
         successFactors: ["코미디에서 진지", "즉흥 재능", "음악과 연기", "매체 도전"]
       },
-{
+      {
         name: "휘트니 휴스턴",
         nameEn: "Whitney Houston",
         field: "arts",
@@ -1050,7 +1055,7 @@ export const celebrityGroups: MBTICelebrityGroup[] = [
 ];
 
 // 모든 유명인을 평면화한 배열
-export const allCelebrities = celebrityGroups.flatMap(group => 
+export const allCelebrities = celebrityGroups.flatMap(group =>
   group.celebrities.map(celeb => ({
     ...celeb,
     mbtiType: group.type,

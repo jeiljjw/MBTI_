@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "title": "MBTI Personality Type Test",
-    "description": "Discover your personality type with our MBTI test. Which of the 16 personality types are you?",
-    "ogTitle": "MBTI Personality Type Test",
-    "ogDescription": "Discover your personality type with our scientifically validated MBTI test."
+    "title": "MBTI Personality Test: Most Accurate 16 Types Quiz (Free)",
+    "description": "Take the most accurate free MBTI personality test with 40 in-depth questions. Discover your 16 personality types, strengths, and career matches in 10 minutes.",
+    "ogTitle": "Free MBTI Personality Type Test | Simple MBTI",
+    "ogDescription": "Discover your true personality with our scientifically validated MBTI quiz. Get detailed analysis for all 16 types for free."
   },
   "common": {
     "language": "English",
@@ -312,7 +312,12 @@
     "readMore": "Read More",
     "readTime": "read",
     "categoriesTitle": "Categories",
-    "categories": ["Psychology", "Career", "Relationships", "Wellness"],
+    "categories": [
+      "Psychology",
+      "Career",
+      "Relationships",
+      "Wellness"
+    ],
     "ctaTitle": "Discover Your MBTI Type",
     "ctaDescription": "Get accurate personality analysis with 40 scientifically validated questions.",
     "ctaButton": "Start Free Test"
@@ -484,12 +489,22 @@
       "article2": {
         "title": "Article 2 (Personal Information Collected)",
         "content": "The Service collects the following personal information for membership registration and service usage.",
-        "items": ["Email address", "Nickname", "MBTI test results (optional storage)", "Service usage records"]
+        "items": [
+          "Email address",
+          "Nickname",
+          "MBTI test results (optional storage)",
+          "Service usage records"
+        ]
       },
       "article3": {
         "title": "Article 3 (Purpose of Personal Information Collection and Use)",
         "content": "The collected personal information is used for the following purposes.",
-        "items": ["Member management and service provision", "MBTI test result storage and retrieval", "Customer inquiry response", "Service improvement and analysis"]
+        "items": [
+          "Member management and service provision",
+          "MBTI test result storage and retrieval",
+          "Customer inquiry response",
+          "Service improvement and analysis"
+        ]
       },
       "article4": {
         "title": "Article 4 (Retention and Use Period of Personal Information)",
@@ -498,17 +513,29 @@
       "article5": {
         "title": "Article 5 (Procedures and Methods of Personal Information Destruction)",
         "content": "The Service, in principle, promptly deletes information once the purpose of personal information collection and use has been achieved.",
-        "items": ["Personal information stored in electronic files is deleted using technical methods that make reproduction impossible", "Personal information recorded on paper documents is destroyed by shredding or incineration"]
+        "items": [
+          "Personal information stored in electronic files is deleted using technical methods that make reproduction impossible",
+          "Personal information recorded on paper documents is destroyed by shredding or incineration"
+        ]
       },
       "article6": {
         "title": "Article 6 (User Rights and How to Exercise Them)",
         "content": "Users can view, modify, or request deletion of their registered personal information at any time.",
-        "items": ["View/Modify personal information: Profile in settings menu", "Delete personal information: Contact customer center", "Withdraw consent: Personal information in settings menu"]
+        "items": [
+          "View/Modify personal information: Profile in settings menu",
+          "Delete personal information: Contact customer center",
+          "Withdraw consent: Personal information in settings menu"
+        ]
       },
       "article7": {
         "title": "Article 7 (Measures to Ensure Safety of Personal Information)",
         "content": "The Service takes the following measures to safely manage users' personal information.",
-        "items": ["Encryption: Personal information is encrypted for storage and transmission", "Access restriction: Minimize access to personal information", "Security programs: Install and operate latest security programs", "Regular audits: Regularly inspect personal information handling status"]
+        "items": [
+          "Encryption: Personal information is encrypted for storage and transmission",
+          "Access restriction: Minimize access to personal information",
+          "Security programs: Install and operate latest security programs",
+          "Regular audits: Regularly inspect personal information handling status"
+        ]
       },
       "article8": {
         "title": "Article 8 (Changes to Privacy Policy)",
@@ -517,7 +544,13 @@
       "article9": {
         "title": "Article 9 (Advertising and Third-Party Cookies)",
         "content": "This service displays advertisements through third-party advertising networks including Google AdSense. For this purpose, Google and third-party advertising partners store cookies on users' browsers to provide personalized ads tailored to users' interests.",
-        "items": ["Google AdSense cookies (DoubleClick)", "Interest-based ad personalization", "Ad performance measurement", "Click fraud prevention", "User profiling and retargeting"]
+        "items": [
+          "Google AdSense cookies (DoubleClick)",
+          "Interest-based ad personalization",
+          "Ad performance measurement",
+          "Click fraud prevention",
+          "User profiling and retargeting"
+        ]
       }
     },
     "backToHome": "Back to Home"

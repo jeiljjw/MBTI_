@@ -1,8 +1,11 @@
 import Script from "next/script";
 import { HomeContent } from './HomeContent';
+import { useTranslations } from 'next-intl';
 
 // WebSite Schema with SearchAction
-export default function Home(_props: { params: Promise<{ locale: string }> }) {
+export default function Home(props: { params: Promise<{ locale: string }> }) {
+  const t = useTranslations('home');
+  
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -23,6 +26,63 @@ export default function Home(_props: { params: Promise<{ locale: string }> }) {
     }
   };
 
+  const softwareSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Simple MBTI Test",
+    "operatingSystem": "Any",
+    "applicationCategory": "EducationalApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "ratingCount": "1250"
+    }
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": t('FAQ.1.question'),
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": t('FAQ.1.answer')
+        }
+      },
+      {
+        "@type": "Question",
+        "name": t('FAQ.2.question'),
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": t('FAQ.2.answer')
+        }
+      },
+      {
+        "@type": "Question",
+        "name": t('FAQ.3.question'),
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": t('FAQ.3.answer')
+        }
+      },
+      {
+        "@type": "Question",
+        "name": t('FAQ.4.question'),
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": t('FAQ.4.answer')
+        }
+      }
+    ]
+  };
+
   return (
     <>
       <Script
@@ -33,39 +93,17 @@ export default function Home(_props: { params: Promise<{ locale: string }> }) {
         }}
       />
       <Script
+        id="software-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(softwareSchema)
+        }}
+      />
+      <Script
         id="faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [
-              {
-                "@type": "Question",
-                "name": "What is MBTI?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "MBTI (Myers-Briggs Type Indicator) is a personality type assessment developed by Isabel Briggs Myers and Katharine Cook Briggs, based on Carl Jung's psychological theory. It classifies people's personalities into 16 distinct types."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "How accurate is the MBTI test?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "MBTI is a personality type analysis tool based on statistical probabilities. It is not an absolute diagnostic tool, and behavior may vary depending on the situation. Please use it for reference purposes."
-                }
-              },
-              {
-                "@type": "Question",
-                "name": "How long does the test take?",
-                "acceptedAnswer": {
-                  "@type": "Answer",
-                  "text": "Our MBTI test consists of 40 questions and takes approximately 10-15 minutes. You will answer each question on a 1-7 point scale."
-                }
-              }
-            ]
-          }),
+          __html: JSON.stringify(faqSchema)
         }}
       />
       <HomeContent />

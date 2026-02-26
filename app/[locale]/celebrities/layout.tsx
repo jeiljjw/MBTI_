@@ -8,16 +8,20 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'celebritiesPage' });
-  
-  const title = locale === 'en' ? 'Celebrity MBTI - Famous People by Personality Type' : 'MBTI 유명인 - 각 성격 유형을 가진 유명인사들';
-  const description = locale === 'en' 
-    ? 'MBTI personality type celebrity list. Meet representative figures of each type.'
-    : 'MBTI 성격 유형별 유명인사 목록. 각 유형의 대표적인 인물들을 확인하세요.';
-  
+
+  const title = locale === 'en'
+    ? 'Celebrity MBTI - BTS, Elon Musk Personality Types'
+    : 'MBTI 유명인 - 아이유, 손흥민, BTS의 성격 유형은?';
+  const description = locale === 'en'
+    ? 'Discover MBTI personality types of world-famous celebrities including BTS, Elon Musk, and more. Meet representative figures of each 16 personality types.'
+    : '아이유, 손흥민, BTS 멤버 등 국내외 유명인들의 MBTI 성격 유형을 총정리했습니다. 16가지 유형별 대표 인물들을 지금 확인하세요.';
+
   return {
-    title: t('title'),
+    title,
     description,
-    keywords: ["MBTI 유명인", "성격 유형 유명인", "MBTI celebrity", "성격 유형 인물"],
+    keywords: locale === 'en'
+      ? ["Celebrity MBTI", "BTS MBTI", "Elon Musk MBTI", "16 personalities famous people"]
+      : ["MBTI 유명인", "아이유 MBTI", "손흥민 MBTI", "BTS MBTI", "성격 유형 연예인"],
     openGraph: {
       title,
       description,

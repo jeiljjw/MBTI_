@@ -1,7 +1,7 @@
 // MBTI 유형별 유명인 데이터 - bilingual version
 // This file wraps the corrected lib/celebrities.ts with bilingual support
 
-import { 
+import {
   celebrityGroups as koreanCelebrityGroups,
   type Celebrity,
   type MBTICelebrityGroup,
@@ -820,7 +820,33 @@ const englishTranslations: Record<string, string> = {
   "틱톡 활용": "TikTok utilization",
   "콘텐츠 민감도": "Content sensitivity",
   "틱톡 트렌드": "TikTok trends",
-  "비즈니스 확장": "Business expansion"
+  "비즈니스 확장": "Business expansion",
+  // IU (아이유)
+  "싱어송라이터이자 배우. 깊은 가사와 독보적인 음악성으로 국민적인 사랑을 받는 아티스트": "Singer-songwriter and actress. An artist loved by the nation for deep lyrics and unrivaled musicality",
+  "국내 최다 음원 1위 보유": "Holds the record for most #1 songs in Korea",
+  "Golden Disc 대상 3회": "3-time Grand Prize winner at the Golden Disc Awards",
+  "칸 영화제 초청 배우": "Actor invited to the Cannes Film Festival",
+  "섬세한 감수성": "Delicate sensitivity",
+  "철학적인 가사": "Philosophical lyrics",
+  "신중한 완벽주의": "Careful perfectionism",
+  "조용하지만 강한 영향력": "Quiet but strong influence",
+  "자신만의 확고한 가치관": "Firmed personal values",
+  "팬들과의 깊은 공감": "Deep empathy with fans",
+  "끊임없는 자기 성찰": "Constant self-reflection",
+  "다재다능한 예술성": "Versatile artistry",
+  // Son Heung-min (손흥민)
+  "대한민국 축구 대표팀 주장이자 토트넘 홋스퍼의 에이스. 아시아 축구의 새 역사를 쓰는 선수": "Captain of the South Korean national football team and ace of Tottenham Hotspur. A player writing new history for Asian football",
+  "프리미어리그 득점왕 (골든부트)": "Premier League top scorer (Golden Boot)",
+  "푸스카스상 수상": "FIFA Puskas Award winner",
+  "토트넘 홋스퍼 주장": "Captain of Tottenham Hotspur",
+  "뛰어난 사교성": "Outstanding sociability",
+  "성실한 자기관리": "Diligent self-management",
+  "팀 중심의 리더십": "Team-oriented leadership",
+  "겸손한 태도": "Humble attitude",
+  "낙천적이고 밝은 에너지": "Optimistic and bright energy",
+  "주변 지인들을 챙기는 배려심": "Thoughtfulness in taking care of those around him",
+  "엄격한 규율과 노력": "Strict discipline and effort",
+  "팬들과의 적극적인 소통": "Active communication with fans"
 };
 
 function translateToEnglish(text: string): string {
@@ -895,7 +921,7 @@ export function getCelebritiesInLanguage(locale: 'ko' | 'en'): MBTICelebrityGrou
 }
 
 // Export for compatibility
-export const allBilingualCelebrities = bilingualCelebrityGroups.flatMap(group => 
+export const allBilingualCelebrities = bilingualCelebrityGroups.flatMap(group =>
   group.celebrities.map(celeb => ({
     ...celeb,
     mbtiType: group.type,
@@ -911,7 +937,7 @@ export function getCelebrityGroups(locale: 'ko' | 'en' = 'ko'): MBTICelebrityGro
 }
 
 export function getAllCelebrities(locale: 'ko' | 'en' = 'ko') {
-  return getCelebritiesInLanguage(locale).flatMap(group => 
+  return getCelebritiesInLanguage(locale).flatMap(group =>
     group.celebrities.map(celeb => ({
       ...celeb,
       mbtiType: group.type,
