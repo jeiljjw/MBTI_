@@ -9,7 +9,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'blogPage' });
-  
+
   return {
     title: t('title'),
     description: t('subtitle'),
@@ -264,11 +264,21 @@ export default async function BlogPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'blogPage' });
-  
+
   const articles = getArticles(locale);
 
   const categories = t.raw('categories') as string[];
   const readTimeText = t('readTime');
+
+  // Find the featured post (let's use the first one as featured)
+  const featuredArticle = articles[0];
+  const remainingArticles = articles.slice(1);
+
+  // Group remaining articles by category
+  const categorizedArticles = categories.map(cat => ({
+    name: cat,
+    posts: remainingArticles.filter(a => a.category === cat)
+  })).filter(g => g.posts.length > 0);
 
   return (
     <div className="min-h-screen bg-neutral-950 pt-24 pb-16">
@@ -283,26 +293,30 @@ export default async function BlogPage({ params }: Props) {
           </p>
         </div>
 
-        {/* Featured Article */}
-        <div className="mb-12">
-          <Link href={`/blog/${articles[0].slug}`} className="group block">
-            <div className="bg-black/20 backdrop-blur-md rounded-2xl p-8 border border-purple-500/30 hover:border-purple-400 transition-all duration-300">
-              <div className="flex flex-col md:flex-row gap-6">
+        {/* Featured Article Banner */}
+        <div className="mb-16">
+          <div className="flex items-center gap-2 mb-6">
+            <span className="text-2xl">🌟</span>
+            <h2 className="text-2xl font-bold text-white">{t('featuredTitle') || 'Featured Article'}</h2>
+          </div>
+          <Link href={`/blog/${featuredArticle.slug}`} className="group block">
+            <div className="bg-gradient-to-br from-purple-900/40 to-black/60 backdrop-blur-md rounded-3xl p-8 border border-purple-500/30 hover:border-purple-400 transition-all duration-500 hover:shadow-[0_0_30px_rgba(168,85,247,0.2)]">
+              <div className="flex flex-col md:flex-row gap-8 items-center">
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-3">
-                    <span className="px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full text-sm">
-                      {articles[0].category}
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="px-4 py-1.5 bg-purple-500/20 text-purple-300 rounded-full text-xs font-semibold uppercase tracking-wider">
+                      {featuredArticle.category}
                     </span>
-                    <span className="text-gray-500 text-sm">{articles[0].readTime} {readTimeText}</span>
+                    <span className="text-gray-400 text-sm">{featuredArticle.readTime} {readTimeText}</span>
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">
-                    {articles[0].title}
-                  </h2>
-                  <p className="text-gray-400 leading-relaxed">
-                    {articles[0].excerpt}
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 group-hover:text-purple-300 transition-colors leading-tight">
+                    {featuredArticle.title}
+                  </h3>
+                  <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                    {featuredArticle.excerpt}
                   </p>
-                  <div className="mt-4 text-purple-400 font-medium group-hover:text-purple-300">
-                    {t('readMore')} →
+                  <div className="inline-flex items-center text-purple-400 font-semibold group-hover:text-purple-300 group-hover:translate-x-2 transition-all">
+                    {t('readMore')} <span className="ml-2 text-xl">→</span>
                   </div>
                 </div>
               </div>
@@ -310,39 +324,43 @@ export default async function BlogPage({ params }: Props) {
           </Link>
         </div>
 
-        {/* Article Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-          {articles.slice(1).map((article) => (
-            <Link key={article.slug} href={`/blog/${article.slug}`} className="group block">
-              <div className="bg-black/20 backdrop-blur-md rounded-xl p-6 border border-white/10 hover:border-gray-400 transition-all duration-300 h-full">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="px-2 py-1 bg-gray-700 text-gray-300 rounded text-xs">
-                    {article.category}
-                  </span>
-                  <span className="text-gray-500 text-xs">{article.readTime} {readTimeText}</span>
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-gray-200 transition-colors">
-                  {article.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  {article.excerpt}
-                </p>
+        {/* Categorized Magazine Layout */}
+        <div className="space-y-16 mb-16">
+          {categorizedArticles.map((group) => (
+            <section key={group.name} className="border-t border-white/5 pt-12">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+                  <span className="w-2 h-8 bg-purple-500 rounded-full"></span>
+                  {t('latestIn', { category: group.name })}
+                </h2>
               </div>
-            </Link>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {group.posts.map((article) => (
+                  <Link key={article.slug} href={`/blog/${article.slug}`} className="group block h-full">
+                    <div className="bg-black/20 backdrop-blur-md rounded-2xl p-6 border border-white/5 hover:border-gray-500 transition-all duration-300 h-full flex flex-col">
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="px-2.5 py-1 bg-white/5 text-gray-300 rounded text-xs font-medium">
+                          {article.category}
+                        </span>
+                        <span className="text-gray-500 text-xs">{article.readTime} {readTimeText}</span>
+                      </div>
+                      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-gray-200 transition-colors line-clamp-2">
+                        {article.title}
+                      </h3>
+                      <p className="text-gray-400 text-sm leading-relaxed flex-grow line-clamp-3">
+                        {article.excerpt}
+                      </p>
+                      <div className="mt-6 pt-4 border-t border-white/5 text-xs text-gray-500 font-medium group-hover:text-purple-400 transition-colors">
+                        {t('readMore')} →
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
           ))}
         </div>
-
-        {/* Categories Section */}
-        <section className="mb-12">
-          <h2 className="text-2xl font-bold text-white mb-6">{t('categoriesTitle')}</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {categories.map((category) => (
-              <div key={category} className="bg-black/20 backdrop-blur-md rounded-lg p-4 border border-white/10 text-center">
-                <span className="text-gray-300 font-medium">{category}</span>
-              </div>
-            ))}
-          </div>
-        </section>
 
         {/* CTA Section */}
         <section className="text-center">

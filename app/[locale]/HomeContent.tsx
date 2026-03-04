@@ -7,6 +7,8 @@ import { ReviewsSection } from '@/components/home/ReviewsSection';
 import { StatsBanner } from '@/components/home/StatsBanner';
 import { LatestBlog } from '@/components/home/LatestBlog';
 import { FAQSection } from '@/components/home/FAQSection';
+import { MBTIStorySection } from '@/components/home/MBTIStorySection';
+import { DailyInsightsSection } from '@/components/home/DailyInsightsSection';
 
 export function HomeContent() {
   const t = useTranslations('home');
@@ -22,6 +24,12 @@ export function HomeContent() {
           <SiteNavigation />
         </div>
       </section>
+
+      {/* SEO & Story Section */}
+      <MBTIStorySection />
+
+      {/* Daily Insights Section */}
+      <DailyInsightsSection />
 
       {/* Stats Banner */}
       <StatsBanner />

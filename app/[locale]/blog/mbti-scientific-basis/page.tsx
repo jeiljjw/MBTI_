@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/src/i18n/routing";
+import { AuthorProfile } from "@/components/AuthorProfile";
 
 type Locale = "ko" | "en";
 
@@ -242,7 +243,8 @@ function ScientificBasisKo({ t }: { t: (key: string) => string }) {
           <span>{t("category")}: 심리학</span>
         </div>
       </div>
-      <section className="mb-12">
+      <AuthorProfile />
+      <section className="mb-12 mt-12">
         <h3 className="text-xl font-bold text-white mb-4">{t("relatedPosts")}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Link href="/blog/mbti-career-correlation" className="group">
@@ -459,7 +461,8 @@ function ScientificBasisEn({ t }: { t: (key: string) => string }) {
           <span>{t("category")}: Psychology</span>
         </div>
       </div>
-      <section className="mb-12">
+      <AuthorProfile />
+      <section className="mb-12 mt-12">
         <h3 className="text-xl font-bold text-white mb-4">{t("relatedPosts")}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Link href="/blog/mbti-career-correlation" className="group">

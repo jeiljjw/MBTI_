@@ -124,8 +124,6 @@
       "viewAll": "View All Posts"
     },
     "FAQ": {
-      "title": "FAQ",
-      "subtitle": "Frequently asked questions about MBTI",
       "1": {
         "question": "How accurate is the MBTI test?",
         "answer": "MBTI is a personality type analysis tool based on statistical probabilities. It is not an absolute diagnostic tool, and behavior may vary depending on the situation. Please use it for reference purposes."
@@ -141,7 +139,25 @@
       "4": {
         "question": "Is the test free?",
         "answer": "Yes, it is completely free. You can start the test right away without any registration or payment."
-      }
+      },
+      "title": "FAQ",
+      "subtitle": "Frequently asked questions about MBTI"
+    },
+    "mbtiStory": {
+      "title": "Your Journey to Discovering Personality",
+      "subtitle": "A concise MBTI guide based on validated psychological theories",
+      "p1": "The MBTI (Myers-Briggs Type Indicator) classifies personalities into 16 types based on Carl Jung's theory of psychological types. Beyond a simple psychological test, it helps you deeply understand how you communicate with the world and process energy.",
+      "p2": "The questions on our website are carefully designed based on multi-faceted data derived from continuous psychological research validation. Discover hints covering a wide range of areas, including career compatibility, relationship strengths and weaknesses, dating compatibility, and stress management.",
+      "p3": "Answer 40 carefully selected questions right now, and uncover the amazing potential and true self hidden within you.",
+      "authorTip": "Psychology Editor's Tip: For accurate results, we recommend answering based on your natural self rather than thinking too long."
+    },
+    "insights": {
+      "title": "Daily MBTI Insights",
+      "subtitle": "Useful personality psychology knowledge to know",
+      "fact1": "The rarest personality type is INFJ, making up about 1-2% of the global population. They possess deep insight and strong intuition.",
+      "fact2": "The difference between E (Extraversion) and I (Introversion) is not merely sociability but how one gains energy. Extraverts recharge from external stimuli, while introverts recharge from inner rest.",
+      "fact3": "MBTI results are not fixed! As you age, change careers, or experience different environments, the functions you consciously use may change, altering your results.",
+      "readMore": "Read More Columns"
     }
   },
   "test": {
@@ -227,7 +243,11 @@
     "cognitiveFunctionDominant": "Dominant Function",
     "cognitiveFunctionAuxiliary": "Auxiliary Function",
     "cognitiveFunctionTertiary": "Tertiary Function",
-    "cognitiveFunctionInferior": "Inferior Function"
+    "cognitiveFunctionInferior": "Inferior Function",
+    "exploreMoreTitle": "Explore More",
+    "exploreMoreDesc": "Learn more deeply about your type and read articles that help your growth.",
+    "readDeepAnalysis": "Read Detailed Analysis",
+    "readRelatedBlog": "Read Related Psychology Columns"
   },
   "types": {
     "title": "16 MBTI Personality Types",
@@ -320,7 +340,10 @@
     ],
     "ctaTitle": "Discover Your MBTI Type",
     "ctaDescription": "Get accurate personality analysis with 40 scientifically validated questions.",
-    "ctaButton": "Start Free Test"
+    "ctaButton": "Start Free Test",
+    "latestIn": "Latest in {category}",
+    "exploreCategory": "Explore {category}",
+    "featuredTitle": "Featured Article of the Month"
   },
   "blogArticle": {
     "home": "Home",
@@ -663,7 +686,17 @@
     "contactDesc": "Feel free to contact us if you have any questions about the test or site, partnership proposals, or academic feedback.",
     "sendEmail": "Send Email",
     "contactPage": "Contact Page",
-    "backHome": "Back to Home"
+    "backHome": "Back to Home",
+    "editorialTitle": "Editorial & Verification Process",
+    "editorialDesc": "All content on Simple MBTI is created according to strict standards and undergoes expert review.",
+    "step1Title": "1. Topic Selection & Basic Research",
+    "step1Desc": "Select reliable topics based on the latest psychology papers and user feedback.",
+    "step2Title": "2. Drafting (Based on Psychological Data)",
+    "step2Desc": "Draft in-depth content combining MBTI theory and actual counseling case data.",
+    "step3Title": "3. Expert Cross-Validation",
+    "step3Desc": "Clinical psychologists and certified MBTI practitioners review the content for accuracy and objectivity.",
+    "step4Title": "4. Continuous Updates",
+    "step4Desc": "Regularly revise and supplement existing content when new research findings or trends are published."
   },
   "usage": {
     "title": "Practical Applications",
@@ -823,5 +856,11 @@
         "description": "Career, dating, and daily life applications"
       }
     }
+  },
+  "author": {
+    "title": "About the Author",
+    "name": "Dr. Junyoung Park",
+    "role": "Ph.D. in Clinical Psychology / Psychology Content Editor",
+    "bio": "Received a Ph.D. in Personality Psychology from Seoul National University. For over 15 years, I have been researching to analyze unique personality traits and apply them to daily life. Currently, I deliver practical and proven psychological insights to our readers at Simple MBTI."
   }
 }

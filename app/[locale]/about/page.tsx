@@ -9,7 +9,7 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'about' });
-  
+
   return {
     title: t('metadataTitle'),
     description: t('metadataDescription'),
@@ -66,12 +66,40 @@ export default async function AboutPage({ params }: Props) {
           </div>
         </div>
 
+        {/* Editorial Process */}
+        <div className="bg-black/20 backdrop-blur-md rounded-2xl p-8 border border-white/10 mb-8">
+          <h2 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+            <span className="text-3xl">📝</span> {t('editorialTitle')}
+          </h2>
+          <p className="text-gray-300 leading-relaxed mb-6">
+            {t('editorialDesc')}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="bg-white/5 border border-purple-500/20 rounded-lg p-5">
+              <h3 className="font-bold text-purple-400 mb-2">{t('step1Title')}</h3>
+              <p className="text-gray-400 text-sm">{t('step1Desc')}</p>
+            </div>
+            <div className="bg-white/5 border border-purple-500/20 rounded-lg p-5">
+              <h3 className="font-bold text-purple-400 mb-2">{t('step2Title')}</h3>
+              <p className="text-gray-400 text-sm">{t('step2Desc')}</p>
+            </div>
+            <div className="bg-white/5 border border-pink-500/20 rounded-lg p-5">
+              <h3 className="font-bold text-pink-400 mb-2">{t('step3Title')}</h3>
+              <p className="text-gray-400 text-sm">{t('step3Desc')}</p>
+            </div>
+            <div className="bg-white/5 border border-blue-500/20 rounded-lg p-5">
+              <h3 className="font-bold text-blue-400 mb-2">{t('step4Title')}</h3>
+              <p className="text-gray-400 text-sm">{t('step4Desc')}</p>
+            </div>
+          </div>
+        </div>
+
         {/* Expert Team */}
         <div className="bg-black/20 backdrop-blur-md rounded-2xl p-8 border border-white/10 mb-8">
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
             <span className="text-3xl">👥</span> {t('teamTitle')}
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Expert 1 */}
             <div className="bg-white/5 rounded-xl p-6">
@@ -124,7 +152,7 @@ export default async function AboutPage({ params }: Props) {
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
             <span className="text-3xl">🔬</span> {t('methodologyTitle')}
           </h2>
-          
+
           <div className="space-y-6">
             <div>
               <h3 className="text-lg font-semibold text-white mb-3">{t('researchBaseTitle')}</h3>
@@ -203,8 +231,8 @@ export default async function AboutPage({ params }: Props) {
             {t('contactDesc')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <a 
-              href="mailto:contact@simplembti.com" 
+            <a
+              href="mailto:contact@simplembti.com"
               className="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-purple-800 text-white font-semibold rounded-lg hover:from-purple-500 hover:to-purple-700 transition-all"
             >
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -212,7 +240,7 @@ export default async function AboutPage({ params }: Props) {
               </svg>
               {t('sendEmail')}
             </a>
-            <Link 
+            <Link
               href="/contact"
               className="inline-flex items-center justify-center px-6 py-3 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-600 transition-all"
             >
