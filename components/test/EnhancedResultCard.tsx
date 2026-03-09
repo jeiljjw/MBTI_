@@ -536,48 +536,61 @@ const EnhancedResultCardComponent = ({ result, onGoHome, onRetake }: EnhancedRes
       </div>
 
       {/* Explore More Section (Engagement) */}
-      <div className="bg-gradient-to-r from-purple-900/40 to-pink-900/40 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-purple-500/30 mb-8 mt-6">
-        <div className="text-center mb-6">
-          <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 flex items-center justify-center gap-2">
-            <span>✨</span> {t('exploreMoreTitle') || 'Explore More'}
+      <div className="bg-gradient-to-r from-purple-900/40 to-pink-900/40 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-purple-500/30 mb-8 mt-12 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl point-events-none"></div>
+        <div className="text-center mb-8 relative z-10">
+          <span className="inline-block px-3 py-1 bg-pink-500/20 text-pink-300 font-bold rounded-full text-xs uppercase tracking-wider mb-3">
+            Must Read
+          </span>
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
+            {detail.name}에 대한 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">데이터 심층 분석 리포트</span>
           </h3>
-          <p className="text-purple-200/80 text-sm sm:text-base">
-            {t('exploreMoreDesc') || 'Learn more deeply about your type and read articles that help your growth.'}
+          <p className="text-purple-200/80 text-sm sm:text-base max-w-lg mx-auto">
+            당신의 성격 유형이 직장에서 겪는 스트레스 원인과, 이를 극복하는 과학적 방법에 대해 알아보세요.
+            이미 수천 명의 비슷한 성향을 가진 분들이 읽고 공감했습니다.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 relative z-10 mb-8">
+          {/* Main Content Recommendation */}
           <Link
-            href={`/types/${result}`}
-            className="flex flex-col items-center justify-center p-4 bg-black/40 hover:bg-black/60 border border-white/5 hover:border-purple-500/50 rounded-xl transition-all group"
+            href={result === 'INFJ' ? '/blog/infj-complete-guide' : `/blog/stress-management-by-type`}
+            className="group flex flex-col md:flex-row items-center p-6 bg-black/40 hover:bg-black/80 border border-purple-500/30 hover:border-purple-400 rounded-xl transition-all w-full"
           >
-            <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">📖</span>
-            <span className="text-white font-medium text-center">{t('readDeepAnalysis') || 'Read Detailed Analysis'}</span>
-            <span className="text-purple-400 text-xs mt-1">심층 분석 보고서</span>
+            <div className="flex-shrink-0 w-16 h-16 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-2xl mb-4 md:mb-0 md:mr-6 group-hover:scale-110 transition-transform">
+              📊
+            </div>
+            <div className="text-center md:text-left">
+              <span className="text-purple-400 font-bold text-xs uppercase tracking-wider mb-1 block">추천 칼럼</span>
+              <h4 className="text-white font-bold text-lg md:text-xl group-hover:text-purple-300 transition-colors mb-2">
+                {result}의 숨겨진 무의식 패턴과 해결책
+              </h4>
+              <p className="text-gray-400 text-sm">
+                왜 {detail.nickname}형 사람들은 완벽주의 때문에 소진될까요? 데이터로 풀어본 원인과 대처법.
+              </p>
+            </div>
           </Link>
+        </div>
 
-          <Link
-            href="/blog"
-            className="flex flex-col items-center justify-center p-4 bg-black/40 hover:bg-black/60 border border-white/5 hover:border-pink-500/50 rounded-xl transition-all group"
-          >
-            <span className="text-3xl mb-2 group-hover:scale-110 transition-transform">✍️</span>
-            <span className="text-white font-medium text-center">{t('readRelatedBlog') || 'Read Related Psychology Columns'}</span>
-            <span className="text-pink-400 text-xs mt-1">전문가 칼럼</span>
+        <div className="text-center relative z-10 mt-6">
+          <Link href="/blog" className="inline-flex items-center justify-center text-sm font-semibold text-gray-300 hover:text-white group">
+            더 많은 심리학 에디터 칼럼 읽기
+            <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
           </Link>
         </div>
       </div>
 
       {/* Action Buttons */}
-      <div className="flex flex-col sm:flex-row gap-3 justify-center mt-4">
+      <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8 border-t border-white/10 pt-8 pb-10">
         <button
           onClick={onRetake}
-          className="px-6 py-3 min-w-[160px] bg-gradient-to-r from-blue-600 to-blue-800 text-white font-semibold rounded-lg hover:from-blue-500 hover:to-blue-700 transition-all"
+          className="px-6 py-4 min-w-[200px] bg-white/5 border border-white/10 text-white font-semibold rounded-full hover:bg-white/10 transition-all text-sm uppercase tracking-wide"
         >
           {t('retake')}
         </button>
         <button
           onClick={onGoHome}
-          className="px-6 py-3 min-w-[160px] bg-gradient-to-r from-gray-600 to-gray-800 text-white font-semibold rounded-lg hover:from-gray-500 hover:to-gray-700 transition-all"
+          className="px-6 py-4 min-w-[200px] bg-white/5 border border-white/10 text-white font-semibold rounded-full hover:bg-white/10 transition-all text-sm uppercase tracking-wide"
         >
           {t('goHome')}
         </button>

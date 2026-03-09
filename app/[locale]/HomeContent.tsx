@@ -18,24 +18,24 @@ export function HomeContent() {
       {/* Hero Section with Beams */}
       <HeroSection t={t} />
 
-      {/* Site Navigation Section */}
-      <section className="w-full bg-neutral-950 py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <SiteNavigation />
-        </div>
-      </section>
+      {/* Latest Blog (Moved to top to emphasize blog/magazine) */}
+      <LatestBlog />
 
-      {/* SEO & Story Section */}
+      {/* SEO & Story Section (Explains MBTI, good for E-E-A-T) */}
       <MBTIStorySection />
 
       {/* Daily Insights Section */}
       <DailyInsightsSection />
 
+      {/* Site Navigation Section (Including test button) */}
+      <section className="w-full bg-neutral-950 py-20 border-t border-white/5">
+        <div className="max-w-6xl mx-auto px-4">
+          <SiteNavigation />
+        </div>
+      </section>
+
       {/* Stats Banner */}
       <StatsBanner />
-
-      {/* Latest Blog */}
-      <LatestBlog />
 
       {/* FAQ Section */}
       <FAQSection />
